@@ -162,19 +162,26 @@
     .hero-inner { position: relative; z-index: 1; }
 
     .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 10px;
-      font-size: 0.68rem; font-weight: 700;
-      letter-spacing: 0.3em; color: var(--copper);
-      text-transform: uppercase; margin-bottom: 26px;
+      display: inline-flex; align-items: center; gap: 14px;
+      margin-bottom: 28px; flex-wrap: wrap;
     }
-    .hero-eyebrow::before {
-      content: ''; width: 22px; height: 1px; background: var(--copper);
+    .hero-badge {
+      display: inline-block;
+      background: var(--copper); color: var(--white);
+      font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.18em;
+      padding: 7px 16px; border-radius: 3px;
+    }
+    .hero-eyebrow-text {
+      font-size: 0.82rem; font-weight: 500;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.65);
     }
     .hero-h1 {
-      font-size: clamp(3rem, 6.5vw, 5.2rem);
+      font-size: clamp(2.4rem, 5vw, 4rem);
       font-weight: 700; color: var(--white);
-      line-height: 1.2; letter-spacing: 0.04em;
-      margin-bottom: 12px;
+      line-height: 1.25; letter-spacing: 0.04em;
+      margin-bottom: 18px;
     }
     .hero-h1 .accent { color: var(--copper); }
     .hero-sub {
@@ -722,7 +729,7 @@
         <a href="#concept">コンセプト</a>
         <a href="#journey">サービス</a>
         <a href="#about">代表について</a>
-        <a href="/tools" style="color:var(--copper-lt);font-weight:700;">無料ツール</a>
+        <a href="/tools" style="color:var(--copper-lt);font-weight:700;">🧪 実験室</a>
         <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" class="nav-btn">LINE無料登録</a>
       </div>
       <div class="nav-hamburger" id="hamburger" role="button" aria-label="メニューを開く">
@@ -734,7 +741,7 @@
       <a href="#concept" onclick="closeNav()">コンセプト</a>
       <a href="#journey" onclick="closeNav()">サービス</a>
       <a href="#about" onclick="closeNav()">代表について</a>
-      <a href="/tools" onclick="closeNav()" style="color:var(--copper-lt);font-weight:700;">🛠 無料ツール集</a>
+      <a href="/tools" onclick="closeNav()" style="color:var(--copper-lt);font-weight:700;">🧪 実験室（無料ツール）</a>
       <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" onclick="closeNav()">📩 LINE無料登録（無料特典あり）</a>
       <a href="#contact" onclick="closeNav()">お問い合わせ</a>
     </div>
@@ -746,7 +753,10 @@
   <section class="hero">
     <div class="container">
       <div class="hero-inner">
-        <div class="hero-eyebrow">建設業特化 · AIで本来の仕事に戻る</div>
+        <div class="hero-eyebrow">
+          <span class="hero-badge">建設業特化</span>
+          <span class="hero-eyebrow-text">AIで本来の仕事に戻る</span>
+        </div>
         <h1 class="hero-h1">
           AIに任せて、<br>
           <span class="accent">本来の仕事へ。</span>
@@ -759,7 +769,7 @@
         </p>
         <div class="hero-ctas">
           <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" class="btn-hero">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.6 6.6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
             無料チェックリストをLINEで受け取る
           </a>
           <span class="hero-note">登録無料・1分で完了</span>
@@ -831,10 +841,10 @@
       <div class="concept-layout">
         <div>
           <div class="concept-quote">
-            「やらなくていいこと」を<br>AIに預ける。
+            AIにできることは、<br>AIに預ける。
           </div>
           <p class="concept-text">
-            現場の物づくり、お客様との対話、創造的な意思決定——それが社長と職人の「本来の仕事」です。
+            現場の物づくり、お客様との対話、創造的な意思決定——それが、社長・職人・事務員それぞれの「本来の仕事」です。
           </p>
           <p class="concept-text">
             それ以外の事務・報告・情報整理はAIに担ってもらう。AIが効率の担い手になった分だけ、人間は感動の創り手に集中できる。
@@ -847,10 +857,10 @@
           <div class="card-label">3つの変化</div>
           <div class="pillars">
             <div class="pillar">
-              <div class="pillar-badge">時</div>
+              <div class="pillar-badge">全</div>
               <div>
-                <div class="pillar-head">社長の時間が戻る</div>
-                <div class="pillar-sub">夜の事務作業がなくなり、経営判断に集中できる時間が生まれる</div>
+                <div class="pillar-head">現場・設計・事務、それぞれが本来の仕事に集中できる</div>
+                <div class="pillar-sub">職人は現場に、社長は経営に、事務員は本来の事務に。AIに任せられる仕事を分けるだけで、誰の時間も増える</div>
               </div>
             </div>
             <div class="pillar">
@@ -861,10 +871,10 @@
               </div>
             </div>
             <div class="pillar">
-              <div class="pillar-badge">全</div>
+              <div class="pillar-badge">時</div>
               <div>
-                <div class="pillar-head">全員が本来の仕事に戻る</div>
-                <div class="pillar-sub">職人・事務員・下請けまで、会社全員の時間貧乏が解消される</div>
+                <div class="pillar-head">社長の時間が、経営に返る</div>
+                <div class="pillar-sub">夜の事務作業がなくなり、本来の経営判断に集中できる時間が生まれる</div>
               </div>
             </div>
           </div>
@@ -878,8 +888,8 @@
   ============================================================ -->
   <section class="journey" id="journey">
     <div class="container-sm">
-      <div class="sec-label">Roadmap</div>
-      <h2 class="sec-title">現場を降りるまでの、<br>5つのステップ</h2>
+      <div class="sec-label">Roadmap （for 工務店社長）</div>
+      <h2 class="sec-title">工務店社長のための、<br>5つのステップ</h2>
       <div class="journey-list">
 
         <!-- Step 1 -->
@@ -1059,24 +1069,21 @@
   </section>
 
   <!-- ============================================================
-       TOOLS BANNER
+       LABORATORY BANNER（実験室への入口）
   ============================================================ -->
   <section style="background:var(--cream);padding:56px 0;border-top:1px solid var(--border);">
     <div class="container">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:32px;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:40px 44px;box-shadow:0 4px 24px rgba(27,43,75,0.05);">
         <div style="flex:1;min-width:260px;">
           <div style="display:inline-flex;align-items:center;gap:10px;font-size:0.65rem;font-weight:700;letter-spacing:0.3em;color:var(--copper);text-transform:uppercase;margin-bottom:12px;">
-            <span style="width:16px;height:1px;background:var(--copper);display:inline-block;"></span>Free Tools
+            <span style="width:16px;height:1px;background:var(--copper);display:inline-block;"></span>Laboratory ／ 実験室
           </div>
-          <h3 style="font-family:'Noto Serif JP',serif;font-size:1.35rem;font-weight:700;color:var(--navy);margin-bottom:10px;line-height:1.5;">工務店で使える<br>無料ツール集を公開中</h3>
-          <p style="font-size:0.87rem;color:var(--stone);line-height:1.9;">17年の現場で使ってきたツールと書類の型を無料公開。<br>ガントチャート工程表など、登録不要で今すぐ使えます。</p>
+          <h3 style="font-family:'Noto Serif JP',serif;font-size:1.35rem;font-weight:700;color:var(--navy);margin-bottom:10px;line-height:1.5;">17年の現場経験から生まれた、<br>AIで動く無料ツールの実験室</h3>
+          <p style="font-size:0.87rem;color:var(--stone);line-height:1.9;">ガントチャート工程表・概算見積もり・書類テンプレートなど、<br>登録不要で。同業者の方にもぜひお教えください。</p>
         </div>
         <div style="flex-shrink:0;">
           <a href="/tools" style="display:inline-flex;align-items:center;gap:10px;background:var(--navy);color:var(--white);font-weight:700;font-size:0.9rem;padding:15px 30px;border-radius:4px;letter-spacing:0.05em;transition:background 0.2s;" onmouseover="this.style.background='var(--navy-mid)'" onmouseout="this.style.background='var(--navy)'">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="width:16px;height:16px;flex-shrink:0;">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-            無料ツールを見る
+            🧪 実験室を見る →
           </a>
         </div>
       </div>
@@ -1140,6 +1147,7 @@
           <a href="#concept">コンセプト</a>
           <a href="#journey">サービス</a>
           <a href="#about">代表について</a>
+          <a href="/tools">🧪 実験室</a>
           <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener">LINE登録</a>
           <a href="#contact">お問い合わせ</a>
         </div>
