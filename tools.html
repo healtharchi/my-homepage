@@ -11,8 +11,8 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>工務店で使える無料ツール集｜HEALTH ARCHI</title>
-  <meta name="description" content="一級建築士・現場監督17年が実際に使ってきたツールと書類の型を無料公開。資金繰り・工程管理・住宅提案など、工務店の現場で役立つリソースを揃えました。">
+  <title>HEALTH ARCHI 実験室｜HEALTH ARCHIツールで、業務をもっと楽に。</title>
+  <meta name="description" content="HEALTH ARCHIオリジナルツールで、建設業の業務をもっと楽にする実験室。一級建築士・建設業17年の実務（営業・設計・現場管理・アフター）から生まれた、登録不要・ブラウザだけで使える無料ツールと、HIDEのAI活用ノウハウを公開しています。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -447,6 +447,179 @@
     .footer-back svg { width: 14px; height: 14px; }
 
     /* ============================================================
+       業務タグ（実験室v1.0で追加）
+    ============================================================ */
+    .biz-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-bottom: 14px;
+    }
+    .biz-tag {
+      display: inline-block;
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--copper-lt);
+      background: rgba(181,112,58,0.10);
+      border: 1px solid rgba(181,112,58,0.25);
+      padding: 3px 9px; border-radius: 2px;
+    }
+    .biz-tag-target {
+      color: rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .biz-status {
+      display: inline-block;
+      font-size: 0.66rem; font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 3px 10px; border-radius: 2px;
+      margin-bottom: 10px;
+    }
+    .biz-status.open    { background: var(--copper); color: var(--white); }
+    .biz-status.soon    { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.15); }
+    .biz-status.making  { background: rgba(139,163,199,0.15); color: var(--blue-mid); border: 1px solid rgba(139,163,199,0.30); }
+
+    /* ============================================================
+       INTRO SECTION（実験室v1.0で追加）
+    ============================================================ */
+    .intro-section {
+      background: var(--cream);
+      padding: 72px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .intro-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      text-align: left;
+    }
+    .intro-quote {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.2rem, 2.2vw, 1.45rem);
+      font-weight: 700; color: var(--navy);
+      line-height: 1.85; margin-bottom: 24px;
+      border-left: 3px solid var(--copper);
+      padding-left: 22px;
+    }
+    .intro-body {
+      font-size: 0.93rem; color: var(--charcoal);
+      line-height: 2.0; margin-bottom: 14px;
+    }
+    .intro-sign {
+      margin-top: 28px;
+      font-size: 0.85rem;
+      color: var(--stone);
+      text-align: right;
+    }
+    .intro-sign strong { color: var(--navy); font-weight: 700; }
+
+    /* ============================================================
+       AI KNOWLEDGE SECTION（実験室v1.0で追加）
+    ============================================================ */
+    .ai-section {
+      padding: 96px 0;
+      background: var(--navy);
+      color: var(--white);
+      position: relative; overflow: hidden;
+    }
+    .ai-section::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--copper), transparent);
+    }
+    .ai-header { text-align: center; margin-bottom: 50px; }
+    .ai-header .sec-label { justify-content: center; }
+    .ai-header .sec-title { color: var(--white); }
+    .ai-header .sec-body { color: rgba(255,255,255,0.55); margin-top: 18px; }
+    .ai-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    .ai-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 6px;
+      padding: 24px 26px;
+      transition: background 0.2s;
+    }
+    .ai-card:hover { background: rgba(255,255,255,0.06); }
+    .ai-card-status {
+      display: inline-block;
+      font-size: 0.66rem; font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--copper-lt);
+      background: rgba(181,112,58,0.15);
+      border: 1px solid rgba(181,112,58,0.30);
+      padding: 3px 10px; border-radius: 2px;
+      margin-bottom: 12px;
+    }
+    .ai-card-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.05rem; font-weight: 700;
+      color: var(--white); margin-bottom: 8px; line-height: 1.5;
+    }
+    .ai-card-desc {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.85;
+    }
+
+    /* ============================================================
+       CORE BRIDGE SECTION（コア層への橋渡し・控えめ）
+    ============================================================ */
+    .bridge-section {
+      background: var(--silk);
+      padding: 72px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .bridge-inner {
+      max-width: 720px; margin: 0 auto;
+      text-align: center;
+    }
+    .bridge-prefix {
+      font-size: 0.83rem;
+      color: var(--stone);
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+    .bridge-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.25rem, 2.5vw, 1.55rem);
+      font-weight: 700; color: var(--navy);
+      line-height: 1.6; margin-bottom: 16px;
+    }
+    .bridge-text {
+      font-size: 0.9rem; color: var(--charcoal);
+      line-height: 1.95; margin-bottom: 30px;
+    }
+    .bridge-ctas {
+      display: flex; flex-wrap: wrap;
+      gap: 12px; justify-content: center;
+    }
+    .bridge-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      color: var(--navy);
+      font-size: 0.85rem; font-weight: 700;
+      padding: 12px 22px; border-radius: 3px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .bridge-btn:hover { border-color: var(--copper); color: var(--copper); }
+    .bridge-btn.primary {
+      background: var(--navy);
+      color: var(--white);
+      border-color: var(--navy);
+    }
+    .bridge-btn.primary:hover {
+      background: var(--navy-mid);
+      color: var(--white);
+      border-color: var(--navy-mid);
+    }
+
+    /* ============================================================
        RESPONSIVE
     ============================================================ */
     @media (max-width: 768px) {
@@ -467,22 +640,22 @@
   ============================================================ -->
   <nav class="nav">
     <div class="nav-inner">
-      <a href="/" class="nav-logo">HEALTH <span>ARCHI</span></a>
+      <a href="/" class="nav-logo">HEALTH <span>ARCHI</span> <span style="color:rgba(255,255,255,0.4);font-weight:400;font-size:0.85rem;letter-spacing:0.08em;">／ 実験室</span></a>
       <div class="nav-links">
-        <a href="/">トップ</a>
-        <a href="#line-cta">無料登録</a>
-        <a href="/tools" style="color:var(--copper-lt);">無料ツール集</a>
-        <a href="https://line.me/R/ti/p/@045hrvke" class="nav-btn" target="_blank" rel="noopener">LINEで相談</a>
+        <a href="/">← メインHPに戻る</a>
+        <a href="#tools-section">HEALTH ARCHIツール</a>
+        <a href="#ai-section">AI活用ノウハウ</a>
+        <a href="https://line.me/R/ti/p/@045hrvke" class="nav-btn" target="_blank" rel="noopener">LINE登録</a>
       </div>
       <button class="nav-hamburger" onclick="document.querySelector('.nav-mobile').classList.toggle('open')" aria-label="メニュー">
         <span></span><span></span><span></span>
       </button>
     </div>
     <div class="nav-mobile">
-      <a href="/">トップ</a>
-      <a href="#line-cta">無料登録</a>
-      <a href="/tools">無料ツール集</a>
-      <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener">LINEで相談</a>
+      <a href="/">← メインHPに戻る</a>
+      <a href="#tools-section">HEALTH ARCHIツール</a>
+      <a href="#ai-section">AI活用ノウハウ</a>
+      <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener">LINE登録</a>
     </div>
   </nav>
 
@@ -491,42 +664,66 @@
   ============================================================ -->
   <section class="hero">
     <div class="container hero-inner">
-      <div class="hero-eyebrow">Free Tools</div>
+      <div class="hero-eyebrow">Laboratory ／ HEALTH ARCHI 実験室</div>
       <h1 class="hero-h1">
-        工務店で使える、<br><span class="accent">無料ツール集。</span>
+        HEALTH ARCHIツールで、<br>業務を<span class="accent">もっと楽に。</span>
       </h1>
       <p class="hero-sub">
-        私が17年の現場で試行錯誤してきた知見を、惜しまずシェアします。<br>
-        ブラウザで今すぐ使えるツールと、コピーして使える書類テンプレートを揃えました。
+        一級建築士・建設業17年（営業・設計・現場管理・アフター）の実務経験から生まれた<br>
+        HEALTH ARCHIオリジナルツールと、HIDEのAI活用ノウハウを、ここで公開していきます。<br>
+        営業・設計・現場・事務・経理——どんな業務でもどうぞ。登録不要・ブラウザだけで動きます。
       </p>
-      <div class="hero-badge">一級建築士 ／ 設計・現場監督 17年の実務から</div>
+      <div class="hero-badge">一級建築士 ／ 営業・設計・現場管理・アフター 建設業17年の実務から</div>
     </div>
   </section>
 
   <!-- ============================================================
-       TOOLS SECTION
+       INTRO SECTION（HIDEからの言葉）
   ============================================================ -->
-  <section class="tools-section">
+  <section class="intro-section">
+    <div class="container intro-inner">
+      <div class="intro-quote">
+        ようこそ、HEALTH ARCHI 実験室へ。<br>
+        建設業の業務を、少しでも楽にするためのツールとノウハウを、ここに置いていきます。
+      </div>
+      <p class="intro-body">
+        ここに並んでいるのは、一級建築士であり建設業17年の実務経験を持つ HIDE が、営業・設計・現場管理・アフターの現場で「あったら助かるのに」と思ってきたものを、AIで形にした HEALTH ARCHI オリジナルツールです。
+      </p>
+      <p class="intro-body">
+        あわせて、HIDE自身がAIを業務にどう活かしているか、その活用ノウハウも順次公開していきます。
+      </p>
+      <p class="intro-body">
+        工務店の社長さん、職人さん、事務員さん、個人事業主の方——建設業に携わる誰でも、自由に使ってください。気に入ったら、お知り合いの方にも教えてあげてください。
+      </p>
+      <p class="intro-sign">
+        — <strong>佐野 英人（HIDE）</strong> ／ HEALTH ARCHI 代表
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TOOLS SECTION（HEALTH ARCHIツール）
+  ============================================================ -->
+  <section class="tools-section" id="tools-section">
     <div class="container">
       <div class="tools-header">
-        <div class="sec-label">Web Tools</div>
-        <h2 class="sec-title">ブラウザで今すぐ使える、無料ツール</h2>
+        <div class="sec-label">Tools</div>
+        <h2 class="sec-title">HEALTH ARCHIツール</h2>
         <p class="sec-body">
-          数字を入力するだけで計算・可視化まで自動でやってくれます。<br>
-          登録不要・完全無料。PCでのご利用を推奨します。
+          営業・設計・現場管理・アフターの実務で、あったら助かるのに——と思ってきたツールを、AIで作って無料で置いています。<br>
+          登録不要・完全無料・ブラウザだけで動きます。
         </p>
       </div>
 
       <div class="tools-grid">
 
-        <!-- T001: ガントチャート工程表 -->
+        <!-- T001: ガントチャート工程表（公開中） -->
         <div class="tool-card">
           <div class="tool-card-header">
-            <div class="tool-tag">工程管理</div>
-            <div class="tool-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
+            <span class="biz-status open">公開中</span>
+            <div class="biz-tags">
+              <span class="biz-tag">現場管理</span>
+              <span class="biz-tag biz-tag-target">個人事業主・現場監督向け</span>
             </div>
             <div class="tool-name">ガントチャート工程表</div>
             <div class="tool-desc-short">工事の流れをひと目で把握。職人・業者への共有もこれ一枚</div>
@@ -549,15 +746,247 @@
           </div>
         </div>
 
+        <!-- T002: 3分概算見積もり（6月公開予定） -->
+        <div class="tool-card">
+          <div class="tool-card-header">
+            <span class="biz-status soon">2026年6月公開予定</span>
+            <div class="biz-tags">
+              <span class="biz-tag">営業</span>
+              <span class="biz-tag biz-tag-target">個人事業主・営業担当向け</span>
+            </div>
+            <div class="tool-name">3分概算見積もり</div>
+            <div class="tool-desc-short">坪数とグレードを入れるだけで、首都圏木造の概算見積が出る</div>
+          </div>
+          <div class="tool-card-body">
+            <p class="tool-desc">
+              お客様との打ち合わせ初期に「ざっくりおいくら？」と聞かれた時の即答ツール。営業担当が事務所外でもスマホで概算を出せます。
+            </p>
+            <ul class="tool-features">
+              <li>3分以内に首都圏木造の概算が出る</li>
+              <li>営業の初期打ち合わせで即活用</li>
+              <li>個人事業主のお問い合わせ対応にも</li>
+            </ul>
+            <button class="btn-tool" style="opacity:0.55;cursor:default;" disabled>
+              Coming Soon
+            </button>
+          </div>
+        </div>
+
+        <!-- T003: 現場離脱チェックリスト20項目（公開中・LINE経由） -->
+        <div class="tool-card">
+          <div class="tool-card-header">
+            <span class="biz-status open">公開中（LINE経由）</span>
+            <div class="biz-tags">
+              <span class="biz-tag">経営・組織</span>
+              <span class="biz-tag biz-tag-target">工務店社長向け</span>
+            </div>
+            <div class="tool-name">現場離脱チェックリスト 20項目</div>
+            <div class="tool-desc-short">自社の現場依存度を5分で把握。20項目で組織課題が見える</div>
+          </div>
+          <div class="tool-card-body">
+            <p class="tool-desc">
+              「自分がいないと会社が回らない」を構造的に把握するツール。社長業に専念したい方向け。LINE登録で受け取れます。
+            </p>
+            <ul class="tool-features">
+              <li>5分で自社の現場依存度が把握</li>
+              <li>20項目で組織課題が見える</li>
+              <li>LINE登録で即時受け取り</li>
+            </ul>
+            <a href="https://line.me/R/ti/p/@045hrvke" class="btn-tool" target="_blank" rel="noopener">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+              LINEで受け取る
+            </a>
+          </div>
+        </div>
+
+        <!-- T004: 無料セルフ診断5問（実装中） -->
+        <div class="tool-card">
+          <div class="tool-card-header">
+            <span class="biz-status making">実装中</span>
+            <div class="biz-tags">
+              <span class="biz-tag">経営・組織</span>
+              <span class="biz-tag biz-tag-target">工務店社長向け</span>
+            </div>
+            <div class="tool-name">無料セルフ診断 5問</div>
+            <div class="tool-desc-short">5問・自動採点・100点換算で自社の状態を可視化</div>
+          </div>
+          <div class="tool-card-body">
+            <p class="tool-desc">
+              現場離脱度・組織自律度を、5問・4段階評価で100点換算。一級建築士目線のコメントも自動で届きます。
+            </p>
+            <ul class="tool-features">
+              <li>5問・3分で完了</li>
+              <li>自動採点・即フィードバック</li>
+              <li>¥9,800精密診断への前段階として</li>
+            </ul>
+            <button class="btn-tool" style="opacity:0.55;cursor:default;" disabled>
+              実装中
+            </button>
+          </div>
+        </div>
+
+        <!-- T005: 書類テンプレート7種（制作中） -->
+        <div class="tool-card">
+          <div class="tool-card-header">
+            <span class="biz-status making">制作中</span>
+            <div class="biz-tags">
+              <span class="biz-tag">アフター・事務</span>
+              <span class="biz-tag biz-tag-target">事務員・後継者向け</span>
+            </div>
+            <div class="tool-name">建設業 書類テンプレ 7種</div>
+            <div class="tool-desc-short">挨拶状・近隣案内・完了報告書など、現場で使う書類を一式</div>
+          </div>
+          <div class="tool-card-body">
+            <p class="tool-desc">
+              何度も書き直している書類を、AIで一度に作れる型にまとめました。コピーして自社用に少し書き換えるだけで使えます。
+            </p>
+            <ul class="tool-features">
+              <li>挨拶状・近隣案内・完了報告書 ほか</li>
+              <li>事務員さんの定型業務を一気に圧縮</li>
+              <li>2026年6月以降順次公開</li>
+            </ul>
+            <button class="btn-tool" style="opacity:0.55;cursor:default;" disabled>
+              制作中
+            </button>
+          </div>
+        </div>
+
+        <!-- T006: 資金繰りダッシュボード（専門家確認後） -->
+        <div class="tool-card">
+          <div class="tool-card-header">
+            <span class="biz-status soon">専門家確認後公開</span>
+            <div class="biz-tags">
+              <span class="biz-tag">経営・お金</span>
+              <span class="biz-tag biz-tag-target">個人事業主・経理向け</span>
+            </div>
+            <div class="tool-name">資金繰りダッシュボード</div>
+            <div class="tool-desc-short">月次キャッシュフローが一目で分かる経営見える化ツール</div>
+          </div>
+          <div class="tool-card-body">
+            <p class="tool-desc">
+              入金・出金の予定を入れると、月次の資金繰りが自動で可視化されます。専門家チェック後に順次公開予定。
+            </p>
+            <ul class="tool-features">
+              <li>月次CFの可視化</li>
+              <li>赤字月の早期発見</li>
+              <li>個人事業主・小規模経理向け</li>
+            </ul>
+            <button class="btn-tool" style="opacity:0.55;cursor:default;" disabled>
+              Coming Soon
+            </button>
+          </div>
+        </div>
+
+        <!-- T007: 住宅CF（専門家確認後） -->
+        <div class="tool-card">
+          <div class="tool-card-header">
+            <span class="biz-status soon">専門家確認後公開</span>
+            <div class="biz-tags">
+              <span class="biz-tag">営業</span>
+              <span class="biz-tag biz-tag-target">工務店営業・個人事業主向け</span>
+            </div>
+            <div class="tool-name">住宅キャッシュフロー</div>
+            <div class="tool-desc-short">お客様向け資金計画シート。住宅ローンと家計の試算</div>
+          </div>
+          <div class="tool-card-body">
+            <p class="tool-desc">
+              お客様の家計収支と住宅ローンを、見やすく一枚にまとめるツール。営業の打ち合わせ資料として使えます。
+            </p>
+            <ul class="tool-features">
+              <li>お客様の家計可視化</li>
+              <li>住宅ローンと並べて試算</li>
+              <li>営業の信頼獲得ツールとして</li>
+            </ul>
+            <button class="btn-tool" style="opacity:0.55;cursor:default;" disabled>
+              Coming Soon
+            </button>
+          </div>
+        </div>
 
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       COMING SOON: 書類テンプレート
+       AI活用ノウハウセクション
   ============================================================ -->
-  <section class="coming-section">
+  <section class="ai-section" id="ai-section">
+    <div class="container">
+      <div class="ai-header">
+        <div class="sec-label">AI Knowledge</div>
+        <h2 class="sec-title">HIDEのAI活用ノウハウ</h2>
+        <p class="sec-body">
+          HIDE自身が、建設業の毎日にAIをどう活かしているか。<br>
+          実演・解説・テンプレを順次公開していきます。
+        </p>
+      </div>
+      <div class="ai-grid">
+        <div class="ai-card">
+          <span class="ai-card-status">Coming Soon</span>
+          <div class="ai-card-name">Claude Coworkで書類を作る</div>
+          <div class="ai-card-desc">挨拶状・近隣案内・完了報告書を、Claudeに会話で作らせる手順を実演します。</div>
+        </div>
+        <div class="ai-card">
+          <span class="ai-card-status">Coming Soon</span>
+          <div class="ai-card-name">ChatGPTで見積もりドラフトを書く</div>
+          <div class="ai-card-desc">坪数・グレード・要望を会話で伝えるだけで、見積もりの叩き台が出る使い方を公開します。</div>
+        </div>
+        <div class="ai-card">
+          <span class="ai-card-status">Coming Soon</span>
+          <div class="ai-card-name">会社の記憶をAIに持たせる</div>
+          <div class="ai-card-desc">過去の案件・判断・お客様情報をAIに記憶させ、「考える相手」として育てる設計手順。</div>
+        </div>
+        <div class="ai-card">
+          <span class="ai-card-status">Coming Soon</span>
+          <div class="ai-card-name">AIに任せる仕事の見極め方</div>
+          <div class="ai-card-desc">「AIにできること」と「人にしかできないこと」を業務ごとに仕分けるフレームワーク。</div>
+        </div>
+        <div class="ai-card">
+          <span class="ai-card-status">Coming Soon</span>
+          <div class="ai-card-name">建設業のAI導入失敗例とリカバリー</div>
+          <div class="ai-card-desc">HIDE自身が試して失敗してきたAI活用パターンと、そこから学んだ教訓。</div>
+        </div>
+        <div class="ai-card">
+          <span class="ai-card-status">Coming Soon</span>
+          <div class="ai-card-name">noteで連載中のAI×建築</div>
+          <div class="ai-card-desc">HIDEがほぼ毎日更新しているnote記事のまとめページ（リンク集として公開予定）。</div>
+        </div>
+      </div>
+      <p style="text-align:center;margin-top:36px;font-size:0.85rem;color:rgba(255,255,255,0.4);">
+        ※ AI活用ノウハウは順次追加していきます。お知らせはLINE登録から受け取れます。
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       コア層橋渡しCTA（控えめ）
+  ============================================================ -->
+  <section class="bridge-section">
+    <div class="container bridge-inner">
+      <div class="bridge-prefix">— 工務店社長の方で、もう一歩進みたい方へ —</div>
+      <div class="bridge-title">
+        会社の仕組みごと変えたい場合は、<br>
+        HEALTH ARCHI 本体もご検討ください
+      </div>
+      <p class="bridge-text">
+        実験室のツールは無料で誰でも使えますが、HEALTH ARCHIの本業は<br>
+        「会社専用の建設AI経営パートナー『ISHIZUE』を構築する事業」です。<br>
+        ご興味のある工務店社長の方は、以下からどうぞ。
+      </p>
+      <div class="bridge-ctas">
+        <a href="/" class="bridge-btn primary">メインHPを見る</a>
+        <a href="/shindan" class="bridge-btn">¥9,800 精密診断</a>
+        <a href="/#journey" class="bridge-btn">ISHIZUE構築プログラム</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       COMING SOON: 書類テンプレート（既存セクション・残置）
+  ============================================================ -->
+  <section class="coming-section" style="display:none;">
     <div class="container">
       <div class="coming-header">
         <div class="sec-label">Document Templates</div>
@@ -697,25 +1126,24 @@
   ============================================================ -->
   <section class="cta-section" id="line-cta">
     <div class="container-sm cta-inner">
-      <div class="cta-eyebrow">Free Gift</div>
+      <div class="cta-eyebrow">Updates</div>
       <h2 class="cta-title">
-        まず、<span style="color:var(--copper-lt);">20項目</span>で確かめてください。
+        新しいツールとAIノウハウを、<br><span style="color:var(--copper-lt);">いち早く受け取る。</span>
       </h2>
       <p class="cta-body">
-        LINEに登録するだけで、<br>
-        「現場離脱チェックリスト」を今すぐ受け取れます。
+        実験室では月2〜3本ペースで新しいツールとAI活用ノウハウを公開しています。<br>
+        LINEに登録すると、公開のたびにお知らせが届きます。
       </p>
       <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:40px;max-width:500px;margin:0 auto 24px;">
         <ul class="checklist">
-          <li><span class="chk"></span>社長なしで現場が動く日が週に何日あるか分かる</li>
-          <li><span class="chk"></span>「やらなくていいこと」が具体的に何かが分かる</li>
-          <li><span class="chk"></span>社員が自分で判断できているか確認できる</li>
-          <li><span class="chk"></span>夜の事務作業がどこから来ているか分かる</li>
-          <li><span class="chk"></span>現場離脱に向けた優先順位が明確になる</li>
+          <li><span class="chk"></span>新しい無料ツール公開のお知らせ</li>
+          <li><span class="chk"></span>HIDEのAI活用ノウハウ（実演・解説）</li>
+          <li><span class="chk"></span>建設業のAI活用Tips</li>
+          <li><span class="chk"></span>工務店社長向け：現場離脱チェックリスト20項目（社長の方向け特典）</li>
         </ul>
         <a href="https://line.me/R/ti/p/@045hrvke" class="btn-line" target="_blank" rel="noopener">
-          <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.6 6.6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-          友だち追加して受け取る（無料）
+          <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          LINEで実験室の更新を受け取る
         </a>
         <p class="cta-note" style="margin-top:10px;">登録無料 · いつでも解除できます</p>
       </div>
