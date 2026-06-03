@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJTX97M6NY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MJTX97M6NY');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HEALTH ARCHI｜建設AI経営パートナー ISHIZUE｜工務店社長が現場を降りるための処方箋</title>
+  <meta name="description" content="建設業の時間貧乏を、AIで救う。一級建築士・設計現場監督歴17年の知見で、工務店社長の現場依存を解消します。無料チェックリストをLINEで今すぐ受け取れます。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       CSS Variables — HEALTH ARCHI ブランドカラー v1.0
+    ============================================================ */
+    :root {
+      --navy:        #1B2B4B;
+      --navy-deep:   #0E1A2F;
+      --navy-mid:    #263D6B;
+      --copper:      #B5703A;
+      --copper-lt:   #D4925A;
+      --copper-dk:   #8A5228;
+      --blue-mid:    #8BA3C7;
+      --charcoal:    #2C2C2C;
+      --stone:       #7A7875;
+      --cream:       #F0EDE8;
+      --silk:        #FAF8F5;
+      --white:       #FFFFFF;
+      --border:      #E8E4DE;
+    }
+
+    /* ============================================================
+       Reset & Base
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 400;
+      color: var(--charcoal);
+      background: var(--white);
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4 { font-family: 'Noto Serif JP', serif; line-height: 1.4; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    .container       { max-width: 1080px; margin: 0 auto; padding: 0 28px; }
+    .container-sm    { max-width: 760px;  margin: 0 auto; padding: 0 28px; }
+
+    /* Section utility */
+    .sec-label {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.3em; color: var(--copper);
+      text-transform: uppercase; margin-bottom: 14px;
+    }
+    .sec-label::before {
+      content: ''; width: 20px; height: 1px; background: var(--copper);
+    }
+    .sec-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 700; color: var(--navy); line-height: 1.45;
+    }
+    .sec-title.on-dark { color: var(--white); }
+    .sec-body {
+      font-size: 0.95rem; color: var(--stone); line-height: 2; margin-top: 14px;
+    }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(14, 26, 47, 0.96);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(181,112,58,0.15);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; max-width: 1080px; margin: 0 auto; padding: 0 28px;
+    }
+    .nav-logo {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.05rem; font-weight: 700;
+      color: var(--white); letter-spacing: 0.14em;
+    }
+    .nav-logo span { color: var(--copper); }
+    .nav-links {
+      display: flex; align-items: center; gap: 30px;
+    }
+    .nav-links a {
+      font-size: 0.78rem; font-weight: 500;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.07em; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-btn {
+      font-size: 0.78rem; font-weight: 700;
+      color: var(--white); background: var(--copper);
+      padding: 9px 22px; border-radius: 3px;
+      letter-spacing: 0.05em; transition: background 0.2s;
+    }
+    .nav-btn:hover { background: var(--copper-dk); color: var(--white); }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px;
+    }
+    .nav-hamburger span {
+      width: 22px; height: 2px;
+      background: var(--white); border-radius: 2px; display: block;
+    }
+    .nav-mobile {
+      display: none;
+      background: var(--navy-deep);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .nav-mobile.open { display: block; }
+    .nav-mobile a {
+      display: block; padding: 14px 28px;
+      font-size: 0.9rem; color: rgba(255,255,255,0.65);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: color 0.2s;
+    }
+    .nav-mobile a:hover { color: var(--white); }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      background: linear-gradient(155deg, var(--navy-deep) 0%, var(--navy) 55%, #1C3560 100%);
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 130px 0 90px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(139,163,199,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139,163,199,0.04) 1px, transparent 1px);
+      background-size: 56px 56px;
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -80px; right: -80px;
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(181,112,58,0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 14px;
+      margin-bottom: 28px; flex-wrap: wrap;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--copper); color: var(--white);
+      font-size: 0.82rem; font-weight: 700;
+      letter-spacing: 0.18em;
+      padding: 7px 16px; border-radius: 3px;
+    }
+    .hero-eyebrow-text {
+      font-size: 0.82rem; font-weight: 500;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.65);
+    }
+    .hero-h1 {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 700; color: var(--white);
+      line-height: 1.25; letter-spacing: 0.04em;
+      margin-bottom: 18px;
+    }
+    .hero-h1 .accent { color: var(--copper); }
+    .hero-sub {
+      font-size: clamp(1rem, 1.8vw, 1.1rem);
+      color: rgba(255,255,255,0.6);
+      line-height: 1.95; margin-bottom: 48px;
+      max-width: 500px;
+    }
+    .hero-ctas {
+      display: flex; flex-wrap: wrap;
+      gap: 16px; align-items: center; margin-bottom: 64px;
+    }
+    .btn-hero {
+      display: inline-flex; align-items: center;
+      justify-content: center; gap: 10px;
+      background: var(--copper); color: var(--white);
+      font-weight: 700; font-size: 1rem;
+      padding: 18px 38px; border-radius: 4px;
+      letter-spacing: 0.05em; transition: background 0.2s, transform 0.2s;
+    }
+    .btn-hero:hover { background: var(--copper-dk); transform: translateY(-2px); }
+    .btn-hero svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .hero-note {
+      font-size: 0.82rem; color: rgba(255,255,255,0.4);
+      letter-spacing: 0.06em;
+    }
+    .hero-stats {
+      display: flex; gap: 40px; flex-wrap: wrap;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .stat-num {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.7rem; font-weight: 700;
+      color: var(--copper); display: block;
+    }
+    .stat-label {
+      font-size: 0.7rem; color: rgba(255,255,255,0.38);
+      letter-spacing: 0.12em; display: block; margin-top: 2px;
+    }
+
+    /* ============================================================
+       PROBLEM
+    ============================================================ */
+    .problem {
+      background: var(--navy-deep);
+      padding: 96px 0;
+      position: relative; overflow: hidden;
+    }
+    .problem::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--copper), transparent);
+    }
+    .problem-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2px; margin-top: 52px;
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px; overflow: hidden;
+      background: rgba(255,255,255,0.03);
+    }
+    .prob-item {
+      padding: 38px 34px;
+      background: rgba(14,26,47,0.7);
+      transition: background 0.3s;
+    }
+    .prob-item:hover { background: rgba(27,43,75,0.9); }
+    .prob-num {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 2.2rem; font-weight: 700;
+      color: var(--copper-lt); line-height: 1;
+      margin-bottom: 10px;
+    }
+    .prob-title {
+      font-weight: 700; font-size: 0.95rem;
+      color: var(--white); margin-bottom: 10px;
+      letter-spacing: 0.04em;
+    }
+    .prob-text {
+      font-size: 0.845rem; color: rgba(255,255,255,0.43);
+      line-height: 1.85;
+    }
+
+    /* ============================================================
+       CONCEPT
+    ============================================================ */
+    .concept {
+      background: var(--silk);
+      padding: 96px 0;
+    }
+    .concept-layout {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center; margin-top: 52px;
+    }
+    .concept-quote {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.55rem; font-weight: 700;
+      color: var(--navy); line-height: 1.65;
+      border-left: 3px solid var(--copper);
+      padding-left: 22px; margin-bottom: 24px;
+    }
+    .concept-text {
+      font-size: 0.93rem; color: var(--stone);
+      line-height: 2; margin-bottom: 16px;
+    }
+    .concept-card {
+      background: var(--navy);
+      border-radius: 10px; padding: 44px 36px;
+      position: relative; overflow: hidden;
+    }
+    .concept-card::after {
+      content: '';
+      position: absolute; bottom: -50px; right: -50px;
+      width: 180px; height: 180px; border-radius: 50%;
+      background: rgba(181,112,58,0.07);
+    }
+    .card-label {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.3em; color: var(--copper);
+      text-transform: uppercase; margin-bottom: 28px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .card-label::before { content: ''; width: 16px; height: 1px; background: var(--copper); }
+    .pillars { display: flex; flex-direction: column; gap: 22px; }
+    .pillar { display: flex; gap: 16px; align-items: flex-start; }
+    .pillar-badge {
+      width: 38px; height: 38px; flex-shrink: 0;
+      border: 1px solid rgba(181,112,58,0.28);
+      border-radius: 4px; display: flex;
+      align-items: center; justify-content: center;
+      color: var(--copper); font-size: 0.75rem; font-weight: 700;
+    }
+    .pillar-head {
+      font-weight: 700; color: var(--white);
+      font-size: 0.88rem; margin-bottom: 3px;
+    }
+    .pillar-sub {
+      font-size: 0.78rem; color: rgba(255,255,255,0.42);
+      line-height: 1.65;
+    }
+
+    /* ============================================================
+       JOURNEY
+    ============================================================ */
+    .journey {
+      background: var(--white);
+      padding: 96px 0;
+    }
+    .journey-list {
+      margin-top: 52px;
+      display: flex; flex-direction: column;
+    }
+    .jstep {
+      display: grid; grid-template-columns: 64px 1fr;
+      gap: 22px; position: relative;
+      padding-bottom: 36px;
+    }
+    /* connector line */
+    .jstep:not(:last-child) .jline::after {
+      content: '';
+      position: absolute;
+      left: 30px; top: 64px; bottom: 0;
+      width: 1px; background: var(--border);
+    }
+    .jline { position: relative; }
+    .jdot {
+      width: 64px; height: 64px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.04em; position: relative; z-index: 1;
+    }
+    .jdot-free {
+      background: rgba(139,163,199,0.1);
+      border: 1px solid rgba(139,163,199,0.28);
+      color: var(--blue-mid);
+    }
+    .jdot-paid {
+      background: rgba(181,112,58,0.07);
+      border: 1px solid rgba(181,112,58,0.28);
+      color: var(--copper);
+    }
+    .jdot-core {
+      background: var(--navy);
+      border: 1px solid var(--navy-mid);
+      color: var(--white);
+    }
+    .jcontent { padding-top: 14px; }
+    .jtag {
+      font-size: 0.67rem; font-weight: 700;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      margin-bottom: 5px; display: block;
+    }
+    .jtag-free { color: var(--blue-mid); }
+    .jtag-paid { color: var(--copper); }
+    .jname {
+      font-weight: 700; font-size: 1.02rem;
+      color: var(--navy); margin-bottom: 6px;
+    }
+    .jdesc {
+      font-size: 0.87rem; color: var(--stone); line-height: 1.85;
+    }
+    .jprice {
+      display: inline-block; margin-top: 8px;
+      font-weight: 700; font-size: 0.82rem; color: var(--copper);
+      background: rgba(181,112,58,0.06);
+      border: 1px solid rgba(181,112,58,0.16);
+      padding: 3px 10px; border-radius: 3px;
+    }
+    /* Core step highlight */
+    .jcore-box {
+      background: var(--navy);
+      border-radius: 8px; padding: 28px 30px;
+      margin-top: -2px;
+    }
+    .jcore-box .jname { color: var(--white); }
+    .jcore-box .jdesc { color: rgba(255,255,255,0.48); }
+    .jcore-box .jprice {
+      background: rgba(181,112,58,0.14);
+      border-color: rgba(181,112,58,0.3);
+    }
+
+    /* ============================================================
+       LINE CTA
+    ============================================================ */
+    .line-cta {
+      background: linear-gradient(140deg, var(--navy-deep) 0%, var(--navy) 100%);
+      padding: 100px 0;
+      position: relative; overflow: hidden;
+    }
+    .line-cta::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--copper), transparent);
+    }
+    .line-cta::after {
+      content: '';
+      position: absolute; bottom: -120px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(181,112,58,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .line-inner {
+      position: relative; z-index: 1; text-align: center;
+    }
+    .line-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.7rem, 3.2vw, 2.5rem);
+      font-weight: 700; color: var(--white);
+      line-height: 1.55; margin-bottom: 14px;
+    }
+    .line-title em { font-style: normal; color: var(--copper); }
+    .line-sub {
+      font-size: 0.97rem; color: rgba(255,255,255,0.52);
+      line-height: 1.9; margin-bottom: 44px;
+    }
+    .line-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px; padding: 44px;
+      max-width: 540px; margin: 0 auto 32px;
+    }
+    .checklist {
+      list-style: none; text-align: left; margin-bottom: 32px;
+    }
+    .checklist li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 0.88rem; color: rgba(255,255,255,0.68);
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .chk {
+      width: 18px; height: 18px; flex-shrink: 0;
+      border-radius: 50%;
+      background: rgba(181,112,58,0.12);
+      border: 1px solid rgba(181,112,58,0.28);
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+    .chk::after { content: '✓'; font-size: 0.58rem; color: var(--copper); }
+    .btn-line {
+      display: flex; align-items: center;
+      justify-content: center; gap: 12px;
+      background: var(--copper); color: var(--white);
+      font-weight: 700; font-size: 1rem;
+      padding: 18px 36px; border-radius: 4px; width: 100%;
+      letter-spacing: 0.05em; transition: background 0.2s, transform 0.2s;
+    }
+    .btn-line:hover { background: var(--copper-dk); transform: translateY(-2px); }
+    .line-note-sm {
+      font-size: 0.73rem; color: rgba(255,255,255,0.27);
+      margin-top: 10px; letter-spacing: 0.08em;
+    }
+    .line-alt {
+      font-size: 0.8rem; color: rgba(255,255,255,0.3);
+      letter-spacing: 0.07em; margin-top: 4px;
+    }
+    .line-alt a { color: var(--copper); text-decoration: underline; }
+
+    /* ============================================================
+       ABOUT
+    ============================================================ */
+    .about {
+      background: var(--cream);
+      padding: 96px 0;
+    }
+    .about-layout {
+      display: grid; grid-template-columns: 300px 1fr;
+      gap: 80px; align-items: start; margin-top: 52px;
+    }
+    .photo-sticky { position: sticky; top: 80px; }
+    .photo-wrap {
+      position: relative;
+    }
+    .photo-wrap::before {
+      content: '';
+      position: absolute; top: 14px; right: -14px;
+      bottom: -14px; left: 14px;
+      border: 1px solid rgba(181,112,58,0.3);
+      border-radius: 4px; pointer-events: none;
+    }
+    .photo-wrap img {
+      width: 100%; border-radius: 4px;
+      position: relative; z-index: 1;
+    }
+    .photo-cap {
+      margin-top: 20px; text-align: center;
+    }
+    .photo-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.05rem; font-weight: 700; color: var(--navy);
+    }
+    .photo-role {
+      font-size: 0.75rem; color: var(--stone);
+      margin-top: 3px; letter-spacing: 0.1em;
+    }
+    .about-lead {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.45rem; font-weight: 700;
+      color: var(--navy); line-height: 1.6; margin-bottom: 28px;
+    }
+    .about-text {
+      font-size: 0.93rem; color: var(--charcoal);
+      line-height: 2.05; margin-bottom: 18px;
+    }
+    .creds {
+      margin-top: 36px; padding-top: 36px;
+      border-top: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: 11px;
+    }
+    .cred {
+      display: flex; align-items: flex-start;
+      gap: 14px; font-size: 0.86rem; color: var(--charcoal);
+    }
+    .cred-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--copper); flex-shrink: 0; margin-top: 7px;
+    }
+
+    /* ============================================================
+       BOOK
+    ============================================================ */
+    .book {
+      background: var(--white);
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+    .book-wrap {
+      display: flex; align-items: center; gap: 56px;
+    }
+    .book-cover {
+      flex-shrink: 0; width: 150px;
+    }
+    .book-mock {
+      width: 150px; aspect-ratio: 3/4;
+      background: var(--navy); border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 20px;
+      box-shadow: 8px 8px 24px rgba(0,0,0,0.14);
+    }
+    .book-mock-txt {
+      font-family: 'Noto Serif JP', serif;
+      color: var(--white); font-size: 0.82rem;
+      line-height: 1.6; font-weight: 700;
+    }
+    .book-mock-txt em {
+      display: block; font-style: normal;
+      color: var(--copper); font-size: 0.68rem; margin-top: 8px;
+    }
+    .book-lbl {
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.3em; color: var(--copper);
+      text-transform: uppercase; margin-bottom: 7px;
+    }
+    .book-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.35rem; font-weight: 700;
+      color: var(--navy); margin-bottom: 14px;
+    }
+    .book-text {
+      font-size: 0.88rem; color: var(--stone);
+      line-height: 1.95; margin-bottom: 22px;
+    }
+    .btn-book {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--navy); color: var(--white);
+      font-weight: 700; font-size: 0.84rem;
+      padding: 11px 22px; border-radius: 4px;
+      transition: background 0.2s;
+    }
+    .btn-book:hover { background: var(--navy-mid); }
+
+    /* ============================================================
+       CONTACT
+    ============================================================ */
+    .contact {
+      background: var(--silk);
+      padding: 96px 0;
+    }
+    .contact-head { text-align: center; margin-bottom: 44px; }
+    .contact-form-wrap {
+      background: var(--white);
+      border-radius: 8px; padding: 48px;
+      box-shadow: 0 4px 28px rgba(27,43,75,0.06);
+      max-width: 600px; margin: 0 auto;
+    }
+    .form-row { margin-bottom: 22px; }
+    .form-lbl {
+      display: block; font-size: 0.78rem; font-weight: 700;
+      color: var(--navy); letter-spacing: 0.08em; margin-bottom: 7px;
+    }
+    .form-req { color: var(--copper); margin-left: 3px; }
+    .form-inp, .form-ta {
+      width: 100%; padding: 12px 15px;
+      border: 1px solid var(--border); border-radius: 4px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.9rem; color: var(--charcoal);
+      background: var(--silk); transition: border-color 0.2s; outline: none;
+    }
+    .form-inp:focus, .form-ta:focus {
+      border-color: var(--copper); background: var(--white);
+    }
+    .form-ta { resize: vertical; min-height: 120px; }
+    .form-submit {
+      width: 100%; padding: 15px;
+      background: var(--navy); color: var(--white);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 700; font-size: 0.93rem;
+      border: none; border-radius: 4px; cursor: pointer;
+      letter-spacing: 0.08em; transition: background 0.2s, transform 0.2s;
+    }
+    .form-submit:hover { background: var(--navy-mid); transform: translateY(-1px); }
+    .form-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .form-success {
+      text-align: center; padding: 48px 0;
+    }
+    .success-icon {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: rgba(181,112,58,0.08);
+      border: 1px solid rgba(181,112,58,0.2);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 18px; font-size: 1.4rem;
+    }
+    .success-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.15rem; font-weight: 700;
+      color: var(--navy); margin-bottom: 7px;
+    }
+    .success-text { font-size: 0.86rem; color: var(--stone); }
+    .contact-mail {
+      text-align: center; margin-top: 18px;
+      font-size: 0.8rem; color: var(--stone);
+    }
+    .contact-mail a { color: var(--navy); font-weight: 700; }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      background: var(--navy-deep);
+      padding: 48px 0;
+      border-top: 1px solid rgba(181,112,58,0.15);
+    }
+    .footer-inner {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 18px; text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 1.05rem; font-weight: 700;
+      color: var(--white); letter-spacing: 0.14em;
+    }
+    .footer-logo span { color: var(--copper); }
+    .footer-tagline {
+      font-size: 0.72rem; color: rgba(255,255,255,0.28);
+      letter-spacing: 0.16em;
+    }
+    .footer-links {
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 22px;
+    }
+    .footer-links a {
+      font-size: 0.76rem; color: rgba(255,255,255,0.32);
+      letter-spacing: 0.07em; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.7); }
+    .footer-copy {
+      font-size: 0.68rem; color: rgba(255,255,255,0.18);
+      letter-spacing: 0.1em;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .concept-layout { grid-template-columns: 1fr; gap: 40px; }
+      .about-layout { grid-template-columns: 1fr; gap: 40px; }
+      .photo-sticky { position: static; }
+      .book-wrap { flex-direction: column; gap: 32px; }
+      .problem-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 540px) {
+      .hero-stats { gap: 22px; }
+      .hero-ctas { flex-direction: column; align-items: flex-start; }
+      .btn-hero { width: 100%; }
+      .line-card { padding: 30px 22px; }
+      .contact-form-wrap { padding: 30px 22px; }
+      .jstep { grid-template-columns: 48px 1fr; }
+      .jdot { width: 48px; height: 48px; font-size: 0.65rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-logo">HEALTH <span>ARCHI</span></div>
+      <div class="nav-links">
+        <a href="#problem">課題</a>
+        <a href="#concept">コンセプト</a>
+        <a href="#journey">サービス</a>
+        <a href="#about">代表について</a>
+        <a href="/tools" style="color:var(--copper-lt);font-weight:700;">実験室</a>
+        <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" class="nav-btn">LINE無料登録</a>
+      </div>
+      <div class="nav-hamburger" id="hamburger" role="button" aria-label="メニューを開く">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="nav-mobile" id="navMobile">
+      <a href="#problem" onclick="closeNav()">課題</a>
+      <a href="#concept" onclick="closeNav()">コンセプト</a>
+      <a href="#journey" onclick="closeNav()">サービス</a>
+      <a href="#about" onclick="closeNav()">代表について</a>
+      <a href="/tools" onclick="closeNav()" style="color:var(--copper-lt);font-weight:700;">実験室（無料ツール）</a>
+      <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" onclick="closeNav()">📩 LINE無料登録（無料特典あり）</a>
+      <a href="#contact" onclick="closeNav()">お問い合わせ</a>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO ← ★ここだけv1.2-miniに差し替え
+  ============================================================ -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-eyebrow">
+          <span class="hero-badge">建設業特化</span>
+          <span class="hero-eyebrow-text">AIで本来の仕事に戻る</span>
+        </div>
+        <h1 class="hero-h1">
+          AIに任せて、<br>
+          <span class="accent">本来の仕事へ。</span>
+        </h1>
+        <p class="hero-sub">
+          AIにできることは、AIに任せる。<br>
+          社長は経営に、職人は現場に、事務員は本来の事務に集中する。<br><br>
+          一級建築士・設計現場監督歴17年が、<br>
+          その仕組みを設計します。
+        </p>
+        <div class="hero-ctas">
+          <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" class="btn-hero">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            無料チェックリストをLINEで受け取る
+          </a>
+          <span class="hero-note">登録無料・1分で完了</span>
+        </div>
+        <div class="hero-stats">
+          <div>
+            <span class="stat-num">17年</span>
+            <span class="stat-label">設計・現場監督歴</span>
+          </div>
+          <div>
+            <span class="stat-num">1級</span>
+            <span class="stat-label">建築士資格</span>
+          </div>
+          <div>
+            <span class="stat-num">書籍</span>
+            <span class="stat-label">「社長が現場を降りる日」著者</span>
+          </div>
+          <div>
+            <span class="stat-num">全国</span>
+            <span class="stat-label">工務店・建設会社対応</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROBLEM
+  ============================================================ -->
+  <section class="problem" id="problem">
+    <div class="container">
+      <div class="sec-label">Problem</div>
+      <h2 class="sec-title on-dark">
+        社長の時間が、<br>
+        会社の天井になっている。
+      </h2>
+      <div class="problem-grid">
+        <div class="prob-item">
+          <div class="prob-num">01</div>
+          <div class="prob-title">昼は現場・夜は事務の「二重生活」</div>
+          <p class="prob-text">見積書・日報・近隣挨拶文。現場から帰ったあとも事務仕事が山積みに。「このままでは体が持たない」と分かっていても、抜け出せない。</p>
+        </div>
+        <div class="prob-item">
+          <div class="prob-num">02</div>
+          <div class="prob-title">高額な外注費なのに、結果が出ない</div>
+          <p class="prob-text">「ITは分からない」とホームページや求人を業者に丸投げ。毎年数十万かけても欲しい顧客・人材が来ない。費用対効果を測る方法すら分からない。</p>
+        </div>
+        <div class="prob-item">
+          <div class="prob-num">03</div>
+          <div class="prob-title">「社長がいないと回らない」組織</div>
+          <p class="prob-text">判断がすべて社長に集中する。情報が社長の頭の中にしかなく、少し現場を離れただけでトラブル発生。いつまでも現場を降りられない。</p>
+        </div>
+        <div class="prob-item">
+          <div class="prob-num">04</div>
+          <div class="prob-title">「変わらなければ」の焦りだけが残る</div>
+          <p class="prob-text">ChatGPTを試したことはある。でも全体への適用方法が分からず、結局元に戻る。「何から始めればいいか」が分からないまま時間だけが過ぎる。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONCEPT
+  ============================================================ -->
+  <section class="concept" id="concept">
+    <div class="container">
+      <div class="sec-label">Concept</div>
+      <h2 class="sec-title">AIは効率を、人は感動を。</h2>
+      <div class="concept-layout">
+        <div>
+          <div class="concept-quote">
+            AIにできることは、<br>AIに預ける。
+          </div>
+          <p class="concept-text">
+            現場の物づくり、お客様との対話、創造的な意思決定——それが、社長・職人・事務員それぞれの「本来の仕事」です。
+          </p>
+          <p class="concept-text">
+            それ以外の事務・報告・情報整理はAIに担ってもらう。AIが効率の担い手になった分だけ、人間は感動の創り手に集中できる。
+          </p>
+          <p class="concept-text">
+            HEALTH ARCHIはその仕組みを、17年の現場経験を持つ一級建築士が設計から実装まで伴走します。
+          </p>
+        </div>
+        <div class="concept-card">
+          <div class="card-label">3つの変化</div>
+          <div class="pillars">
+            <div class="pillar">
+              <div class="pillar-badge">全</div>
+              <div>
+                <div class="pillar-head">現場・設計・事務、それぞれが本来の仕事に集中できる</div>
+                <div class="pillar-sub">職人は現場に、社長は経営に、事務員は本来の事務に。AIに任せられる仕事を分けるだけで、誰の時間も増える</div>
+              </div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-badge">組</div>
+              <div>
+                <div class="pillar-head">組織が自律して動く</div>
+                <div class="pillar-sub">判断軸が組織に浸透し、社長不在でも現場が回るようになる</div>
+              </div>
+            </div>
+            <div class="pillar">
+              <div class="pillar-badge">時</div>
+              <div>
+                <div class="pillar-head">社長の時間が、経営に返る</div>
+                <div class="pillar-sub">夜の事務作業がなくなり、本来の経営判断に集中できる時間が生まれる</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       JOURNEY（5-step roadmap）
+  ============================================================ -->
+  <section class="journey" id="journey">
+    <div class="container-sm">
+      <div class="sec-label">Roadmap （for 工務店社長）</div>
+      <h2 class="sec-title">工務店社長のための、<br>5つのステップ</h2>
+      <div class="journey-list">
+
+        <!-- Step 1 -->
+        <div class="jstep">
+          <div class="jline">
+            <div class="jdot jdot-free">BOOK</div>
+          </div>
+          <div class="jcontent">
+            <span class="jtag jtag-free">Step 01 · 書店 / Amazon</span>
+            <div class="jname">書籍「社長が現場を降りる日」</div>
+            <p class="jdesc">「なぜ現場を降りられないのか」の構造を理解するところから。答えを探す前に、問いの解像度を上げる一冊。</p>
+            <span class="jprice">無料〜</span>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="jstep">
+          <div class="jline">
+            <div class="jdot jdot-free">LINE</div>
+          </div>
+          <div class="jcontent">
+            <span class="jtag jtag-free">Step 02 · LINE登録（無料）</span>
+            <div class="jname">現場離脱チェックリスト 20項目</div>
+            <p class="jdesc">友だち追加で即日プレゼント。20項目で「自社の現場依存度」が5分で把握できます。</p>
+            <span class="jprice">無料</span>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="jstep">
+          <div class="jline">
+            <div class="jdot jdot-paid">診断</div>
+          </div>
+          <div class="jcontent">
+            <span class="jtag jtag-paid">Step 03 · フロント商品</span>
+            <div class="jname">現場離脱度診断＋処方箋レポート</div>
+            <p class="jdesc">一級建築士が、あなたの会社の「やらなくていいこと」を診断し処方箋として可視化。何から手を付けるべきか明確になります。</p>
+            <span class="jprice">¥9,800</span>
+          </div>
+        </div>
+
+        <!-- Step 4（highlight） -->
+        <div class="jstep">
+          <div class="jline">
+            <div class="jdot jdot-core">AI</div>
+          </div>
+          <div class="jcore-box">
+            <span class="jtag jtag-paid">Step 04 · 中核プログラム</span>
+            <div class="jname">建設AI経営パートナー「ISHIZUE」構築プログラム</div>
+            <p class="jdesc">社長の判断軸・会社の歴史をAIに移植し、毎日の経営判断を支える「考える相手」を6週間で構築します。スマホで即相談できる、会社専用のAIパートナーです。</p>
+            <span class="jprice">¥49,800（創業3名限定）/ 通常¥98,000</span>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="jstep">
+          <div class="jline">
+            <div class="jdot jdot-paid">伴走</div>
+          </div>
+          <div class="jcontent">
+            <span class="jtag jtag-paid">Step 05 · バックエンド</span>
+            <div class="jname">現場離脱プログラム（伴走型）</div>
+            <p class="jdesc">AI実装×組織設計×情報整理の総合パッケージ。「社長がいなくても現場が回る会社」を、設計から施工（実装）まで伴走します。</p>
+            <span class="jprice">¥50〜100万 / 3〜6ヶ月</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       LINE CTA（メインコンバージョン）
+  ============================================================ -->
+  <section class="line-cta" id="line-cta">
+    <div class="container">
+      <div class="line-inner">
+        <div class="sec-label" style="justify-content:center">Free Gift</div>
+        <h2 class="line-title">
+          まず、<em>20項目</em>で確かめてください。
+        </h2>
+        <p class="line-sub">
+          LINEに登録するだけで、<br>
+          「現場離脱チェックリスト」を今すぐ受け取れます。
+        </p>
+        <div class="line-card">
+          <ul class="checklist">
+            <li><span class="chk"></span>社長なしで現場が動く日が週に何日あるか分かる</li>
+            <li><span class="chk"></span>「やらなくていいこと」が具体的に何かが分かる</li>
+            <li><span class="chk"></span>社員が自分で判断できているか確認できる</li>
+            <li><span class="chk"></span>夜の事務作業がどこから来ているか分かる</li>
+            <li><span class="chk"></span>現場離脱に向けた優先順位が明確になる</li>
+          </ul>
+          <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" class="btn-line">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.6 6.6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            友だち追加して受け取る（無料）
+          </a>
+          <p class="line-note-sm">登録無料 · いつでも解除できます</p>
+        </div>
+        <p class="line-alt">
+          まず診断から始めたい方は
+          <a href="https://healtharchi.com/diagnosis">こちら（現場離脱度診断・無料）</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT
+  ============================================================ -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="sec-label">About</div>
+      <div class="about-layout">
+        <div class="photo-sticky">
+          <div class="photo-wrap">
+            <img src="./hideto.jpg" alt="代表 佐野英人" />
+          </div>
+          <div class="photo-cap">
+            <div class="photo-name">佐野 英人（HIDE）</div>
+            <div class="photo-role">HEALTH ARCHI 代表 / 一級建築士</div>
+          </div>
+        </div>
+        <div>
+          <h3 class="about-lead">
+            現場を知らないIT屋には、<br>
+            建設会社の悩みは分かりません。
+          </h3>
+          <p class="about-text">
+            私は一般的なシステムエンジニアではありません。一級建築士として、設計監理・現場監督として17年間、現場の最前線に立ってきました。
+          </p>
+          <p class="about-text">
+            図面の重要性、職人さんとのコミュニケーション、天候に左右される工程管理——現場特有の事情を無視したDXは、絶対に定着しません。
+          </p>
+          <p class="about-text">
+            だからこそ、難しい専門用語は使いません。社長や職人さんが直感的に使える「新しい工具」として、AIの力を現場に届けます。
+          </p>
+          <div class="creds">
+            <div class="cred"><div class="cred-dot"></div>一級建築士（国家資格）</div>
+            <div class="cred"><div class="cred-dot"></div>設計監理・現場監督歴 17年</div>
+            <div class="cred"><div class="cred-dot"></div>著書「社長が現場を降りる日」（Amazon販売中）</div>
+            <div class="cred"><div class="cred-dot"></div>建設業特化型AI経営支援・全国対応</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BOOK
+  ============================================================ -->
+  <section class="book">
+    <div class="container">
+      <div class="book-wrap">
+        <div class="book-cover">
+          <div class="book-mock">
+            <div class="book-mock-txt">
+              社長が<br>現場を<br>降りる日
+              <em>佐野 英人 著</em>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="book-lbl">Book</div>
+          <h3 class="book-title">「社長が現場を降りる日」</h3>
+          <p class="book-text">
+            なぜ工務店の社長は現場を降りられないのか。<br>
+            17年の現場経験から見えた「時間貧乏の構造」と、そこから抜け出すための設計図を一冊に。<br>
+            AIで解決できることと、人にしかできないことを整理した、建設業社長のためのロードマップ。
+          </p>
+          <a href="https://amzn.asia/d/0h63GxjS" target="_blank" rel="noopener" class="btn-book">
+            Amazon で見る →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       LABORATORY BANNER（実験室への入口）
+  ============================================================ -->
+  <section style="background:var(--cream);padding:56px 0;border-top:1px solid var(--border);">
+    <div class="container">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:32px;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:40px 44px;box-shadow:0 4px 24px rgba(27,43,75,0.05);">
+        <div style="flex:1;min-width:260px;">
+          <div style="display:inline-flex;align-items:center;gap:10px;font-size:0.65rem;font-weight:700;letter-spacing:0.3em;color:var(--copper);text-transform:uppercase;margin-bottom:12px;">
+            <span style="width:16px;height:1px;background:var(--copper);display:inline-block;"></span>Laboratory ／ 実験室
+          </div>
+          <h3 style="font-family:'Noto Serif JP',serif;font-size:1.35rem;font-weight:700;color:var(--navy);margin-bottom:10px;line-height:1.5;">17年の現場経験から生まれた、<br>AIで動く無料ツールの実験室</h3>
+          <p style="font-size:0.87rem;color:var(--stone);line-height:1.9;">ガントチャート工程表・概算見積もり・書類テンプレートなど、<br>登録不要で。同業者の方にもぜひお教えください。</p>
+        </div>
+        <div style="flex-shrink:0;">
+          <a href="/tools" style="display:inline-flex;align-items:center;gap:10px;background:var(--navy);color:var(--white);font-weight:700;font-size:0.9rem;padding:15px 30px;border-radius:4px;letter-spacing:0.05em;transition:background 0.2s;" onmouseover="this.style.background='var(--navy-mid)'" onmouseout="this.style.background='var(--navy)'">
+            実験室を見る →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT
+  ============================================================ -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-head">
+        <div class="sec-label" style="justify-content:center">Contact</div>
+        <h2 class="sec-title">まず話を聞いてみたい方へ</h2>
+        <p class="sec-body">お気軽にご連絡ください。通常24時間以内にご返信します。</p>
+      </div>
+      <div class="contact-form-wrap">
+        <div id="formArea">
+          <div class="form-row">
+            <label class="form-lbl" for="company">会社名</label>
+            <input class="form-inp" type="text" id="company" name="company" placeholder="株式会社〇〇建設" />
+          </div>
+          <div class="form-row">
+            <label class="form-lbl" for="name">お名前<span class="form-req">*</span></label>
+            <input class="form-inp" type="text" id="name" name="name" required placeholder="佐野 英人" />
+          </div>
+          <div class="form-row">
+            <label class="form-lbl" for="email">メールアドレス<span class="form-req">*</span></label>
+            <input class="form-inp" type="email" id="email" name="email" required placeholder="info@example.com" />
+          </div>
+          <div class="form-row">
+            <label class="form-lbl" for="message">ご相談内容</label>
+            <textarea class="form-ta" id="message" name="message" placeholder="AI活用について聞きたい、診断について教えてほしい、など何でもどうぞ"></textarea>
+          </div>
+          <button class="form-submit" id="submitBtn" type="button" onclick="handleSubmit()">
+            送信する
+          </button>
+        </div>
+        <div id="successArea" class="form-success" style="display:none">
+          <div class="success-icon">✓</div>
+          <div class="success-title">送信が完了しました</div>
+          <p class="success-text">お問い合わせありがとうございます。<br>通常24時間以内にご連絡いたします。</p>
+        </div>
+      </div>
+      <p class="contact-mail">
+        メールでのお問い合わせ：<a href="mailto:info@healtharchi.com">info@healtharchi.com</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">HEALTH <span>ARCHI</span></div>
+        <div class="footer-tagline">AIは効率を、人は感動を。</div>
+        <div class="footer-links">
+          <a href="#problem">課題</a>
+          <a href="#concept">コンセプト</a>
+          <a href="#journey">サービス</a>
+          <a href="#about">代表について</a>
+          <a href="/tools">実験室</a>
+          <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener">LINE登録</a>
+          <a href="#contact">お問い合わせ</a>
+        </div>
+        <div class="footer-copy">© 2026 HEALTH ARCHI. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       SCRIPTS
+  ============================================================ -->
+  <script>
+    // ---- Hamburger menu ----
+    const hamburger = document.getElementById('hamburger');
+    const navMobile = document.getElementById('navMobile');
+    hamburger.addEventListener('click', () => navMobile.classList.toggle('open'));
+    function closeNav() { navMobile.classList.remove('open'); }
+
+    // ---- Contact form (Formspree) ----
+    async function handleSubmit() {
+      const name  = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      if (!name || !email) { alert('お名前とメールアドレスは必須です。'); return; }
+      const btn = document.getElementById('submitBtn');
+      btn.textContent = '送信中...'; btn.disabled = true;
+      try {
+        const res = await fetch('https://formspree.io/f/xvgerrdg', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            company: document.getElementById('company').value,
+            name, email,
+            message: document.getElementById('message').value
+          })
+        });
+        if (res.ok) {
+          document.getElementById('formArea').style.display = 'none';
+          document.getElementById('successArea').style.display = 'block';
+        } else {
+          alert('送信に失敗しました。しばらくしてから再度お試しください。');
+          btn.textContent = '送信する'; btn.disabled = false;
+        }
+      } catch(e) {
+        alert('通信エラーが発生しました。通信環境をご確認ください。');
+        btn.textContent = '送信する'; btn.disabled = false;
+      }
+    }
+  </script>
+
+<script>
+/* HEALTH ARCHI: LINE誘導クリックを計測（キーイベント候補 line_click） */
+document.addEventListener('click', function(e){
+  var a = e.target.closest && e.target.closest('a[href*="line.me"]');
+  if(a && typeof gtag === 'function'){ gtag('event','line_click'); }
+}, true);
+</script>
+</body>
+</html>
