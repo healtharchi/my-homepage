@@ -1270,5 +1270,12 @@
     </div>
   </footer>
 
+<script>
+/* HEALTH ARCHI: LINE誘導クリックを計測（キーイベント候補 line_click） */
+document.addEventListener('click', function(e){
+  var a = e.target.closest && e.target.closest('a[href*="line.me"]');
+  if(a && typeof gtag === 'function'){ gtag('event','line_click'); }
+}, true);
+</script>
 </body>
 </html>
