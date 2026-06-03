@@ -725,6 +725,7 @@
     <div class="nav-inner">
       <div class="nav-logo">HEALTH <span>ARCHI</span></div>
       <div class="nav-links">
+        <a href="/">みんなの入口</a>
         <a href="#problem">課題</a>
         <a href="#concept">コンセプト</a>
         <a href="#journey">サービス</a>
@@ -737,12 +738,13 @@
       </div>
     </div>
     <div class="nav-mobile" id="navMobile">
+      <a href="/" onclick="closeNav()">みんなの入口（トップ）</a>
       <a href="#problem" onclick="closeNav()">課題</a>
       <a href="#concept" onclick="closeNav()">コンセプト</a>
       <a href="#journey" onclick="closeNav()">サービス</a>
       <a href="#about" onclick="closeNav()">代表について</a>
       <a href="/tools" onclick="closeNav()" style="color:var(--copper-lt);font-weight:700;">実験室（無料ツール）</a>
-      <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" onclick="closeNav()">📩 LINE無料登録（無料特典あり）</a>
+      <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" onclick="closeNav()">LINE無料登録（無料特典あり）</a>
       <a href="#contact" onclick="closeNav()">お問い合わせ</a>
     </div>
   </nav>
@@ -754,25 +756,27 @@
     <div class="container">
       <div class="hero-inner">
         <div class="hero-eyebrow">
-          <span class="hero-badge">建設業特化</span>
-          <span class="hero-eyebrow-text">AIで本来の仕事に戻る</span>
+          <span class="hero-badge">工務店社長の方へ</span>
+          <span class="hero-eyebrow-text">建設AI経営パートナー ISHIZUE</span>
         </div>
         <h1 class="hero-h1">
-          AIに任せて、<br>
-          <span class="accent">本来の仕事へ。</span>
+          現場から、<br>
+          <span class="accent">経営へ。</span>
         </h1>
         <p class="hero-sub">
-          AIにできることは、AIに任せる。<br>
-          社長は経営に、職人は現場に、事務員は本来の事務に集中する。<br><br>
-          一級建築士・設計現場監督歴17年が、<br>
-          その仕組みを設計します。
+          昼は現場、夜は事務。社長の時間が、会社の天井になっていませんか。<br><br>
+          「やらなくていいこと」をAIに預け、社長が経営に戻るための仕組みを、<br>
+          一級建築士・設計現場監督歴17年が設計します。
         </p>
         <div class="hero-ctas">
-          <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" class="btn-hero">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <a href="/diagnosis-shacho" class="btn-hero">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            社長の現場離脱度を診断（3分・無料）
+          </a>
+          <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" class="btn-hero" style="background:transparent;border:1px solid rgba(255,255,255,0.28);">
             無料チェックリストをLINEで受け取る
           </a>
-          <span class="hero-note">登録無料・1分で完了</span>
+          <span class="hero-note">登録不要・約3分で結果が出ます</span>
         </div>
         <div class="hero-stats">
           <div>
@@ -789,7 +793,7 @@
           </div>
           <div>
             <span class="stat-num">全国</span>
-            <span class="stat-label">工務店・建設会社対応</span>
+            <span class="stat-label">オンライン対応（Zoom / Meet）</span>
           </div>
         </div>
       </div>
@@ -889,19 +893,20 @@
   <section class="journey" id="journey">
     <div class="container-sm">
       <div class="sec-label">Roadmap （for 工務店社長）</div>
-      <h2 class="sec-title">工務店社長のための、<br>5つのステップ</h2>
-      <div class="journey-list">
+      <h2 class="sec-title">社長が現場を降りるまでの、<br>4つのステップ</h2>
+      <p class="sec-body">いきなり大きな投資は不要です。まず無料で現状を知るところから始められます。</p>
+      <div class="journey-list" style="margin-top:40px;">
 
         <!-- Step 1 -->
         <div class="jstep">
           <div class="jline">
-            <div class="jdot jdot-free">BOOK</div>
+            <div class="jdot jdot-free">診断</div>
           </div>
           <div class="jcontent">
-            <span class="jtag jtag-free">Step 01 · 書店 / Amazon</span>
-            <div class="jname">書籍「社長が現場を降りる日」</div>
-            <p class="jdesc">「なぜ現場を降りられないのか」の構造を理解するところから。答えを探す前に、問いの解像度を上げる一冊。</p>
-            <span class="jprice">無料〜</span>
+            <span class="jtag jtag-free">Step 01 · 無料・登録不要</span>
+            <div class="jname">社長の現場離脱度 診断</div>
+            <p class="jdesc">3分のかんたんな質問に答えるだけ。「会社が自分1人に依存していないか」と、次に手を付けるべきことが見えてきます。</p>
+            <a href="/diagnosis-shacho" style="display:inline-block;margin-top:10px;font-weight:700;font-size:0.84rem;color:var(--copper);">診断をはじめる →</a>
           </div>
         </div>
 
@@ -913,47 +918,34 @@
           <div class="jcontent">
             <span class="jtag jtag-free">Step 02 · LINE登録（無料）</span>
             <div class="jname">現場離脱チェックリスト 20項目</div>
-            <p class="jdesc">友だち追加で即日プレゼント。20項目で「自社の現場依存度」が5分で把握できます。</p>
+            <p class="jdesc">友だち追加で即日プレゼント。20項目で「自社の現場依存度」が5分で把握できます。新しい無料ツールやISHIZUEの先行案内もこちらで。</p>
             <span class="jprice">無料</span>
           </div>
         </div>
 
-        <!-- Step 3 -->
-        <div class="jstep">
-          <div class="jline">
-            <div class="jdot jdot-paid">診断</div>
-          </div>
-          <div class="jcontent">
-            <span class="jtag jtag-paid">Step 03 · フロント商品</span>
-            <div class="jname">現場離脱度診断＋処方箋レポート</div>
-            <p class="jdesc">一級建築士が、あなたの会社の「やらなくていいこと」を診断し処方箋として可視化。何から手を付けるべきか明確になります。</p>
-            <span class="jprice">¥9,800</span>
-          </div>
-        </div>
-
-        <!-- Step 4（highlight） -->
+        <!-- Step 3（highlight） -->
         <div class="jstep">
           <div class="jline">
             <div class="jdot jdot-core">AI</div>
           </div>
           <div class="jcore-box">
-            <span class="jtag jtag-paid">Step 04 · 中核プログラム</span>
-            <div class="jname">建設AI経営パートナー「ISHIZUE」構築プログラム</div>
-            <p class="jdesc">社長の判断軸・会社の歴史をAIに移植し、毎日の経営判断を支える「考える相手」を6週間で構築します。スマホで即相談できる、会社専用のAIパートナーです。</p>
-            <span class="jprice">¥49,800（創業3名限定）/ 通常¥98,000</span>
+            <span class="jtag jtag-paid">Step 03 · 中核 ／ 上位商品</span>
+            <div class="jname">建設AI経営パートナー「ISHIZUE（礎）」</div>
+            <p class="jdesc">社長の判断軸・会社の歴史をAIに移植し、毎日の経営判断を支える「考える相手」をつくります。スマホで即相談できる、会社専用のAIパートナー。構築キット＋定着の伴走でお渡しします。</p>
+            <span class="jprice">2026年内 提供開始予定 ／ 先行案内はLINEで</span>
           </div>
         </div>
 
-        <!-- Step 5 -->
+        <!-- Step 4 -->
         <div class="jstep">
           <div class="jline">
             <div class="jdot jdot-paid">伴走</div>
           </div>
           <div class="jcontent">
-            <span class="jtag jtag-paid">Step 05 · バックエンド</span>
-            <div class="jname">現場離脱プログラム（伴走型）</div>
-            <p class="jdesc">AI実装×組織設計×情報整理の総合パッケージ。「社長がいなくても現場が回る会社」を、設計から施工（実装）まで伴走します。</p>
-            <span class="jprice">¥50〜100万 / 3〜6ヶ月</span>
+            <span class="jtag jtag-paid">Step 04 · 個別ご相談</span>
+            <div class="jname">DX伴走・受託（会社まるごとの仕組みづくり）</div>
+            <p class="jdesc">AI実装×情報整理×組織設計を、会社の状況に合わせて個別に。「社長がいなくても現場が回る会社」を、設計から実装まで伴走します。</p>
+            <span class="jprice">規模に応じてお見積り ／ まずはご相談から</span>
           </div>
         </div>
 
@@ -991,7 +983,7 @@
         </div>
         <p class="line-alt">
           まず診断から始めたい方は
-          <a href="https://healtharchi.com/diagnosis">こちら（現場離脱度診断・無料）</a>
+          <a href="/diagnosis-shacho">こちら（社長の現場離脱度診断・無料）</a>
         </p>
       </div>
     </div>
@@ -1031,7 +1023,7 @@
             <div class="cred"><div class="cred-dot"></div>一級建築士（国家資格）</div>
             <div class="cred"><div class="cred-dot"></div>設計監理・現場監督歴 17年</div>
             <div class="cred"><div class="cred-dot"></div>著書「社長が現場を降りる日」（Amazon販売中）</div>
-            <div class="cred"><div class="cred-dot"></div>建設業特化型AI経営支援・全国対応</div>
+            <div class="cred"><div class="cred-dot"></div>建設業特化型AI経営支援・全国オンライン対応（Zoom / Google Meet）</div>
           </div>
         </div>
       </div>
@@ -1079,7 +1071,7 @@
             <span style="width:16px;height:1px;background:var(--copper);display:inline-block;"></span>Laboratory ／ 実験室
           </div>
           <h3 style="font-family:'Noto Serif JP',serif;font-size:1.35rem;font-weight:700;color:var(--navy);margin-bottom:10px;line-height:1.5;">17年の現場経験から生まれた、<br>AIで動く無料ツールの実験室</h3>
-          <p style="font-size:0.87rem;color:var(--stone);line-height:1.9;">ガントチャート工程表・概算見積もり・書類テンプレートなど、<br>登録不要で。同業者の方にもぜひお教えください。</p>
+          <p style="font-size:0.87rem;color:var(--stone);line-height:1.9;">ガント工程表・概算見積もり・現場写真整理など、<br>登録不要ですぐ使える無料ツール。社員さんや同業の方にもどうぞ。</p>
         </div>
         <div style="flex-shrink:0;">
           <a href="/tools" style="display:inline-flex;align-items:center;gap:10px;background:var(--navy);color:var(--white);font-weight:700;font-size:0.9rem;padding:15px 30px;border-radius:4px;letter-spacing:0.05em;transition:background 0.2s;" onmouseover="this.style.background='var(--navy-mid)'" onmouseout="this.style.background='var(--navy)'">
@@ -1143,10 +1135,12 @@
         <div class="footer-logo">HEALTH <span>ARCHI</span></div>
         <div class="footer-tagline">AIは効率を、人は感動を。</div>
         <div class="footer-links">
+          <a href="/">みんなの入口</a>
           <a href="#problem">課題</a>
           <a href="#concept">コンセプト</a>
           <a href="#journey">サービス</a>
           <a href="#about">代表について</a>
+          <a href="/diagnosis-shacho">社長の現場離脱度診断</a>
           <a href="/tools">実験室</a>
           <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener">LINE登録</a>
           <a href="#contact">お問い合わせ</a>
