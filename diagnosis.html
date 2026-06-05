@@ -240,44 +240,91 @@ const PERSONAS = {
   }
 };
 
-// ═══ 立場別処方箋マトリクス v0.2 ═══
+// ── 回答→文章 ヘルパー（回答内容を結果に反映する）──
+function optText(pid, qi, oi){ try{ return PERSONAS[pid].questions[qi].options[oi]; }catch(e){ return ''; } }
+function optMulti(pid, qi, arr){ if(!Array.isArray(arr)) return ''; return arr.map(i=>optText(pid,qi,i)).filter(Boolean).join('・'); }
+function p6Personal(a){
+  const ai = a[3];
+  let aiLine = '';
+  if(typeof ai === 'number'){
+    if(ai>=8) aiLine = `IT・AIへの興味は10段階で<strong>${ai}</strong>。その感度は、これからの建設業で大きな武器になります。`;
+    else if(ai>=4) aiLine = `IT・AIへの興味は10段階で<strong>${ai}</strong>。今から少しずつ触れておけば十分間に合います。`;
+    else aiLine = `IT・AIへの興味は10段階で<strong>${ai}</strong>。苦手でも大丈夫、まずは「見るだけ」から始められます。`;
+  }
+  const ch = optMulti('P6',2,a[2]);
+  let body = aiLine || 'あなたの問題意識を起点に、次の一歩を整理しました。';
+  if(ch) body += `<br><br>あなたが「変えたい」と答えたのは<strong>${ch}</strong>。その問題意識を、今のうちに言葉と道具にしておくことが次のステップにつながります。`;
+  return { label:'🔍 あなたの回答から', title:'あなたの「変えたい」を起点に', body };
+}
+
+// ═══ 立場別処方箋マトリクス v0.3（回答反映＋無料ファースト）═══
 const PRESCRIPTIONS = {
   P1: {
+    personalize: function(a){
+      const q1 = optText('P1',0,a[0]) || 'さまざまな業務';
+      const memMap = ['ほぼあなた1人','あなたと古参社員数名','部門ごとに分散','システム・マニュアルに集約'];
+      const mem = (memMap[a[4]] != null) ? memMap[a[4]] : '一部の人';
+      const sizeMap = ['6〜10名','11〜15名','16〜30名','31名以上'];
+      const size = sizeMap[a[6]] || '';
+      let body = `あなたが今いちばん時間を取られているのは<strong>「${q1}」</strong>。そして「会社の記憶」を持っているのは<strong>${mem}</strong>の状態です。`;
+      if(a[4]===0) body += `<br><br>これは能力の問題ではありません。あなたが抜けた瞬間に会社が止まる——その一点が、いちばんの経営リスクです。`;
+      else body += `<br><br>記憶の分散は進んでいますが、最終判断はまだあなたに集中しているはずです。`;
+      if(a[2]===0||a[2]===1) body += ` 「本当は自分でなくてもいい業務」を日々感じているなら、それは"渡せる仕事"が見えているサインです。`;
+      if(size) body += `<br><br>従業員${size}の規模で、社長が現場判断を抱え続けるのはそろそろ限界に近づいています。`;
+      return { label:'🔍 あなたの回答から見えた現状', title:'「会社の記憶」と「あなたの時間」の使われ方', body };
+    },
     sections: [
-      { label: '🔍 問題の言語化', title: '「会社の記憶」があなた1人に集中しています',
-        body: 'あなたは現場・営業・経理・人材育成の4方面を、ほぼ1人で抱えています。1日24時間のうち、本来「経営判断」に使うべき時間が、段取り・見積・職人指示・書類確認で消えています。<br><br>これは能力の問題ではありません。<strong>「会社の記憶」を持っているのが、あなた1人だから</strong>です。あなたが抜けた瞬間、会社は止まります。'},
-      { label: '💡 ISHIZUEを使えばこうなる', title: '毎朝10分の対話で、「会社の記憶」が動き出す',
-        body: 'ISHIZUE構築キットは、HIDE本人が自社で毎日稼働させている「AI経営パートナー」を、あなたの会社専用にカスタマイズして納品します。<br><br>・<strong>ベーシック</strong>：質問→自動納品まで完結<br>・<strong>プレミアム</strong>：HIDE本人による30分Zoom仕上げ＋3ヶ月後の再診断＋業界別サンプル集＋<strong>HEALTH ARCHI Tools 初月無料</strong><br><br><strong>※ISHIZUEは2026年内 提供開始予定。料金・先行案内はLINEでご連絡します。</strong><br><br>3ヶ月後、あなたは<strong>「現場の判断を従業員に渡せている社長」</strong>になっています。'},
-      { label: '🛠 HEALTH ARCHI Tools（法人プラン 月¥9,800）でさらに磨く', title: '便利ツールが、会社まるごと使い放題',
-        body: 'ISHIZUE導入後、<span class="price-tag">法人プラン 月¥9,800</span>で会社まるごと（社長から従業員まで全員）使い放題に。<br>資金繰り・原価管理・書類テンプレ・顧客台帳ほか、毎日の業務で使う便利ツール群が定額で利用可能。月1回の勉強会・他社CLAUDE.md事例共有・コミュニティで運用を磨き続けられます。<br><strong>※サブスクは2026年内 開始予定。先行案内・初月無料の対象はLINEでご連絡します。</strong>'}
+      { label: '📕 まず無料でできる次の一歩', title: '書籍と「自社で動くAI」のイメージから',
+        body: 'いきなり何かを買う必要はありません。まずは<strong>書籍「社長が現場を降りる日」</strong>（Amazon販売中）で「現場を降りる」という考え方に触れてみてください。<br><br>さらにLINE登録で受け取れる<strong>あなた専用CLAUDE.mdサンプル（500字）</strong>を読むと、「自社で動くAI経営パートナー」のイメージが具体的に湧きます。ここまで全部無料です。'},
+      { label: '💡 次の段階：ISHIZUE（会社の記憶を持つAI）', title: '毎朝10分の対話で、「会社の記憶」が動き出す',
+        body: 'ISHIZUE構築キットは、HIDE本人が自社で毎日稼働させている「AI経営パートナー」を、あなたの会社専用にカスタマイズして納品するものです。<br><br>・<strong>ベーシック</strong>：質問→自動納品まで完結<br>・<strong>プレミアム</strong>：HIDE本人による30分Zoom仕上げ＋3ヶ月後の再診断＋業界別サンプル集<br><br>3ヶ月後には<strong>「現場の判断を従業員に渡せている社長」</strong>へ。<br><strong>※ISHIZUEは2026年内 提供開始予定。料金・先行案内はLINEでお知らせします（今は無料で読むだけでOK）。</strong>'},
+      { label: '🛠 将来さらに：会社まるごと使えるツール群', title: '日々の業務を支える便利ツールを定額で',
+        body: 'ISHIZUE導入後の選択肢として、<span class="price-tag">法人プラン 月¥9,800</span>で会社まるごと（社長から従業員まで）便利ツールが使い放題になる<strong>HEALTH ARCHI Tools</strong>もあります。資金繰り・原価管理・書類テンプレ・顧客台帳ほか。<br><strong>※こちらも2026年内 開始予定。今は「こんな道具が控えている」と知っておくだけで十分です。</strong>'}
     ],
     cta: { title: 'LINE登録で「あなた専用CLAUDE.mdサンプル（500字）」を受け取る',
-      sub: '買う前に、あなたの会社で動くISHIZUEのイメージが具体的に湧きます。',
+      sub: '営業電話は一切ありません。買う前に、自社で動くISHIZUEのイメージが具体的に湧きます。',
       secondary: ['ISHIZUE構築キットの詳細', 'HEALTH ARCHI Tools の無料デモ'] }
   },
   P2: {
+    personalize: function(a){
+      const need = optText('P2',2,a[2]) || '事務まわり';
+      const hoursMap = ['5時間以下','6〜15時間','16〜30時間','31時間以上（ほぼ毎日）'];
+      const hours = hoursMap[a[3]] || '';
+      const planMap = ['規模を広げて人を雇いたい','今のかたちを続けたい','別の事業も立ち上げたい','引退・縮小も視野','まだ決めていない'];
+      let body = `あなたが「もう1人いたら」と感じるのは、主に<strong>「${need}」</strong>の場面ですね。`;
+      if(hours) body += ` 書類仕事には毎月<strong>${hours}</strong>を使っています。`;
+      if(a[3]>=2) body += `<br><br>この時間は、本来なら現場や家族に回せる時間です。仕組みで取り戻せます。`;
+      if(a[4]===0) body += `<br><br>将来は人を雇って広げたい——その時に効く土台を、今から無理なく作れます。`;
+      return { label:'🔍 あなたの回答から見えた現状', title:'「現場で稼ぐ自分」と「事務で消耗する自分」', body };
+    },
     sections: [
-      { label: '🔍 問題の言語化', title: '「現場で稼ぐ自分」と「事務で消耗する自分」の板挟み',
-        body: 'あなたは現場と事務を1人で抱えています。見積・請求・確定申告・領収書整理——全部1人で。<br><br>「もう1人いたら」と思う瞬間が増えているなら、それは規模の問題ではなく、<strong>「使える道具」を知らないだけ</strong>かもしれません。'},
-      { label: '💡 HEALTH ARCHI Tools（個人プラン 月¥2,980）を使えばこうなる', title: '建設業特化の便利ツールが使い放題',
-        body: '建設業特化の便利ツールが<span class="price-tag">個人プラン 月¥2,980</span>で使い放題（おひとりで使う方向け）。会社として全員で使うなら<span class="price-tag">法人プラン 月¥9,800</span>。<br><br>・見積書・請求書・領収書テンプレ（建設業特化）<br>・資金繰りダッシュボード<br>・工事原価管理<br>・顧客台帳<br>・給与計算テンプレ（日給月給対応）<br>・ガントチャート・スマート見積【プロ版】<br><br><strong>月10〜20時間の事務作業が消えます</strong>。月1回の勉強会・コミュニティで仲間と情報交換も。<br><strong>※サブスクは2026年内 開始予定。先行案内はLINEで。</strong>'},
-      { label: '🆓 まずは無料の実験室から始める手も', title: '無料ツールで「これ便利」を体験',
-        body: '「いきなりサブスクは不安」という方は、まず<strong>完全無料</strong>の実験室から：<br>・ガントチャート工程表<br>・HEALTH ARCHI CAD v0.1<br>・スマート見積システム（3分概算版）<br><br>無料版で「これ便利」と感じたら、Toolsで全部使い放題に切り替えられます。'},
+      { label: '🆓 まずは無料の実験室から', title: '無料ツールで「これ便利」を今日体験',
+        body: 'お金をかけずに、今日から試せます。<br>・ガントチャート工程表<br>・HEALTH ARCHI CAD v0.1<br>・スマート見積システム（3分概算版）<br>・現場写真かんたん整理<br><br>すべて<strong>完全無料・登録不要</strong>。「これ便利」と感じるところから始めてください。'},
       { label: '📕 書籍「社長が現場を降りる日」', title: '未来のための「経営の基礎」',
-        body: '規模拡大して社員を雇う時に必要な「経営の基礎」を、建設業の現場に特化して書いた本（Amazon販売中）。今は1人でも、未来のための土台になります。'},
+        body: '規模を広げて社員を雇う時に必要な「経営の基礎」を、建設業の現場に特化して書いた本（Amazon販売中）。今は1人でも、未来の土台になります。'},
+      { label: '🛠 もっと効率化したくなったら', title: '建設業特化の便利ツールを定額で使い放題',
+        body: '無料ツールで物足りなくなったら、<span class="price-tag">個人プラン 月¥2,980</span>（おひとり用）でツール群が使い放題に。会社として全員で使うなら<span class="price-tag">法人プラン 月¥9,800</span>。<br>見積・請求・領収書テンプレ／資金繰り／工事原価管理／顧客台帳／給与計算／スマート見積【プロ版】など。<strong>月10〜20時間の事務が消えます。</strong><br><strong>※サブスクは2026年内 開始予定。先行案内はLINEで（急がなくて大丈夫です）。</strong>'},
       { label: '🚀 将来、規模が拡大したら…', title: '6名を超えたら、ISHIZUEへ',
-        body: '従業員6名を超えたタイミングで、<strong>ISHIZUE構築キット</strong>（2026年内 提供開始予定・料金はLINEで先行案内）への昇格をご検討ください。'}
+        body: '従業員6名を超えたタイミングで、<strong>ISHIZUE構築キット</strong>（2026年内 提供開始予定・料金はLINEで先行案内）への昇格もご検討ください。'}
     ],
     cta: { title: 'LINE登録で「新しい無料ツール」を月1回お届け',
       sub: '個人事業主向けの運営Tipsも一緒に。営業電話一切なし。',
       secondary: ['HEALTH ARCHI Tools の詳細', '実験室を見る', '書籍を見る'] }
   },
   P3: {
+    personalize: function(a){
+      const spec = optText('P3',0,a[0]) || 'あなたの専門';
+      const improve = optMulti('P3',2,a[2]);
+      const want = optMulti('P3',4,a[4]);
+      let body = `<strong>${spec}</strong>のあなたが現場で感じている改善ポイントは`;
+      body += improve ? `<strong>「${improve}」</strong>。` : `日々の段取りまわり。`;
+      if(want) body += ` そして「あったら欲しい」と答えた道具は<strong>「${want}」</strong>でした。`;
+      body += `<br><br>その「気づき」は、現場を良くする一番の資源です。眠らせておくのはもったいない。`;
+      return { label:'🔍 あなたの回答から見えた現状', title:'あなたの「気づき」は現場の資源です', body };
+    },
     sections: [
-      { label: '🔍 問題の言語化', title: '「改善のアイデア」が頭の中で眠っていませんか',
-        body: 'あなたは現場の最前線で、毎日「これ、もっと良くなるのに」と感じています。段取り、道具、職種間の連携、写真や日報の手間——改善のアイデアは頭の中にあるのに、親方や現場監督に伝える時間も、伝え方の型もない。<br><br>その「眠っているアイデア」、もったいないです。本当は、それを言語化して現場に届ければ、<strong>現場も自分も、もっと働きやすくなります</strong>。'},
       { label: '🆓 実験室の無料ツールを使えばこうなる', title: '現場で使える道具',
-        body: 'HEALTH ARCHIの実験室には、職人が<strong>今日から無料で使えるツール</strong>があります。<br>・ガントチャート工程表：自分の段取りを見える化<br>・HEALTH ARCHI CAD：図面の疑問点を自分で書き出して質問できる<br>・スマート見積：「見積もりの組み立て方」を理解できる<br><br>毎日の段取りが少しずつ整理されます。'},
+        body: 'HEALTH ARCHIの実験室には、職人が<strong>今日から無料で使えるツール</strong>があります。<br>・ガントチャート工程表：自分の段取りを見える化<br>・HEALTH ARCHI CAD：図面の疑問点を自分で書き出して質問できる<br>・スマート見積：「見積もりの組み立て方」を理解できる<br>・現場写真かんたん整理：撮るだけで自動仕分け<br><br>毎日の段取りが少しずつ整理されます。'},
       { label: '🛠 改善提案書ジェネレーター（2026年7月公開予定）', title: 'あなたの「こうしたら良いのに」が5分で形に',
         body: 'あなたの「こうしたら良いのに」を、5分で親方・現場監督に渡せる提案書に変換します。<strong>職人の声が、初めて現場改善に届く仕組みです</strong>。'},
       { label: '📝 note従業員視点記事', title: '同じ悩みを持つ仲間がいる',
@@ -290,11 +337,21 @@ const PRESCRIPTIONS = {
       secondary: ['実験室を見る', 'note従業員視点記事を読む'] }
   },
   P4: {
+    personalize: function(a){
+      const pjMap = ['1件専属','2〜3件','4〜6件','7件以上（パンク気味）'];
+      const pj = pjMap[a[1]] || '複数の現場';
+      const auto = optMulti('P4',2,a[2]);
+      let body = `あなたは今<strong>${pj}</strong>を並走管理しています。`;
+      if(auto) body += ` 「自動化したい」と答えたのは<strong>「${auto}」</strong>。`;
+      body += `<br><br>管理する物事が増える一方で、時間は1日24時間のまま。これは個人の問題ではなく、<strong>「統合ダッシュボード」を誰も用意してくれていない</strong>だけです。`;
+      if(a[1]>=2) body += ` 現場が増えるほど、この"手作業の管理"が首を絞めます。`;
+      return { label:'🔍 あなたの回答から見えた現状', title:'管理する物事が増える一方、時間は24時間のまま', body };
+    },
     sections: [
-      { label: '🔍 問題の言語化', title: '管理する物事が増える一方、時間は24時間のまま',
-        body: 'あなたは複数のプロジェクトを並走管理しています。図面の修正・工程表の更新・安全書類・写真台帳・原価計算・職人との調整・施主への報告——<strong>管理する「物事」が指数関数的に増えていく一方で、自分の時間は1日24時間のまま</strong>です。<br><br>これは個人の問題ではありません。<strong>管理業務に必要な「統合ダッシュボード」を、誰も用意してくれていない</strong>だけです。'},
-      { label: '💡 HEALTH ARCHI Tools（法人プラン 月¥9,800）を使えばこうなる', title: '管理業務が月20〜40時間削減',
-        body: '現場管理者・設計者のための便利ツールが<span class="price-tag">法人プラン 月¥9,800</span>で会社まるごと使い放題。<br>・工程管理ダッシュボード：全現場の進捗を一画面で<br>・原価管理ツール：各現場の予実をリアルタイムで把握<br>・図面・写真台帳：版管理・共有・検索が高速化<br>・安全書類テンプレ：産廃マニフェスト・安全衛生関連を半自動生成<br>・スマート見積【プロ版】<br><br><strong>月20〜40時間の管理業務が削減</strong>できます。月1回の勉強会で他社の現場管理ノウハウを学べます。<br><strong>※サブスクは2026年内 開始予定。先行案内・社長提案用資料はLINEで。</strong>'},
+      { label: '🆓 まずは無料の実験室で「見える化」を体感', title: '今日から無料で試せる管理ツール',
+        body: 'お金をかけずに、管理の「見える化」を体感できます。<br>・ガントチャート工程表：工程の遅延を一目で<br>・現場写真かんたん整理：写真台帳の手間をゼロに<br>・スマート見積／HEALTH ARCHI CAD<br><br>すべて<strong>完全無料</strong>。まずここから。'},
+      { label: '🛠 本格的に管理を統合するなら', title: '管理業務が月20〜40時間削減',
+        body: '現場管理者・設計者向けの便利ツールが<span class="price-tag">法人プラン 月¥9,800</span>で会社まるごと使い放題。<br>・工程管理ダッシュボード：全現場の進捗を一画面で<br>・原価管理：各現場の予実をリアルタイムで<br>・図面・写真台帳：版管理・共有・検索<br>・安全書類テンプレ：産廃マニフェスト等を半自動<br>・スマート見積【プロ版】<br><br><strong>月20〜40時間の管理業務が削減</strong>。<br><strong>※サブスクは2026年内 開始予定。先行案内・社長提案用資料はLINEで。</strong>'},
       { label: '💼 社長への提案資料としても', title: '「これ、うちで導入したい」を実現',
         body: '社長に提案する時、<strong>HEALTH ARCHI Tools の資料一式</strong>をLINE登録でお渡しします（プレゼン用PDF）。あなたから社長への提案が通れば、現場全体の効率化が一気に進みます。'},
       { label: '📝 note管理者向け記事', title: '業界全体の動きと自社の位置',
@@ -305,10 +362,21 @@ const PRESCRIPTIONS = {
       secondary: ['HEALTH ARCHI Tools の詳細', '社長提案用資料を受け取る'] }
   },
   P5: {
+    personalize: function(a){
+      const hoursMap = ['20時間以下','21〜40時間','41〜60時間','61時間以上（ほぼ専従）'];
+      const hours = hoursMap[a[0]] || 'まとまった時間';
+      const auto = optMulti('P5',2,a[2]);
+      const tmpl = optText('P5',4,a[4]) || '';
+      let body = `月次の経理・帳簿・請求などに<strong>${hours}</strong>を使っています。`;
+      if(auto) body += ` 「自動化できるのに」と感じているのは<strong>「${auto}」</strong>。`;
+      if(tmpl) body += `<br><br>特に試したいと答えた<strong>「${tmpl}」</strong>は、HEALTH ARCHIのツールでそのまま用意できます。`;
+      body += `<br><br>システム導入の決済権はなくても、<strong>今ある道具を変えるだけで業務時間は半分になります。</strong>`;
+      return { label:'🔍 あなたの回答から見えた現状', title:'「自動化できる」のに、決済権がない', body };
+    },
     sections: [
-      { label: '🔍 問題の言語化', title: '「自動化できる」のに、決済権がない',
-        body: 'あなたは紙とExcelの間で、月次の処理に追われています。請求書発行、領収書整理、給与計算、売掛・買掛、資金繰り——「これ、自動化できるはずなのに」と気づいていても、システム導入の決済権はあなたにはありません。<br><br>でも、<strong>今ある道具を変えるだけで、業務時間は半分になります</strong>。'},
-      { label: '💡 HEALTH ARCHI Tools（法人プラン 月¥9,800）を使えばこうなる', title: '建設業特化のバックオフィスツールが会社まるごと使い放題',
+      { label: '🆓 まずは無料で試せるテンプレ・ツール', title: '決済権がなくても、今日から使える',
+        body: '会社の許可を待たずに、自分の手元で今日から試せます。<br>・スマート見積システム（無料）<br>・現場写真かんたん整理（無料）<br>・ガントチャート工程表（無料）<br><br>「これ便利」を自分で体感してから、社長に提案できます。'},
+      { label: '🛠 バックオフィス全体を半減するなら', title: '建設業特化のバックオフィスツールが会社まるごと使い放題',
         body: '建設業特化のバックオフィスツールが<span class="price-tag">法人プラン 月¥9,800</span>で会社まるごと使い放題。<br>・書類テンプレ7種：見積・請求・領収書・工事原価管理表ほか<br>・資金繰りダッシュボード：売掛・買掛・現金残高を1画面で<br>・給与計算テンプレ：建設業の日給月給対応<br>・顧客台帳：取引履歴と請求が連動<br><br>会社のフォーマットに合わせて改造可能。<strong>月次業務を半減</strong>できます。<br><strong>※サブスクは2026年内 開始予定。先行案内・社長提案用資料はLINEで。</strong>'},
       { label: '💼 社長への提案として', title: '「これ、うちで使いたい」を実現',
         body: '<strong>HEALTH ARCHI Tools の資料一式</strong>をLINE登録でお渡しします（プレゼン用PDF）。バックオフィスの効率化は、経営者にとって最も提案が通りやすい改善です。'},
@@ -356,10 +424,12 @@ const PRESCRIPTIONS = {
       sections: [
         { label: '🔍 問題の言語化', title: '社長と現場の間で、両方の課題を見ている',
           body: 'あなたは社長と現場の間で、両方の課題を見ています。「ここを変えれば会社が変わる」と思う場所がいくつもあるけれど、自分一人では決めきれない。提案するにも、根拠と道具がない。<br><br><strong>幹部候補に必要なのは「会社全体を見渡す道具」</strong>です。'},
-        { label: '💡 HEALTH ARCHI Tools（法人プラン 月¥9,800・2026年内 開始予定）', title: '会社全体を見渡せる道具',
-          body: '会社全体を見渡せるダッシュボードと管理ツールが揃っています。「これを使えば、社長への提案に説得力が出る」というレベルの道具です。先行案内はLINEで。'},
+        { label: '🆓 まずは無料の実験室から', title: '提案の"根拠"になる道具を無料で',
+          body: 'まずは実験室の無料ツール（ガント・スマート見積・現場写真整理・CAD）に触れておくと、「これを全社で使えば」という提案の手触りが掴めます。すべて無料・登録不要。'},
         { label: '📝 note管理者向け記事', title: '次のステップに進むためのヒント',
-          body: '組織運営・幹部育成の記事を読めば、自分が次のステップに進むためのヒントが得られます。'}
+          body: '組織運営・幹部育成の記事を読めば、自分が次のステップに進むためのヒントが得られます。'},
+        { label: '🛠 会社全体を見渡す道具（将来）', title: 'HEALTH ARCHI Tools で提案に説得力を',
+          body: '会社全体を見渡せるダッシュボードと管理ツールが揃う<strong>HEALTH ARCHI Tools</strong>（<span class="price-tag">法人プラン 月¥9,800</span>・2026年内 開始予定）。「これを使えば社長への提案に説得力が出る」レベルの道具です。先行案内はLINEで。'}
       ],
       cta: { title: 'LINE登録で「幹部候補向けコンテンツ」を月1回',
         sub: '組織運営・幹部育成のヒントを定期配信。',
@@ -512,6 +582,22 @@ function showResult() {
 
   const content = document.getElementById('result-content');
   content.innerHTML = '';
+
+  // 回答を反映した「あなたの回答から見えた現状」を先頭に表示
+  let personalFn = prescription.personalize;
+  if (!personalFn && state.persona === 'P6') personalFn = p6Personal;
+  if (typeof personalFn === 'function') {
+    try {
+      const ps = personalFn(state.answers);
+      if (ps && ps.body) {
+        const pdiv = document.createElement('div');
+        pdiv.className = 'result-section';
+        pdiv.innerHTML = `<span class="result-section-label">${ps.label}</span><h3>${ps.title}</h3><p>${ps.body}</p>`;
+        content.appendChild(pdiv);
+      }
+    } catch(e) {}
+  }
+
   prescription.sections.forEach(sec => {
     const div = document.createElement('div');
     div.className = 'result-section';
