@@ -100,6 +100,11 @@
   .scale-btn:hover { border-color: var(--copper); background: var(--copper-bg); }
   .scale-btn.selected { border-color: var(--copper); background: var(--copper); color: white; }
   .scale-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-sub); padding: 0 4px; }
+  .tool-btn-row { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+  .tool-btn { display: flex; align-items: center; justify-content: center; min-height: 48px; padding: 12px 18px; border-radius: 10px; font-size: 15px; font-weight: 700; text-decoration: none; text-align: center; border: 2px solid var(--copper-light); color: var(--copper-dark); background: var(--white); transition: all 0.2s ease; }
+  .tool-btn:hover { background: var(--copper-bg); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(184,115,51,0.15); }
+  .tool-btn-primary { background: linear-gradient(135deg, var(--copper) 0%, var(--copper-dark) 100%); color: var(--white); border-color: var(--copper-dark); box-shadow: 0 4px 12px rgba(184,115,51,0.3); }
+  .tool-btn-primary:hover { color: var(--white); box-shadow: 0 6px 18px rgba(184,115,51,0.4); }
 </style>
 </head>
 <body>
@@ -155,7 +160,7 @@
       <p style="color:var(--text-sub); font-size:13px;">建設業に携わる<span id="result-persona-name">工務店社長</span>のあなたへ</p>
       <div id="result-content"></div>
       <div class="cta-box">
-        <h4 id="cta-title">LINE登録で「あなた専用のフル版レポート」を受け取る</h4>
+        <h4 id="cta-title">LINE登録で「建設業で役立つAI情報」を無料でお届け</h4>
         <p id="cta-sub">営業電話一切なし。</p>
         <a class="line-btn" href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" onclick="if(typeof gtag==='function'){gtag('event','line_click');}">📱 LINEで受け取る（無料・30秒）</a>
         <div id="cta-secondary"></div>
@@ -188,7 +193,7 @@ const PERSONAS = {
       { num: 'Q3', text: '「もう1人いたら助かるのに」と感じるのはどんな時？', options: ['見積もり・請求書作成の時', '現場と現場の移動・段取りの時', '確定申告・経理処理の時', '顧客対応・電話応対の時', '営業・新規開拓の時'] },
       { num: 'Q4', text: '書類作成（見積・請求・領収書）に1ヶ月で何時間使っていますか？', options: ['5時間以下', '6〜15時間', '16〜30時間', '31時間以上（ほぼ毎日）'] },
       { num: 'Q5', text: '今後5年の事業展開で考えているのは？', options: ['規模拡大して従業員を雇いたい', '今のまま継続したい', '別の事業も並行で立ち上げたい', '将来は引退・縮小を考えている', 'まだ決めていない'] },
-      { num: 'Q6', text: '「個人事業主向けの無料ツール」を月1回LINEで受け取りますか？', options: ['希望する', '後で考える'] },
+      { num: 'Q6', text: '「建設業で役立つAI情報」をLINEで受け取りますか？', options: ['希望する', '後で考える'] },
     ]
   },
   P3: {
@@ -199,7 +204,7 @@ const PERSONAS = {
       { num: 'Q3', text: '現場で「これ、もう少し良くなるのに」と感じる場面は？', hint: '複数選択可', multi: true, options: ['道具・材料の段取り', '他の職種との連携・順番', '図面の指示が曖昧', '写真撮影・日報の手間', '親方・現場監督との連絡', '安全管理の手間', '特にない'] },
       { num: 'Q4', text: '親方や現場監督に「改善提案」をしたことは？', options: ['頻繁にしている', '数回したが採用されなかった', 'したいけど伝え方がわからない', '立場上、提案はしにくい', '興味がない'] },
       { num: 'Q5', text: 'もし「現場で使えるスマホアプリ」があったら、何が欲しい？', hint: '複数選択可', multi: true, options: ['図面・写真の閲覧・共有', '工程・段取りの確認', '日報の音声入力', '材料発注・在庫確認', '簡単な見積もり計算', '特に欲しいものはない'] },
-      { num: 'Q6', text: '「現場で使えるツール情報」を毎週LINEで受け取りますか？', options: ['希望する', '後で考える'] },
+      { num: 'Q6', text: '「建設業で役立つAI情報」をLINEで受け取りますか？', options: ['希望する', '後で考える'] },
     ]
   },
   P4: {
@@ -211,7 +216,7 @@ const PERSONAS = {
       { num: 'Q4', text: '職人・下請け・施主・社長との連絡で、一番時間を取られるのは？', options: ['職人への指示・段取り', '下請けとの調整', '施主への報告・確認', '社長への報告', '役所・検査機関対応'] },
       { num: 'Q5', text: '上司・社長に「業務改善の提案」をしたことは？', options: ['提案して採用された', '提案したが採用されなかった', 'したいけど機会・伝え方がわからない', '立場上、提案しにくい', '現状のままで満足'] },
       { num: 'Q6', text: 'もし「業務統合ダッシュボード」があったら、何を一目で見たい？', hint: '複数選択可', multi: true, options: ['全現場の進捗・遅延状況', '各現場の原価・利益率', '職人・下請けの稼働状況', '図面・書類の最新版', '顧客・施主とのやり取り履歴', '安全・品質チェック状況'] },
-      { num: 'Q7', text: '「現場管理者向けツール情報」を毎週LINEで受け取りますか？', options: ['希望する', '後で考える'] },
+      { num: 'Q7', text: '「建設業で役立つAI情報」をLINEで受け取りますか？', options: ['希望する', '後で考える'] },
     ]
   },
   P5: {
@@ -222,7 +227,7 @@ const PERSONAS = {
       { num: 'Q3', text: '「これ、自動化できるのに」と思う作業は？', hint: '複数選択可', multi: true, options: ['請求書発行', '領収書の整理', '給与計算', '売掛・買掛管理', '銀行口座の入出金確認', '工事原価管理'] },
       { num: 'Q4', text: '会社の業務改善を提案したことは？', options: ['提案して採用された', '提案したが採用されなかった', 'したいけど機会がない', '立場上、しにくい'] },
       { num: 'Q5', text: 'もし「自分の業務を半減させるテンプレ集」があったら、まず何を試したい？', options: ['見積書テンプレ', '請求書テンプレ', '工事原価管理表', '資金繰り表', '給与計算テンプレ', '工程表'] },
-      { num: 'Q6', text: '「事務作業ハック記事」をLINEで受け取りますか？', options: ['希望する', '後で考える'] },
+      { num: 'Q6', text: '「建設業で役立つAI情報」をLINEで受け取りますか？', options: ['希望する', '後で考える'] },
     ]
   },
   P6: {
@@ -235,7 +240,7 @@ const PERSONAS = {
       { num: 'Q3', text: '「自分が経営権を持ったら／責任ある立場になったら変えたい」ことは？', hint: '複数選択可', multi: true, options: ['古い慣習・紙文化', '評価・給与体系', '営業スタイル', '職人の働き方', '事業領域（新規事業）', '特にない'] },
       { num: 'Q4', text: 'IT・AIへの興味度', hint: '10段階で評価', scale: 10 },
       { num: 'Q5', text: '5年後の自分の姿として描いているのは？', options: ['自分が代表または会社の中核になっている', '番頭・No.2として実務を回している', '別の道に進んでいるかも', 'まだ描けていない'] },
-      { num: 'Q6', text: '「立場別・キャリア向け限定コンテンツ」を月1回LINEで受け取りますか？', options: ['希望する', '後で考える'] },
+      { num: 'Q6', text: '「建設業で役立つAI情報」をLINEで受け取りますか？', options: ['希望する', '後で考える'] },
     ]
   }
 };
@@ -274,16 +279,16 @@ const PRESCRIPTIONS = {
       return { label:'🔍 あなたの回答から見えた現状', title:'「会社の記憶」と「あなたの時間」の使われ方', body };
     },
     sections: [
-      { label: '📕 まず無料でできる次の一歩', title: '書籍と「自社で動くAI」のイメージから',
-        body: 'いきなり何かを買う必要はありません。まずは<strong>書籍「社長が現場を降りる日」</strong>（Amazon販売中）で「現場を降りる」という考え方に触れてみてください。<br><br>さらにLINE登録で受け取れる<strong>あなた専用CLAUDE.mdサンプル（500字）</strong>を読むと、「自社で動くAI経営パートナー」のイメージが具体的に湧きます。ここまで全部無料です。'},
-      { label: '💡 次の段階：ISHIZUE（会社の記憶を持つAI）', title: '毎朝10分の対話で、「会社の記憶」が動き出す',
-        body: 'ISHIZUE構築キットは、HIDE本人が自社で毎日稼働させている「AI経営パートナー」を、あなたの会社専用にカスタマイズして納品するものです。<br><br>・<strong>ベーシック</strong>：質問→自動納品まで完結<br>・<strong>プレミアム</strong>：HIDE本人による30分Zoom仕上げ＋3ヶ月後の再診断＋業界別サンプル集<br><br>3ヶ月後には<strong>「現場の判断を従業員に渡せている社長」</strong>へ。<br><strong>※ISHIZUEは2026年内 提供開始予定。料金・先行案内はLINEでお知らせします（今は無料で読むだけでOK）。</strong>'},
-      { label: '🛠 将来さらに：会社まるごと使えるツール群', title: '日々の業務を支える便利ツールを定額で',
-        body: 'ISHIZUE導入後の選択肢として、<span class="price-tag">法人プラン 月¥9,800</span>で会社まるごと（社長から従業員まで）便利ツールが使い放題になる<strong>HEALTH ARCHI Tools</strong>もあります。資金繰り・原価管理・書類テンプレ・顧客台帳ほか。<br><strong>※こちらも2026年内 開始予定。今は「こんな道具が控えている」と知っておくだけで十分です。</strong>'}
+      { label: '📕 まず無料でできる次の一歩', title: '「現場を降りる」という考え方に触れる',
+        body: 'いきなり何かを買う必要はありません。まずは<strong>書籍「社長が現場を降りる日」</strong>（Amazon販売中）で「現場を降りる」という考え方に触れてみてください。<br><br>「会社の記憶を持ったAIに、日々の判断を預ける」とはどういうことか——そのイメージを掴むところから始められます。'},
+      { label: '💡 次の段階：ISHIZUE（会社の記憶を持つAI）※準備中', title: '毎朝の対話で、「会社の記憶」が動き出す',
+        body: 'ISHIZUEは、HIDE本人が自社で毎日稼働させている「AI経営パートナー」を、あなたの会社専用に仕立てる構想です。毎朝10分の対話で、過去の判断との矛盾チェックや、似た案件の振り返りを手伝う——そんな相棒を目指しています。<br><br><strong>※ISHIZUEは現在準備中（2026年内 提供開始予定）です。</strong>くわしい内容や先行案内は、LINEで順次お知らせします。'},
+      { label: '🛠 さらに将来：会社で使える便利ツール群 ※準備中', title: '日々の業務を、現場から事務まで',
+        body: 'ISHIZUEと並んで、現場から事務まで会社で使える便利ツール群<strong>「HEALTH ARCHI Tools」</strong>も準備しています（資金繰り・原価管理・書類テンプレ・顧客台帳ほか）。<br><strong>※こちらも準備中（2026年内 開始予定）。今は「こんな道具が控えている」と知っておくだけで十分です。</strong>'}
     ],
-    cta: { title: 'LINE登録で「あなた専用CLAUDE.mdサンプル（500字）」を受け取る',
-      sub: '営業電話は一切ありません。買う前に、自社で動くISHIZUEのイメージが具体的に湧きます。',
-      secondary: ['ISHIZUE構築キットの詳細', 'HEALTH ARCHI Tools の無料デモ'] }
+    cta: { title: 'LINE登録で「建設業で役立つAI情報」を無料でお届け',
+      sub: '営業電話は一切ありません。',
+      secondary: ['書籍を見る', 'noteを読む'] }
   },
   P2: {
     personalize: function(a){
@@ -298,18 +303,21 @@ const PRESCRIPTIONS = {
       return { label:'🔍 あなたの回答から見えた現状', title:'「現場で稼ぐ自分」と「事務で消耗する自分」', body };
     },
     sections: [
-      { label: '🆓 まずは無料の実験室から', title: '無料ツールで「これ便利」を今日体験',
-        body: 'お金をかけずに、今日から試せます。<br>・ガントチャート工程表<br>・HEALTH ARCHI CAD v0.1<br>・スマート見積システム（3分概算版）<br>・現場写真かんたん整理<br><br>すべて<strong>完全無料・登録不要</strong>。「これ便利」と感じるところから始めてください。'},
+      { label: '🛠 もっと効率化したくなったら（準備中）', title: '建設業特化の便利ツールを、いずれ定額で',
+        body: '無料ツールで物足りなくなったら、見積・請求・領収書テンプレ／資金繰り／工事原価管理／顧客台帳などをまとめた<strong>「HEALTH ARCHI Tools」</strong>も準備しています。月10〜20時間の事務を、仕組みで減らすのが狙いです。<br><strong>※現在準備中（2026年内 開始予定）。料金・先行案内はLINEで（急がなくて大丈夫です）。</strong>'},
       { label: '📕 書籍「社長が現場を降りる日」', title: '未来のための「経営の基礎」',
         body: '規模を広げて社員を雇う時に必要な「経営の基礎」を、建設業の現場に特化して書いた本（Amazon販売中）。今は1人でも、未来の土台になります。'},
-      { label: '🛠 もっと効率化したくなったら', title: '建設業特化の便利ツールを定額で使い放題',
-        body: '無料ツールで物足りなくなったら、<span class="price-tag">個人プラン 月¥2,980</span>（おひとり用）でツール群が使い放題に。会社として全員で使うなら<span class="price-tag">法人プラン 月¥9,800</span>。<br>見積・請求・領収書テンプレ／資金繰り／工事原価管理／顧客台帳／給与計算／スマート見積【プロ版】など。<strong>月10〜20時間の事務が消えます。</strong><br><strong>※サブスクは2026年内 開始予定。先行案内はLINEで（急がなくて大丈夫です）。</strong>'},
-      { label: '🚀 将来、規模が拡大したら…', title: '6名を超えたら、ISHIZUEへ',
-        body: '従業員6名を超えたタイミングで、<strong>ISHIZUE構築キット</strong>（2026年内 提供開始予定・料金はLINEで先行案内）への昇格もご検討ください。'}
+      { label: '🚀 将来、規模が拡大したら…（準備中）', title: '6名を超えたら、ISHIZUEへ',
+        body: '従業員6名を超えるころには、社長専用の「会社の記憶を持つAI」<strong>ISHIZUE</strong>という選択肢も。<strong>※準備中（2026年内 提供開始予定）。先行案内はLINEで。</strong>'}
     ],
-    cta: { title: 'LINE登録で「新しい無料ツール」を月1回お届け',
-      sub: '個人事業主向けの運営Tipsも一緒に。営業電話一切なし。',
-      secondary: ['HEALTH ARCHI Tools の詳細', '実験室を見る', '書籍を見る'] }
+    toolsIntro: 'あなたが「もう1人いたら」と感じる事務まわりは、今日から無料の道具で軽くできます。まずは見積づくりと写真整理から。',
+    tools: [
+      { label: '見積を作ってみる', href: 'https://healtharchi.github.io/smart-quote-general/' },
+      { label: '現場写真を整理する', href: 'https://healtharchi.github.io/genba-photo/' }
+    ],
+    cta: { title: 'LINE登録で「建設業で役立つAI情報」を無料でお届け',
+      sub: '営業電話は一切ありません。',
+      secondary: ['実験室を見る', '書籍を見る'] }
   },
   P3: {
     personalize: function(a){
@@ -323,17 +331,20 @@ const PRESCRIPTIONS = {
       return { label:'🔍 あなたの回答から見えた現状', title:'あなたの「気づき」は現場の資源です', body };
     },
     sections: [
-      { label: '🆓 実験室の無料ツールを使えばこうなる', title: '現場で使える道具',
-        body: 'HEALTH ARCHIの実験室には、職人が<strong>今日から無料で使えるツール</strong>があります。<br>・ガントチャート工程表：自分の段取りを見える化<br>・HEALTH ARCHI CAD：図面の疑問点を自分で書き出して質問できる<br>・スマート見積：「見積もりの組み立て方」を理解できる<br>・現場写真かんたん整理：撮るだけで自動仕分け<br><br>毎日の段取りが少しずつ整理されます。'},
-      { label: '🛠 改善提案書ジェネレーター（2026年7月公開予定）', title: 'あなたの「こうしたら良いのに」が5分で形に',
-        body: 'あなたの「こうしたら良いのに」を、5分で親方・現場監督に渡せる提案書に変換します。<strong>職人の声が、初めて現場改善に届く仕組みです</strong>。'},
+      { label: '🛠 改善提案書ジェネレーター（準備中）', title: 'あなたの「こうしたら良いのに」を、形に',
+        body: '現場の「こうしたら良いのに」を、親方・現場監督に渡せる提案書に変換する道具を準備しています。<strong>職人の声が、現場改善に届く仕組み</strong>です。<br><strong>※現在準備中。公開時はLINEで優先案内します。</strong>'},
       { label: '📝 note従業員視点記事', title: '同じ悩みを持つ仲間がいる',
         body: 'HEALTH ARCHIのnote連載には、「現場で働く人の視点」で書かれた記事があります。読み続けるうちに、自分の言葉で改善を語れるようになります。'},
-      { label: '🛠 もし会社全体で取り組むなら…', title: 'HEALTH ARCHI Tools を社長に提案する手も',
-        body: '会社全体（社長・現場監督・職人みんな）で使うなら、<strong>HEALTH ARCHI Tools（<span class="price-tag">法人プラン 月¥9,800</span>で会社まるごと使い放題・2026年内 開始予定）</strong>を社長に提案する手も。LINE登録で先行案内をお送りします。'}
+      { label: '🛠 会社全体で取り組むなら（準備中）', title: 'HEALTH ARCHI Tools を社長に提案する手も',
+        body: '会社全体（社長・現場監督・職人みんな）で使える便利ツール群<strong>「HEALTH ARCHI Tools」</strong>も準備しています。社長に提案する手も。<strong>※準備中（2026年内 開始予定）。先行案内はLINEで。</strong>'}
     ],
-    cta: { title: 'LINE登録で「現場効率化のヒント」を毎週',
-      sub: '「改善提案書ジェネレーター」の公開も、LINE登録者に優先案内します。',
+    toolsIntro: 'あなたの「気づき」を眠らせないために。現場で今日から無料で使える道具から始めましょう。写真整理は、撮るだけで自動で仕分けされます。',
+    tools: [
+      { label: '現場写真を整理する', href: 'https://healtharchi.github.io/genba-photo/' },
+      { label: '無料ツールを全部見る', href: '/tools' }
+    ],
+    cta: { title: 'LINE登録で「建設業で役立つAI情報」を無料でお届け',
+      sub: '営業電話は一切ありません。',
       secondary: ['実験室を見る', 'note従業員視点記事を読む'] }
   },
   P4: {
@@ -348,18 +359,21 @@ const PRESCRIPTIONS = {
       return { label:'🔍 あなたの回答から見えた現状', title:'管理する物事が増える一方、時間は24時間のまま', body };
     },
     sections: [
-      { label: '🆓 まずは無料の実験室で「見える化」を体感', title: '今日から無料で試せる管理ツール',
-        body: 'お金をかけずに、管理の「見える化」を体感できます。<br>・ガントチャート工程表：工程の遅延を一目で<br>・現場写真かんたん整理：写真台帳の手間をゼロに<br>・スマート見積／HEALTH ARCHI CAD<br><br>すべて<strong>完全無料</strong>。まずここから。'},
-      { label: '🛠 本格的に管理を統合するなら', title: '管理業務が月20〜40時間削減',
-        body: '現場管理者・設計者向けの便利ツールが<span class="price-tag">法人プラン 月¥9,800</span>で会社まるごと使い放題。<br>・工程管理ダッシュボード：全現場の進捗を一画面で<br>・原価管理：各現場の予実をリアルタイムで<br>・図面・写真台帳：版管理・共有・検索<br>・安全書類テンプレ：産廃マニフェスト等を半自動<br>・スマート見積【プロ版】<br><br><strong>月20〜40時間の管理業務が削減</strong>。<br><strong>※サブスクは2026年内 開始予定。先行案内・社長提案用資料はLINEで。</strong>'},
-      { label: '💼 社長への提案資料としても', title: '「これ、うちで導入したい」を実現',
-        body: '社長に提案する時、<strong>HEALTH ARCHI Tools の資料一式</strong>をLINE登録でお渡しします（プレゼン用PDF）。あなたから社長への提案が通れば、現場全体の効率化が一気に進みます。'},
-      { label: '📝 note管理者向け記事', title: '業界全体の動きと自社の位置',
+      { label: '🛠 本格的に管理を統合するなら（準備中）', title: '全現場を一画面で——統合ダッシュボード構想',
+        body: 'いま手作業で散らばっている管理を、一画面に統合する<strong>「HEALTH ARCHI Tools」</strong>を準備しています。<br>・工程管理ダッシュボード：全現場の進捗・遅延を一画面で<br>・原価管理：各現場の予実をリアルタイムで<br>・図面・写真台帳：版管理・共有・検索<br>・安全書類テンプレ：産廃マニフェスト等を半自動<br><br>狙いは「月20〜40時間の管理業務の削減」。<strong>※現在準備中（2026年内 開始予定）。先行案内はLINEで。</strong>'},
+      { label: '📝 note管理者向け記事', title: '業界全体の動きと、自社の位置',
         body: 'HEALTH ARCHIのnote連載には、現場管理者・設計者の業務改善ヒントが書かれた記事があります。'}
     ],
-    cta: { title: 'LINE登録で「現場管理者向けツール情報」を毎週',
-      sub: '社長提案用資料も無料でお届け。営業電話一切なし。',
-      secondary: ['HEALTH ARCHI Tools の詳細', '社長提案用資料を受け取る'] }
+    toolsIntro: '「統合ダッシュボード」そのものはまだ準備中ですが、その入口になる&quot;見える化&quot;は、今日から無料で試せます。工程はガント、写真は自動整理、図面はCAD、木造の概算は図面AI積算つきの見積で。',
+    tools: [
+      { label: '工程表を作ってみる', href: 'https://healtharchi.github.io/gantt-chart/' },
+      { label: '現場写真を整理する', href: 'https://healtharchi.github.io/genba-photo/' },
+      { label: '図面を描いてみる', href: 'https://healtharchi.github.io/healtharchi-cad/' },
+      { label: '木造の見積を試す（図面AI積算つき）', href: 'https://healtharchi.github.io/smart-quote/' }
+    ],
+    cta: { title: 'LINE登録で「建設業で役立つAI情報」を無料でお届け',
+      sub: '営業電話は一切ありません。',
+      secondary: ['実験室を見る', 'noteを読む'] }
   },
   P5: {
     personalize: function(a){
@@ -374,18 +388,20 @@ const PRESCRIPTIONS = {
       return { label:'🔍 あなたの回答から見えた現状', title:'「自動化できる」のに、決済権がない', body };
     },
     sections: [
-      { label: '🆓 まずは無料で試せるテンプレ・ツール', title: '決済権がなくても、今日から使える',
-        body: '会社の許可を待たずに、自分の手元で今日から試せます。<br>・スマート見積システム（無料）<br>・現場写真かんたん整理（無料）<br>・ガントチャート工程表（無料）<br><br>「これ便利」を自分で体感してから、社長に提案できます。'},
-      { label: '🛠 バックオフィス全体を半減するなら', title: '建設業特化のバックオフィスツールが会社まるごと使い放題',
-        body: '建設業特化のバックオフィスツールが<span class="price-tag">法人プラン 月¥9,800</span>で会社まるごと使い放題。<br>・書類テンプレ7種：見積・請求・領収書・工事原価管理表ほか<br>・資金繰りダッシュボード：売掛・買掛・現金残高を1画面で<br>・給与計算テンプレ：建設業の日給月給対応<br>・顧客台帳：取引履歴と請求が連動<br><br>会社のフォーマットに合わせて改造可能。<strong>月次業務を半減</strong>できます。<br><strong>※サブスクは2026年内 開始予定。先行案内・社長提案用資料はLINEで。</strong>'},
-      { label: '💼 社長への提案として', title: '「これ、うちで使いたい」を実現',
-        body: '<strong>HEALTH ARCHI Tools の資料一式</strong>をLINE登録でお渡しします（プレゼン用PDF）。バックオフィスの効率化は、経営者にとって最も提案が通りやすい改善です。'},
+      { label: '🛠 バックオフィス全体を半減するなら（準備中）', title: '建設業特化のバックオフィスツールを準備中',
+        body: '見積・請求・領収書・工事原価管理表などの書類テンプレ、資金繰りダッシュボード、給与計算、顧客台帳——建設業のバックオフィスをまるごと支える<strong>「HEALTH ARCHI Tools」</strong>を準備しています。月次業務を半減するのが狙いです。<br><strong>※現在準備中（2026年内 開始予定）。先行案内はLINEで。</strong>'},
       { label: '📝 note事務作業ハック記事', title: '「自分しかやっていない非効率」が見えてくる',
         body: '事務作業ハック記事を読めば、「自分しかやっていない非効率」が見えてきます。「気づき」が次の改善行動につながります。'}
     ],
-    cta: { title: 'LINE登録で「事務作業ハック記事」を毎週',
-      sub: '新テンプレ公開のお知らせも一緒に。',
-      secondary: ['HEALTH ARCHI Tools の詳細', '社長提案用資料を受け取る'] }
+    toolsIntro: '会社の許可を待たずに、自分の手元で今日から試せます。「これ便利」を自分で体感してから、社長に提案できます。',
+    tools: [
+      { label: '見積を作ってみる', href: 'https://healtharchi.github.io/smart-quote-general/' },
+      { label: '現場写真を整理する', href: 'https://healtharchi.github.io/genba-photo/' },
+      { label: '工程表を作ってみる', href: 'https://healtharchi.github.io/gantt-chart/' }
+    ],
+    cta: { title: 'LINE登録で「建設業で役立つAI情報」を無料でお届け',
+      sub: '営業電話は一切ありません。',
+      secondary: ['実験室を見る', 'noteを読む'] }
   },
   // P6 は Q1 の回答（0-4）で内部分岐
   P6: {
@@ -396,13 +412,13 @@ const PRESCRIPTIONS = {
           body: 'あなたは「先代との違い」と「今の会社の課題」の両方を感じています。古い慣習、紙文化、属人化した業務——変えたい気持ちはあるけれど、自分が経営者になった時に<strong>「具体的に何をすべきか」</strong>は、まだ言葉になっていません。<br><br>その曖昧さを、今のうちに解像度を上げておくこと。それが、いざ経営権を持った時に<strong>「迷わない後継者」</strong>になる準備です。'},
         { label: '📕 書籍を使えばこうなる', title: '後継者として「会社をどう変えていくか」',
           body: '「社長が現場を降りる日」（Amazon販売中）には、<strong>後継者として「会社をどう変えていくか」のヒント</strong>が書かれています。先代との対話のきっかけにもなります。'},
-        { label: '🆓 実験室の無料ツールを使えばこうなる', title: '「使える後継者」として一目置かれる',
-          body: '今のうちに無料ツールに慣れておくと、自分が経営者になった時に<strong>「使える後継者」として一目置かれます</strong>。ガントチャート、CAD、スマート見積、書類テンプレ——すべて触っておけば、デジタル世代の強みが活きます。'},
-        { label: '🚀 数年後…', title: '経営権を持ったら、ISHIZUEで新時代の「会社の記憶」を',
-          body: 'あなたが経営権を持ったタイミングで、<strong>ISHIZUE構築キット</strong>（2026年内 提供開始予定・料金はLINEで先行案内）を使えば、<strong>新しい時代の「会社の記憶」を作れます</strong>。先代の暗黙知を可視化し、自分の判断軸を上書きする道具です。'}
+        { label: '🚀 数年後…（準備中）', title: '経営権を持ったら、ISHIZUEという選択肢',
+          body: 'あなたが経営権を持つころには、「会社の記憶を持つAI」<strong>ISHIZUE</strong>で、新しい時代の会社の記憶を作るという選択肢も。先代の暗黙知を可視化し、自分の判断軸を重ねていく道具を目指しています。<strong>※準備中（2026年内 提供開始予定）。先行案内はLINEで。</strong>'}
       ],
-      cta: { title: 'LINE登録で「後継者向け限定コンテンツ」を月1回',
-        sub: '将来の経営に役立つ業界動向や、後継者向けケーススタディを定期配信。',
+      toolsIntro: '今のうちに無料ツールに慣れておくと、いざ立場が上がった時に「使える」と一目置かれます。デジタル世代の強みが活きます。',
+      tools: [ { label: '無料ツールを全部見る', href: '/tools' } ],
+      cta: { title: 'LINE登録で「建設業で役立つAI情報」を無料でお届け',
+        sub: '営業電話は一切ありません。',
         secondary: ['書籍を見る', '実験室を見る', 'noteを読む'] }
     },
     // 1,2:若手社員
@@ -410,13 +426,13 @@ const PRESCRIPTIONS = {
       sections: [
         { label: '🔍 問題の言語化', title: '「使える若手」になる準備は、今からできる',
           body: 'あなたは入社して間もない若手として、業界の慣習や仕事のやり方を吸収する時期にいます。「もっと効率的にできるはずなのに」と感じても、提案する立場でも、知識もまだ十分ではない。<br><br>でも、<strong>「使える若手」になる準備は、今からでもできます</strong>。'},
-        { label: '🆓 実験室の無料ツールを使えばこうなる', title: '「デジタルが使える若手」として頼られる',
-          body: '今のうちに無料ツールに慣れておくと、3年後・5年後に<strong>「デジタルが使える若手」として頼られる</strong>ようになります。ガントチャート、CAD、スマート見積——触っておけば、現場で「これやっといて」と言われた時に即対応できます。'},
         { label: '📝 note記事', title: 'キャリアの方向性を考える材料',
           body: '建設業の未来を考える人向けのnote記事を読み続ければ、業界全体の動きが見えてきます。キャリアの方向性を考える材料になります。'}
       ],
-      cta: { title: 'LINE登録で「若手向けキャリアコンテンツ」を月1回',
-        sub: '建設業の未来と、自分のキャリアを考える材料を定期配信。',
+      toolsIntro: '今のうちに無料ツールに慣れておくと、3年後・5年後に「デジタルが使える若手」として頼られるようになります。現場で「これやっといて」に即対応できます。',
+      tools: [ { label: '無料ツールを全部見る', href: '/tools' } ],
+      cta: { title: 'LINE登録で「建設業で役立つAI情報」を無料でお届け',
+        sub: '営業電話は一切ありません。',
         secondary: ['実験室を見る', 'noteを読む'] }
     },
     // 3:幹部候補
@@ -424,27 +440,27 @@ const PRESCRIPTIONS = {
       sections: [
         { label: '🔍 問題の言語化', title: '社長と現場の間で、両方の課題を見ている',
           body: 'あなたは社長と現場の間で、両方の課題を見ています。「ここを変えれば会社が変わる」と思う場所がいくつもあるけれど、自分一人では決めきれない。提案するにも、根拠と道具がない。<br><br><strong>幹部候補に必要なのは「会社全体を見渡す道具」</strong>です。'},
-        { label: '🆓 まずは無料の実験室から', title: '提案の"根拠"になる道具を無料で',
-          body: 'まずは実験室の無料ツール（ガント・スマート見積・現場写真整理・CAD）に触れておくと、「これを全社で使えば」という提案の手触りが掴めます。すべて無料・登録不要。'},
         { label: '📝 note管理者向け記事', title: '次のステップに進むためのヒント',
           body: '組織運営・幹部育成の記事を読めば、自分が次のステップに進むためのヒントが得られます。'},
-        { label: '🛠 会社全体を見渡す道具（将来）', title: 'HEALTH ARCHI Tools で提案に説得力を',
-          body: '会社全体を見渡せるダッシュボードと管理ツールが揃う<strong>HEALTH ARCHI Tools</strong>（<span class="price-tag">法人プラン 月¥9,800</span>・2026年内 開始予定）。「これを使えば社長への提案に説得力が出る」レベルの道具です。先行案内はLINEで。'}
+        { label: '🛠 会社全体を見渡す道具（準備中）', title: 'HEALTH ARCHI Tools で提案に説得力を',
+          body: '会社全体を見渡せるダッシュボードと管理ツールが揃う<strong>「HEALTH ARCHI Tools」</strong>を準備しています。「これを使えば社長への提案に説得力が出る」レベルの道具を目指しています。<strong>※準備中（2026年内 開始予定）。先行案内はLINEで。</strong>'}
       ],
-      cta: { title: 'LINE登録で「幹部候補向けコンテンツ」を月1回',
-        sub: '組織運営・幹部育成のヒントを定期配信。',
-        secondary: ['HEALTH ARCHI Tools の詳細', 'noteを読む'] }
+      toolsIntro: 'まずは無料ツールに触れておくと、「これを全社で使えば」という提案の手触りが掴めます。すべて無料・登録不要。',
+      tools: [ { label: '無料ツールを全部見る', href: '/tools' } ],
+      cta: { title: 'LINE登録で「建設業で役立つAI情報」を無料でお届け',
+        sub: '営業電話は一切ありません。',
+        secondary: ['実験室を見る', 'noteを読む'] }
     },
     // 4:その他
     4: {
       sections: [
         { label: '🔍 問題の言語化', title: '建設業の未来を考える',
-          body: 'あなたは建設業に何らかの形で関わっている人です。立場は違っても、業界の課題と未来に関心を持っているはず。'},
-        { label: '🆓 HEALTH ARCHIの全資産が活用できます', title: '実験室・書籍・note',
-          body: '・実験室の無料ツール群（healtharchi.com/tools）<br>・書籍「社長が現場を降りる日」<br>・note連載（建設業の未来を真剣に考える場）<br><br>立場が明確になったら、より具体的な処方箋をお届けします。'}
+          body: 'あなたは建設業に何らかの形で関わっている人です。立場は違っても、業界の課題と未来に関心を持っているはず。書籍「社長が現場を降りる日」やnote連載とあわせて、無料ツールから「今できること」に触れてみてください。立場が明確になったら、より具体的な処方箋をお届けします。'}
       ],
-      cta: { title: 'LINE登録で建設業の最新情報をお届け',
-        sub: '営業電話一切なし。',
+      toolsIntro: '立場を問わず、まずは無料ツールから。触れてみると、建設業×AIの「今できること」が見えてきます。',
+      tools: [ { label: '無料ツールを全部見る', href: '/tools' } ],
+      cta: { title: 'LINE登録で「建設業で役立つAI情報」を無料でお届け',
+        sub: '営業電話は一切ありません。',
         secondary: ['実験室を見る', 'noteを読む', '書籍を見る'] }
     }
   }
@@ -596,6 +612,20 @@ function showResult() {
         content.appendChild(pdiv);
       }
     } catch(e) {}
+  }
+
+  // 立場に合う既存の無料ツールへの導線（指示書 P028・問題→無料で試す→有料は最後）
+  if (Array.isArray(prescription.tools) && prescription.tools.length) {
+    const tdiv = document.createElement('div');
+    tdiv.className = 'result-section';
+    const intro = prescription.toolsIntro ? `<p>${prescription.toolsIntro}</p>` : '';
+    const btns = prescription.tools.map((t, i) => {
+      const ext = t.href.indexOf('http') === 0 ? ' target="_blank" rel="noopener"' : '';
+      const cls = 'tool-btn' + (i === 0 ? ' tool-btn-primary' : '');
+      return `<a class="${cls}" href="${t.href}"${ext}>${t.label} →</a>`;
+    }).join('');
+    tdiv.innerHTML = `<span class="result-section-label">🆓 今すぐ無料で試せる</span><h3>あなたの立場に合う無料ツール</h3>${intro}<div class="tool-btn-row">${btns}</div>`;
+    content.appendChild(tdiv);
   }
 
   prescription.sections.forEach(sec => {
