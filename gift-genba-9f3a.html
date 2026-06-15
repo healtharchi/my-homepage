@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MJTX97M6NY"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-MJTX97M6NY');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>現場スマホAIプロンプト集（職人・一人親方向け）｜HEALTH ARCHI</title>
+<meta name="description" content="現場で動く職人・一人親方のための、スマホで使えるAIプロンプト集。日報・連絡・段取り・かんたん見積りを下書きさせる5つ。一級建築士・現場17年が選定。">
+<style>
+  :root {
+    --copper: #B5703A; --copper-light: #D4925A; --copper-dark: #8A5228;
+    --copper-bg: #FBF6F0; --line-green: #06C755; --text: #2C2419;
+    --text-sub: #6B5E4F; --border: #E8DDCD; --white: #ffffff;
+    --shadow: 0 4px 16px rgba(181, 112, 58, 0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic UI", sans-serif;
+    background: linear-gradient(135deg, #FBF6F0 0%, #F5EBDA 100%);
+    color: var(--text); line-height: 1.8; min-height: 100vh; padding: 20px 12px;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  .header-meta { text-align: center; margin-bottom: 24px; color: var(--text-sub); font-size: 12px; }
+  .header-meta strong { color: var(--copper-dark); letter-spacing: 0.12em; }
+  .card { background: var(--white); border-radius: 16px; padding: 28px 22px; box-shadow: var(--shadow); margin-bottom: 16px; }
+  @media (min-width: 640px) { .card { padding: 36px 32px; } }
+  .eyebrow { display: inline-block; background: var(--copper-bg); color: var(--copper-dark); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; margin-bottom: 16px; border: 1px solid var(--copper-light); }
+  h1 { font-size: 24px; line-height: 1.45; margin-bottom: 16px; color: var(--text); font-weight: 800; }
+  @media (min-width: 640px) { h1 { font-size: 28px; } }
+  h2 { font-size: 19px; line-height: 1.5; margin-bottom: 6px; color: var(--copper-dark); font-weight: 800; }
+  .lead { font-size: 16px; color: var(--text); margin-bottom: 14px; }
+  .note-box { background: var(--copper-bg); border-left: 4px solid var(--copper); border-radius: 8px; padding: 14px 16px; margin: 16px 0; font-size: 15px; color: var(--text); }
+  .note-box strong { color: var(--copper-dark); }
+  .howto { margin: 8px 0 4px; padding-left: 22px; }
+  .howto li { margin-bottom: 8px; font-size: 15px; }
+  .step-label { font-size: 13px; font-weight: 700; color: var(--copper-dark); margin-bottom: 6px; letter-spacing: 0.03em; }
+  .prompt-desc { font-size: 14px; color: var(--text-sub); margin-bottom: 12px; }
+  .prompt-box { position: relative; background: #FAF6EF; border: 2px solid var(--border); border-radius: 12px; padding: 16px 16px 16px; margin-top: 6px; }
+  .prompt-box pre {
+    white-space: pre-wrap; word-break: break-word; font-family: inherit;
+    font-size: 15px; line-height: 1.85; color: var(--text); margin: 0; padding-top: 6px;
+  }
+  .copy-btn {
+    display: inline-flex; align-items: center; gap: 6px; min-height: 44px;
+    background: linear-gradient(135deg, var(--copper) 0%, var(--copper-dark) 100%);
+    color: var(--white); border: none; border-radius: 10px; padding: 10px 20px;
+    font-size: 15px; font-weight: 700; cursor: pointer; font-family: inherit;
+    box-shadow: 0 4px 12px rgba(184,115,51,0.3); transition: all 0.2s ease; margin-bottom: 12px;
+  }
+  .copy-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(184,115,51,0.4); }
+  .copy-btn.copied { background: var(--copper-dark); }
+  .footer-card { text-align: left; }
+  .sign { margin-top: 16px; font-size: 14px; color: var(--text-sub); line-height: 1.7; }
+  .sign strong { color: var(--copper-dark); }
+  .back-link { display: inline-block; margin-top: 10px; color: var(--copper-dark); text-decoration: none; font-size: 14px; border: 1px solid var(--copper-light); border-radius: 8px; padding: 10px 18px; background: var(--white); }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header-meta">
+    <div><strong>HEALTH ARCHI</strong></div>
+  </div>
+
+  <div class="card">
+    <span class="eyebrow">職人・一人親方向け ・ 無料プレゼント</span>
+    <h1>現場スマホAIプロンプト集</h1>
+    <p class="lead">こんにちは、HEALTH ARCHIのHIDE（佐野英人）です。一級建築士として、設計と現場監督を17年やってきました。LINE登録ありがとうございます。</p>
+    <p class="lead">このページは、現場で動く職人さん・一人親方さんのための「スマホで使えるAIプロンプト集」です。パソコンは要りません。スマホにAIアプリ（Gemini / ChatGPT / Claude のどれか・無料で入ります）を1つ入れて、下のプロンプトをコピーして送るだけ。日報・報告・連絡・段取りといった「手を止めて頭を使う面倒ごと」を、AIに下書きさせる道具です。</p>
+    <p class="lead">私自身、現場でずっと「図面引いて、見積って、施主に説明して」をやってきた人間なので、机上の話ではなく「現場が終わってクタクタの夜に、これがあったら楽だったな」を基準に選びました。</p>
+
+    <div class="note-box">
+      <strong>先に、大事なお願い（30秒）</strong><br>
+      AIが出すのは、あくまで「下書き」です。報告の文章も、材料のリストも、そのまま信じきらず、最後はご自分の目で確かめてください。特に、お金・数量・施主への約束に関わる部分は、必ず自分で検算・確認してから使ってください。「AIは下書き、確かめるのは人の仕事」——これだけ守ってもらえれば大丈夫です。
+    </div>
+
+    <div class="step-label">使い方（はじめての方へ）</div>
+    <ol class="howto">
+      <li>スマホに無料のAIアプリを1つ入れる（おすすめ：Gemini か ChatGPT。アプリストアで検索）</li>
+      <li>下のプロンプトの「コピー」ボタンを押す（枠ごとコピーされます）</li>
+      <li>AIアプリの入力欄に貼り付ける</li>
+      <li>文中の【　】の部分を、自分の現場のことに書き換える（中の例文を消して、自分のことを書くだけ）</li>
+      <li>送信 → 下書きが返ってくる → 直したいところは「ここをもっと短く」などと追加で頼む</li>
+    </ol>
+    <p class="prompt-desc">写真を送れるアプリなら、現場写真を一緒に添えると精度が上がります。</p>
+  </div>
+
+  <div class="card">
+    <h2>プロンプト1｜作業日報・報告を3分で仕上げる</h2>
+    <p class="prompt-desc">枠をコピーして、【　】の中を今日の作業に書き換えて送るだけ。</p>
+    <div class="prompt-box">
+      <button class="copy-btn" onclick="copyPrompt(this)">コピー</button>
+      <pre>あなたは建設現場の職長です。私が伝える今日の作業内容を、元請けや会社に提出できる、きちんとした作業日報の文章に整えてください。「本日の作業」「進捗」「明日の予定」「連絡事項」の見出しで分け、天候や人員で気づいた点があれば最後に「特記」として足してください。専門用語はそのまま残し、丁寧だが固すぎない、A4半分くらいの分量で。
+
+今日やったこと：【1階LDKの石膏ボード貼り8割。電気屋さんが配線、明日も来る。雨で外部はストップ。人員は大工2人と応援1人。 ← この【　】の中を、自分の今日の作業に書き換えてください】</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>プロンプト2｜元請け・施主への連絡を、角が立たない文章にする</h2>
+    <div class="prompt-box">
+      <button class="copy-btn" onclick="copyPrompt(this)">コピー</button>
+      <pre>あなたは現場経験の長い、言葉づかいの丁寧な職人です。私が伝えたい内容を、元請け（または施主）にLINEやメールで送る、失礼にならず、でも言いたいことはきちんと伝わる短い文章にしてください。相手を立てつつ、こちらの事情も角が立たないように、言い訳がましくならないように。最後に前向きな一言で締めてください。
+
+伝えたいこと：【材料の入荷が遅れていて、来週の工程が2〜3日ずれそう。こちらのミスではないが、施主に先に知らせておきたい。代わりにできる作業から先に進めるつもり。 ← この【　】の中を、自分の伝えたいことに書き換えてください】</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>プロンプト3｜知らない言葉・新しい工法をその場で教えてもらう</h2>
+    <div class="prompt-box">
+      <button class="copy-btn" onclick="copyPrompt(this)">コピー</button>
+      <pre>私は建設現場で働く職人です。下の言葉（または工法・材料）について、現場の人間にわかるように、かみくだいて説明してください。小学生に教えるくらいやさしく、でも現場で恥をかかない正確さで。「何のために使うのか」「使うときの注意点」「よくある失敗」も一言ずつ。専門用語を使うときは、そのつどカッコでやさしい言い換えを添えてください。
+
+調べたいこと：【気密測定（C値）って何か。 ← この【　】の中を、自分が知りたい言葉・工法・材料に書き換えてください】</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>プロンプト4｜簡単な見積り・請求の文面と、金額の伝え方</h2>
+    <div class="prompt-box">
+      <button class="copy-btn" onclick="copyPrompt(this)">コピー</button>
+      <pre>あなたは一人親方の相談相手です。私がやった工事の内容と希望金額をもとに、元請けや施主に出す「見積り（または請求）の文面」を作ってください。項目・数量・単価・金額が並ぶ見やすい形にし、追加工事があった場合はなぜ必要だったかを一言そえてください。あわせて、値切られたときに安売りせず・でも関係を壊さずに返す一言も提案してください。
+
+工事の内容と希望金額：【〇〇邸の内装造作、3人で4日。材料費は別途〇万円。追加で棚を2つ作った。 ← この【　】の中を、自分の工事内容に書き換えてください】</pre>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>プロンプト5｜段取りと「買い忘れ・持ち忘れ」チェックリスト</h2>
+    <div class="prompt-box">
+      <button class="copy-btn" onclick="copyPrompt(this)">コピー</button>
+      <pre>あなたは段取り上手な現場監督です。私がこれからやる作業の内容から、「必要な材料・道具・副資材」のチェックリストと、当日の段取り（やる順番）を、抜けがないように作ってください。現場で「あれ忘れた」が起きやすいもの（ビス・コーキング・養生材など）も念のため入れ、午前・午後でやる順番を分けてください。天候や搬入で気をつける点があれば最後に一言。
+
+これからやる作業：【木曜に〇〇邸でフローリング貼り、6畳2部屋。材料は前日搬入予定。応援が1人来る。 ← この【　】の中を、自分がやる作業に書き換えてください】</pre>
+    </div>
+  </div>
+
+  <div class="card footer-card">
+    <h2>最後に</h2>
+    <p class="lead">このプロンプト集は、これからも現場で本当に使えたものを少しずつ足していきます。「こういう場面で使える文章がほしい」というのがあれば、このLINEにそのまま送ってください。あなたの現場のリアルが、次のプロンプトのネタになります。</p>
+    <p class="lead">道具は、使ってナンボです。まずは1つ、今日の日報からやってみてください。</p>
+    <p class="sign"><strong>HIDE（佐野英人／HEALTH ARCHI）</strong><br>一級建築士・設計／現場監督17年</p>
+    <a class="back-link" href="/tools">無料ツールの一覧を見る →</a>
+  </div>
+</div>
+
+<script>
+function copyPrompt(btn){
+  var pre = btn.parentElement.querySelector('pre');
+  var text = pre.innerText || pre.textContent;
+  function done(){ btn.textContent='コピーしました'; btn.classList.add('copied'); setTimeout(function(){ btn.textContent='コピー'; btn.classList.remove('copied'); }, 1800); }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done, function(){ fallback(text, done); });
+  } else { fallback(text, done); }
+}
+function fallback(text, done){
+  var ta = document.createElement('textarea');
+  ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); done(); } catch(e) {}
+  document.body.removeChild(ta);
+}
+</script>
+</body>
+</html>
