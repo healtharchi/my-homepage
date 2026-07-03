@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>解錠キット デモ（P040検証用）｜HEALTH ARCHI</title>
+<style>
+  :root { --navy: #1B2B4B; --orange-cta: #C85400; --danger: #B91C1C; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #f7f7f5; color: #333;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    font-size: 18px; line-height: 1.7;
+  }
+  header { background: var(--navy); color: #fff; padding: 14px 16px; }
+  header .brand { font-size: 16px; font-weight: 700; }
+  header .sub { font-size: 12px; opacity: .8; }
+  main { max-width: 640px; margin: 0 auto; padding: 20px 16px 60px; }
+  h1 { font-size: 22px; color: var(--navy); }
+  .card { background: #fff; border: 1px solid #e2e2e2; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+  .card h2 { font-size: 18px; color: var(--navy); margin: 0 0 10px; }
+  .status { display: inline-block; font-weight: 700; border-radius: 6px; padding: 4px 12px; font-size: 15px; }
+  .status.free { background: #eee; color: #555; }
+  .status.pro { background: #e8f3e8; color: #1a6b1a; }
+  button { min-height: 48px; font-size: 16px; font-weight: 700; border-radius: 8px; cursor: pointer; padding: 0 20px; font-family: inherit; }
+  .btn-cta { background: var(--orange-cta); color: #fff; border: none; }
+  .btn-sub { background: #fff; color: var(--navy); border: 1px solid var(--navy); }
+  textarea { width: 100%; min-height: 90px; font-size: 18px; font-family: inherit; border: 1px solid #ccc; border-radius: 8px; padding: 12px; }
+  .out { background: #fbfbf9; border: 1px dashed #bbb; border-radius: 8px; padding: 14px; margin-top: 12px; white-space: pre-wrap; font-size: 16px; }
+  .note { font-size: 14px; color: #555; }
+  .testbox { background: #fff8f0; border: 1px solid #e0c9a6; border-radius: 8px; padding: 12px 14px; font-size: 14px; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">HEALTH ARCHI</div>
+  <div class="sub">解錠キット デモページ（P040 検証用・非公開）</div>
+</header>
+<main>
+  <h1>工事メモ（サンプルツール）</h1>
+  <p class="note">これは解錠キットの通し検証用のサンプルです。「メモを書く」は無料機能、「透かしなしで出力」が有料機能という想定です。</p>
+
+  <div class="card">
+    <h2>現在の状態</h2>
+    <p>契約状態：<span id="status" class="status free">未契約（無料）</span></p>
+    <p id="statusDetail" class="note"></p>
+    <div class="row">
+      <button type="button" class="btn-cta" id="openUnlock">申込・解錠・解約の窓口を開く</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>無料機能：メモを書く</h2>
+    <textarea id="memo" placeholder="例）基礎工事の残り＝北側の型枠。明日レッカー8時。"></textarea>
+    <div class="row">
+      <button type="button" class="btn-sub" id="outFree">出力（無料＝透かし付き）</button>
+      <button type="button" class="btn-cta" id="outPro">透かしなしで出力（有料機能）</button>
+    </div>
+    <div class="out" id="out" hidden></div>
+  </div>
+
+  <div class="card testbox">
+    <strong>検証のしかた（テストモード）</strong><br>
+    1.「窓口を開く」→ プランを選んで申込 → カード番号は <strong>4242 4242 4242 4242</strong>（有効期限は未来の任意・CVCは任意の3桁）<br>
+    2. 戻ってきたら「窓口を開く」→ 申込メールアドレスを入力 → 届いた6桁コードで解錠<br>
+    3.「透かしなしで出力」が使えることを確認<br>
+    4. 窓口の「お支払い・解約の管理」から解約 → 解錠を解除→再解錠を試みると施錠されることを確認
+  </div>
+</main>
+
+<script src="unlock.js" data-tool="P040_unlock-demo"></script>
+<script>
+(function () {
+  "use strict";
+  var statusEl = document.getElementById("status");
+  var detailEl = document.getElementById("statusDetail");
+  var out = document.getElementById("out");
+  var memo = document.getElementById("memo");
+
+  function refreshStatus() {
+    if (window.HAUnlock && HAUnlock.isPro()) {
+      statusEl.textContent = HAUnlock.plan() === "hojin" ? "契約中：法人スタンダード" : "契約中：個人ライト";
+      statusEl.className = "status pro";
+      detailEl.textContent = "登録メール：" + HAUnlock.email();
+    } else {
+      statusEl.textContent = "未契約（無料）";
+      statusEl.className = "status free";
+      detailEl.textContent = "";
+    }
+  }
+  document.addEventListener("ha-unlock-change", refreshStatus);
+  refreshStatus();
+
+  document.getElementById("openUnlock").addEventListener("click", function () {
+    HAUnlock.open();
+  });
+
+  function print(withWatermark) {
+    var text = memo.value.trim() || "（メモが空です）";
+    out.hidden = false;
+    out.textContent = text + (withWatermark ? "\n\n―――――――――――\n※無料ツールで作成（HEALTH ARCHI）" : "\n\n―――――――――――\n（透かしなし・プロ版出力）");
+  }
+  document.getElementById("outFree").addEventListener("click", function () { print(true); });
+  document.getElementById("outPro").addEventListener("click", function () {
+    HAUnlock.require(function () { print(false); });
+  });
+
+  // メモはブラウザ内保存（外部送信なし）
+  try {
+    memo.value = localStorage.getItem("p040_demo_memo") || "";
+    memo.addEventListener("input", function () {
+      localStorage.setItem("p040_demo_memo", memo.value);
+    });
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>
