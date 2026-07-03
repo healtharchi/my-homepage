@@ -295,6 +295,12 @@ const PRESCRIPTIONS = {
       { label: '🛠 さらに将来：会社で使える便利ツール群 ※準備中', title: '日々の業務を、現場から事務まで',
         body: 'ISHIZUEと並んで、現場から事務まで会社で使える便利ツール群<strong>「HEALTH ARCHI Tools」</strong>も準備しています（資金繰り・原価管理・書類テンプレ・顧客台帳ほか）。<br><strong>※こちらも準備中（2026年内 開始予定）。今は「こんな道具が控えている」と知っておくだけで十分です。</strong>'}
     ],
+    toolsIntro: '「準備中」を待たなくても、社長の時間を奪っている定番業務は今日から無料ツールで軽くできます。さらに詳しく現状を知りたい方は、社長専用の12問診断もどうぞ。',
+    tools: [
+      { label: '見積〜請求書を作ってみる', href: 'https://healtharchi.github.io/smart-quote-general/' },
+      { label: '工程表を作ってみる', href: 'https://healtharchi.github.io/gantt-chart/' },
+      { label: 'より詳しい「社長の現場離脱度診断」を受ける', href: '/diagnosis-shacho' }
+    ],
     cta: { title: 'LINE登録して「積算」と送るだけ。木造の数量拾いをAIにやらせるプロンプトを無料プレゼント',
       sub: '登録後に「積算」と送ってください。ISHIZUEの先行案内もLINEで。営業電話なし。',
       secondary: ['書籍を見る', 'noteを読む'] }
@@ -373,12 +379,12 @@ const PRESCRIPTIONS = {
       { label: '📝 note管理者向け記事', title: '業界全体の動きと、自社の位置',
         body: 'HEALTH ARCHIのnote連載には、現場管理者・設計者の業務改善ヒントが書かれた記事があります。'}
     ],
-    toolsIntro: '「統合ダッシュボード」そのものはまだ準備中ですが、その入口になる&quot;見える化&quot;は、今日から無料で試せます。工程はガント、写真は自動整理、図面はCAD、木造の概算は図面AI積算つきの見積で。',
+    toolsIntro: '「統合ダッシュボード」そのものはまだ準備中ですが、その入口になる&quot;見える化&quot;は、今日から無料で試せます。工程はガント、写真は自動整理、図面はCAD、木造の概算はスマート見積で。',
     tools: [
       { label: '工程表を作ってみる', href: 'https://healtharchi.github.io/gantt-chart/' },
       { label: '現場写真を整理する', href: 'https://healtharchi.github.io/genba-photo/' },
       { label: '図面を描いてみる', href: 'https://healtharchi.github.io/healtharchi-cad/' },
-      { label: '木造の見積を試す（図面AI積算つき）', href: 'https://healtharchi.github.io/smart-quote/' }
+      { label: '木造専用の見積を試す', href: 'https://healtharchi.github.io/smart-quote/' }
     ],
     cta: { title: 'LINE登録して「積算」と送るだけ。図面から数量を拾うAIプロンプトを無料プレゼント',
       sub: '登録後に「積算」と送ってください。新ツールの先行案内もLINEで。営業電話なし。',
@@ -392,7 +398,11 @@ const PRESCRIPTIONS = {
       const tmpl = optText('P5',4,a[4]) || '';
       let body = `月次の経理・帳簿・請求などに<strong>${hours}</strong>を使っています。`;
       if(auto) body += ` 「自動化できるのに」と感じているのは<strong>「${auto}」</strong>。`;
-      if(tmpl) body += `<br><br>特に試したいと答えた<strong>「${tmpl}」</strong>は、HEALTH ARCHIのツールでそのまま用意できます。`;
+      // 今すぐ渡せるのは 0:見積書テンプレ・1:請求書テンプレ（→スマート見積 汎用版）・5:工程表（→ガント工程表）のみ
+      if(tmpl){
+        if(a[4]===0 || a[4]===1 || a[4]===5) body += `<br><br>特に試したいと答えた<strong>「${tmpl}」</strong>は、下の無料ツールで今日からそのまま使えます。`;
+        else body += `<br><br>特に試したいと答えた<strong>「${tmpl}」</strong>は現在準備中です。完成したらLINEでいち早くご案内します。`;
+      }
       body += `<br><br>システム導入の決済権はなくても、<strong>今ある道具を変えるだけで業務時間は半分になります。</strong>`;
       return { label:'🔍 あなたの回答から見えた現状', title:'「自動化できる」のに、決済権がない', body };
     },
@@ -474,6 +484,8 @@ const PRESCRIPTIONS = {
     }
   }
 };
+// Q1=「入社3年以内の若手」(index 2) も若手社員向けの結果を出す
+PRESCRIPTIONS.P6[2] = PRESCRIPTIONS.P6[1];
 
 // ═══ 状態管理 ═══
 let state = { persona: null, currentQuestion: 0, answers: [] };
