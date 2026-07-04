@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>解錠キット デモ（P040検証用）｜HEALTH ARCHI</title>
+<title>サブスク動作デモ（P040検証用）｜HEALTH ARCHI</title>
 <style>
   :root { --navy: #1B2B4B; --orange-cta: #C85400; --danger: #B91C1C; }
   * { box-sizing: border-box; }
@@ -36,18 +36,18 @@
 <body>
 <header>
   <div class="brand">HEALTH ARCHI</div>
-  <div class="sub">解錠キット デモページ（P040 検証用・非公開）</div>
+  <div class="sub">サブスク動作デモページ（P040 検証用・非公開）</div>
 </header>
 <main>
   <h1>工事メモ（サンプルツール）</h1>
-  <p class="note">これは解錠キットの通し検証用のサンプルです。「メモを書く」は無料機能、「透かしなしで出力」が有料機能という想定です。</p>
+  <p class="note">これはサブスクの仕組みの検証用サンプルです。「メモを書く」は無料機能、「透かしなしで出力」が有料機能という想定です。</p>
 
   <div class="card">
     <h2>現在の状態</h2>
-    <p>契約状態：<span id="status" class="status free">未契約（無料）</span></p>
+    <p>状態：<span id="status" class="status free">未ログイン（無料版）</span></p>
     <p id="statusDetail" class="note"></p>
     <div class="row">
-      <button type="button" class="btn-cta" id="openUnlock">申込・解錠・解約の窓口を開く</button>
+      <button type="button" class="btn-cta" id="openUnlock">プランの申込・ログイン</button>
     </div>
   </div>
 
@@ -62,11 +62,12 @@
   </div>
 
   <div class="card testbox">
-    <strong>検証のしかた（テストモード）</strong><br>
-    1.「窓口を開く」→ プランを選んで申込 → カード番号は <strong>4242 4242 4242 4242</strong>（有効期限は未来の任意・CVCは任意の3桁）<br>
-    2. 戻ってきたら「窓口を開く」→ 申込メールアドレスを入力 → 届いた6桁コードで解錠<br>
-    3.「透かしなしで出力」が使えることを確認<br>
-    4. 窓口の「お支払い・解約の管理」から解約手続きができることを確認（解約しても支払済み期間の終わりまでは使える仕様＝期末に自動で施錠されます）
+    <strong>確認のしかた（テストモード・実際の請求はありません）</strong><br>
+    1.「プランの申込・ログイン」→ プランを選んで申込 → カード番号 <strong>4242 4242 4242 4242</strong>・有効期限 <strong>12/34</strong>・セキュリティコード <strong>123</strong><br>
+    2. 申込が終わるとこのページに戻り、<strong>ログイン画面が自動で開きます</strong> → 申込時のメールアドレスを入力 →「確認コードを送る」<br>
+    3. メールに届いた6桁の数字を入力 →「ログイン」→ 状態が「ログイン中」に変わる<br>
+    4.「透かしなしで出力」が使えることを確認<br>
+    5. 解約したい時は「プランの申込・ログイン」→「お支払い・解約の管理」（解約しても支払済み期間の終わりまでは使える仕様です）
   </div>
 </main>
 
@@ -81,11 +82,11 @@
 
   function refreshStatus() {
     if (window.HAUnlock && HAUnlock.isPro()) {
-      statusEl.textContent = HAUnlock.plan() === "hojin" ? "契約中：法人スタンダード" : "契約中：個人ライト";
+      statusEl.textContent = HAUnlock.plan() === "hojin" ? "ログイン中：法人スタンダード" : "ログイン中：個人ライト";
       statusEl.className = "status pro";
-      detailEl.textContent = "登録メール：" + HAUnlock.email();
+      detailEl.textContent = "メールアドレス：" + HAUnlock.email();
     } else {
-      statusEl.textContent = "未契約（無料）";
+      statusEl.textContent = "未ログイン（無料版）";
       statusEl.className = "status free";
       detailEl.textContent = "";
     }
