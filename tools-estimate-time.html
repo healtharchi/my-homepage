@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJTX97M6NY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MJTX97M6NY');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>工務店の見積に時間がかかる理由と、手作業を減らす方法｜HEALTH ARCHI</title>
+  <meta name="description" content="見積が夜の仕事になっていませんか。時間がかかる本当の理由を、拾い出し・単価確認・見直しの3つに分解し、ツールで減らせる部分と人が見るべき部分を、一級建築士・建設業17年の実務から整理しました。無料ツールつき・登録不要。">
+  <link rel="canonical" href="https://healtharchi.com/tools-estimate-time">
+  <meta property="og:site_name" content="HEALTH ARCHI">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://healtharchi.com/tools-estimate-time">
+  <meta property="og:title" content="工務店の見積に時間がかかる理由と、手作業を減らす方法">
+  <meta property="og:description" content="拾い出し・単価確認・見直し。見積の手作業をどこまで減らせるか、建設業17年の実務から整理。無料ツールつき・登録不要。">
+  <meta property="og:image" content="https://healtharchi.com/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1B2B4B; --navy-deep: #0E1A2F; --copper: #B5703A; --copper-lt: #D4925A;
+      --copper-dk: #8A5228; --charcoal: #2C2C2C; --stone: #7A7875;
+      --cream: #F0EDE8; --silk: #FAF8F5; --white: #FFFFFF; --border: #E8E4DE;
+      --line-green: #06C755;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; color: var(--charcoal); background: var(--white); line-height: 2.0; font-size: 17px; -webkit-font-smoothing: antialiased; }
+    h1, h2, h3 { font-family: 'Noto Serif JP', serif; line-height: 1.5; color: var(--navy); }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+    .nav { background: var(--navy-deep); padding: 14px 0; }
+    .nav-inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { color: #fff; font-family: 'Noto Serif JP', serif; font-weight: 700; letter-spacing: 0.1em; font-size: 1.05rem; }
+    .nav-logo span { color: var(--copper-lt); }
+    .nav-links { display: flex; gap: 20px; align-items: center; font-size: 0.85rem; }
+    .nav-links a { color: rgba(255,255,255,0.75); }
+    .nav-links a:hover { color: #fff; }
+    .hero { background: linear-gradient(160deg, var(--navy-deep), var(--navy)); color: #fff; padding: 60px 0 52px; }
+    .hero .eyebrow { color: var(--copper-lt); font-size: 0.8rem; letter-spacing: 0.16em; margin-bottom: 16px; }
+    .hero h1 { color: #fff; font-size: clamp(1.5rem, 4.2vw, 2.1rem); margin-bottom: 20px; }
+    .hero p { color: rgba(255,255,255,0.82); font-size: 1rem; }
+    article { padding: 56px 0 24px; }
+    article h2 { font-size: 1.35rem; margin: 52px 0 18px; padding-bottom: 10px; border-bottom: 2px solid var(--cream); }
+    article h2:first-child { margin-top: 0; }
+    article p { margin-bottom: 1.2em; }
+    article ul { margin: 0 0 1.4em 1.4em; }
+    article li { margin-bottom: 0.5em; }
+    .point-box { background: var(--silk); border-left: 4px solid var(--copper); border-radius: 6px; padding: 18px 22px; margin: 24px 0; font-size: 0.95rem; }
+    .tool-cards { display: grid; gap: 14px; margin: 24px 0 8px; }
+    .tool-card { display: block; border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; background: var(--silk); transition: border-color .2s, transform .2s; }
+    .tool-card:hover { border-color: var(--copper); transform: translateY(-2px); }
+    .tool-card .t-name { font-weight: 700; color: var(--navy); font-size: 1.02rem; margin-bottom: 4px; }
+    .tool-card .t-desc { font-size: 0.88rem; color: var(--stone); }
+    .tool-card .t-go { margin-top: 8px; font-size: 0.8rem; font-weight: 700; color: var(--copper); }
+    .line-cta { background: var(--navy); border-radius: 14px; padding: 36px 28px; margin: 48px 0; text-align: center; color: #fff; }
+    .line-cta h2 { color: #fff; border: none; margin: 0 0 10px; font-size: 1.2rem; }
+    .line-cta p { color: rgba(255,255,255,0.78); font-size: 0.9rem; margin-bottom: 20px; }
+    .btn-line { display: inline-block; background: var(--line-green); color: #fff; font-weight: 700; padding: 15px 34px; border-radius: 999px; font-size: 1rem; min-height: 48px; }
+    .btn-line:hover { opacity: 0.9; }
+    .related { border-top: 1px solid var(--border); padding: 32px 0 8px; }
+    .related h2 { font-size: 1.05rem; border: none; margin: 0 0 14px; }
+    .related a { display: block; color: var(--copper-dk); font-weight: 500; margin-bottom: 8px; font-size: 0.95rem; }
+    .related a:hover { text-decoration: underline; }
+    .footer { background: var(--navy-deep); color: rgba(255,255,255,0.6); text-align: center; padding: 36px 0; margin-top: 56px; font-size: 0.8rem; }
+    .footer a { color: rgba(255,255,255,0.85); }
+    @media (max-width: 640px) { body { font-size: 16px; } .nav-links { gap: 12px; font-size: 0.78rem; } }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">HEALTH <span>ARCHI</span></a>
+      <div class="nav-links">
+        <a href="/tools">無料ツール一覧</a>
+        <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener">LINE登録</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <div class="eyebrow">見積の手間を減らす</div>
+      <h1>工務店の見積に時間がかかる理由と、<br>手作業を減らす方法</h1>
+      <p>見積は、ただ金額を入れる作業ではありません。図面を読み、数量を拾い、単価を確認し、抜けがないか見直す。小さな工務店ほど、この作業が夜に押し込まれます。</p>
+    </div>
+  </header>
+
+  <article>
+    <div class="container">
+
+      <h2>なぜ見積に時間がかかるのか</h2>
+      <p>見積が遅くなる原因は「入力が遅いから」ではありません。実務で時間を食っているのは、次の3つの層です。</p>
+      <ul>
+        <li><strong>拾い出し</strong>：図面から数量を拾う。柱が何本、ボードが何枚。図面を行き来しながらの手計算は、それだけで半日消えます。</li>
+        <li><strong>単価確認</strong>：材料の値動き、業者ごとの手間賃。古い見積からのコピペは、赤字の入口になります。</li>
+        <li><strong>見直し</strong>：「拾い忘れがないか」の確認。これが一番神経を使い、一番夜に残ります。</li>
+      </ul>
+      <p>そしてもうひとつ。<strong>変更が入るたびに、この3つをやり直している</strong>ことです。プラン変更が2回入れば、見積作業は3回分になります。</p>
+
+      <h2>どこはツールで減らせるのか</h2>
+      <p>この3層のうち、<strong>「計算」と「書式」と「変更のやり直し」はツールに預けられます</strong>。</p>
+      <ul>
+        <li>数量と単価を入れれば、集計・法定福利費・書式は自動でできる</li>
+        <li>変更が入ったら、変わった項目だけ直せば全体が再計算される</li>
+        <li>「拾い忘れチェック」は、項目の一覧表（テンプレート）を通すことで機械的に見つけられる</li>
+      </ul>
+      <p>最近はAI（人工知能）に図面の拾い出しの下書きをさせる方法もあります。まだ「下書き」の精度ですが、ゼロから拾うより速くなります。</p>
+
+      <h2>どこは人が見た方がいいのか</h2>
+      <p>逆に、ツールに任せてはいけない部分もあります。ここを飛ばすと安い見積はできても、赤字の現場ができます。</p>
+      <ul>
+        <li><strong>納まりの判断</strong>：図面に描かれていない取り合いは、現場を知る人にしか見えません</li>
+        <li><strong>地場の実勢単価</strong>：付き合いのある業者の手間賃は、データベースより自社の記録が正確です</li>
+        <li><strong>リスクの上乗せ</strong>：地盤、搬入経路、お施主さんの決まらなさ。経験の領域です</li>
+      </ul>
+      <div class="point-box">
+        <strong>整理すると：</strong>計算と清書と変更対応はツールへ。納まり・単価の裁量・リスク判断は人へ。この線引きができると、見積は「夜の仕事」から「昼の1〜2時間」に寄っていきます。
+      </div>
+
+      <h2>まずは無料ツールで、1件だけ試してみてください</h2>
+      <p>HEALTH ARCHIでは、一級建築士・建設業17年（営業・設計・現場管理・アフター）の実務から作った見積ツールを無料で公開しています。登録不要・ブラウザだけで動き、入力した内容が外部に送られることはありません。</p>
+      <div class="tool-cards">
+        <a class="tool-card" href="https://healtharchi.github.io/smart-quote-general/" target="_blank" rel="noopener">
+          <div class="t-name">スマート見積（汎用版）</div>
+          <div class="t-desc">リフォーム・修繕など、どんな工事でも。項目を入れると集計・書式まで自動。確定後の変更見積・請求書も作れます。</div>
+          <div class="t-go">無料で試す →</div>
+        </a>
+        <a class="tool-card" href="https://healtharchi.github.io/smart-quote/" target="_blank" rel="noopener">
+          <div class="t-name">スマート見積（木造新築版）</div>
+          <div class="t-desc">木造在来工法の新築専用。坪数と仕様を選ぶと、3分で概算見積の骨格ができます。</div>
+          <div class="t-go">無料で試す →</div>
+        </a>
+        <a class="tool-card" href="https://healtharchi.github.io/zumen-ai/" target="_blank" rel="noopener">
+          <div class="t-name">図面AI積算（実験版）</div>
+          <div class="t-desc">図面画像からAIが数量拾いの下書きを作る実験ツール。拾い出しのたたき台に。</div>
+          <div class="t-go">無料で試す →</div>
+        </a>
+      </div>
+
+      <div class="line-cta">
+        <h2>見積を楽にするAIメモを、LINEで受け取る</h2>
+        <p>建設業で使えるAI活用、無料ツールの更新、新しい実例を週1目安でお届けします。<br>登録無料・いつでも解除できます。</p>
+        <a class="btn-line" href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener">LINEで受け取る</a>
+      </div>
+
+      <section class="related">
+        <h2>関連する困りごと</h2>
+        <a href="/tools-schedule-gantt">工務店の工程表を簡単に作るには → </a>
+        <a href="/tools-site-photo">工事写真の整理と報告書づくりを楽にする → </a>
+        <a href="/tools">無料ツールの一覧を見る → </a>
+      </section>
+
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container">
+      <p><a href="/">HEALTH ARCHI トップへ</a>　｜　<a href="/tools">無料ツール一覧</a></p>
+      <p style="margin-top:10px;">© 2026 HEALTH ARCHI. All rights reserved.</p>
+    </div>
+  </footer>
+
+<script>
+/* HEALTH ARCHI: LINE誘導クリックを計測（キーイベント候補 line_click） */
+document.addEventListener('click', function(e){
+  var a = e.target.closest && e.target.closest('a[href*="line.me"]');
+  if(a && typeof gtag === 'function'){ gtag('event','line_click'); }
+}, true);
+</script>
+</body>
+</html>

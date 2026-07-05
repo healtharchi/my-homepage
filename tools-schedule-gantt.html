@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJTX97M6NY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MJTX97M6NY');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>工務店の工程表を簡単に作るには。Excelで詰まりやすい所と無料ツール｜HEALTH ARCHI</title>
+  <meta name="description" content="工程表づくりに毎回時間を取られていませんか。Excelで詰まりやすい3つの場面（変更・共有・印刷）と、ツールで減らせる部分・人が決めるべき部分を、一級建築士・建設業17年の実務から整理。登録不要の無料工程表ツールつき。">
+  <link rel="canonical" href="https://healtharchi.com/tools-schedule-gantt">
+  <meta property="og:site_name" content="HEALTH ARCHI">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://healtharchi.com/tools-schedule-gantt">
+  <meta property="og:title" content="工務店の工程表を簡単に作るには。Excelで詰まりやすい所と無料ツール">
+  <meta property="og:description" content="変更のたびに作り直し、業者への共有、印刷のズレ。工程表の手間をどこまで減らせるか、建設業17年の実務から整理。無料ツールつき。">
+  <meta property="og:image" content="https://healtharchi.com/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1B2B4B; --navy-deep: #0E1A2F; --copper: #B5703A; --copper-lt: #D4925A;
+      --copper-dk: #8A5228; --charcoal: #2C2C2C; --stone: #7A7875;
+      --cream: #F0EDE8; --silk: #FAF8F5; --white: #FFFFFF; --border: #E8E4DE;
+      --line-green: #06C755;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; color: var(--charcoal); background: var(--white); line-height: 2.0; font-size: 17px; -webkit-font-smoothing: antialiased; }
+    h1, h2, h3 { font-family: 'Noto Serif JP', serif; line-height: 1.5; color: var(--navy); }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+    .nav { background: var(--navy-deep); padding: 14px 0; }
+    .nav-inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { color: #fff; font-family: 'Noto Serif JP', serif; font-weight: 700; letter-spacing: 0.1em; font-size: 1.05rem; }
+    .nav-logo span { color: var(--copper-lt); }
+    .nav-links { display: flex; gap: 20px; align-items: center; font-size: 0.85rem; }
+    .nav-links a { color: rgba(255,255,255,0.75); }
+    .nav-links a:hover { color: #fff; }
+    .hero { background: linear-gradient(160deg, var(--navy-deep), var(--navy)); color: #fff; padding: 60px 0 52px; }
+    .hero .eyebrow { color: var(--copper-lt); font-size: 0.8rem; letter-spacing: 0.16em; margin-bottom: 16px; }
+    .hero h1 { color: #fff; font-size: clamp(1.5rem, 4.2vw, 2.1rem); margin-bottom: 20px; }
+    .hero p { color: rgba(255,255,255,0.82); font-size: 1rem; }
+    article { padding: 56px 0 24px; }
+    article h2 { font-size: 1.35rem; margin: 52px 0 18px; padding-bottom: 10px; border-bottom: 2px solid var(--cream); }
+    article h2:first-child { margin-top: 0; }
+    article p { margin-bottom: 1.2em; }
+    article ul { margin: 0 0 1.4em 1.4em; }
+    article li { margin-bottom: 0.5em; }
+    .point-box { background: var(--silk); border-left: 4px solid var(--copper); border-radius: 6px; padding: 18px 22px; margin: 24px 0; font-size: 0.95rem; }
+    .tool-cards { display: grid; gap: 14px; margin: 24px 0 8px; }
+    .tool-card { display: block; border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; background: var(--silk); transition: border-color .2s, transform .2s; }
+    .tool-card:hover { border-color: var(--copper); transform: translateY(-2px); }
+    .tool-card .t-name { font-weight: 700; color: var(--navy); font-size: 1.02rem; margin-bottom: 4px; }
+    .tool-card .t-desc { font-size: 0.88rem; color: var(--stone); }
+    .tool-card .t-go { margin-top: 8px; font-size: 0.8rem; font-weight: 700; color: var(--copper); }
+    .line-cta { background: var(--navy); border-radius: 14px; padding: 36px 28px; margin: 48px 0; text-align: center; color: #fff; }
+    .line-cta h2 { color: #fff; border: none; margin: 0 0 10px; font-size: 1.2rem; }
+    .line-cta p { color: rgba(255,255,255,0.78); font-size: 0.9rem; margin-bottom: 20px; }
+    .btn-line { display: inline-block; background: var(--line-green); color: #fff; font-weight: 700; padding: 15px 34px; border-radius: 999px; font-size: 1rem; min-height: 48px; }
+    .btn-line:hover { opacity: 0.9; }
+    .related { border-top: 1px solid var(--border); padding: 32px 0 8px; }
+    .related h2 { font-size: 1.05rem; border: none; margin: 0 0 14px; }
+    .related a { display: block; color: var(--copper-dk); font-weight: 500; margin-bottom: 8px; font-size: 0.95rem; }
+    .related a:hover { text-decoration: underline; }
+    .footer { background: var(--navy-deep); color: rgba(255,255,255,0.6); text-align: center; padding: 36px 0; margin-top: 56px; font-size: 0.8rem; }
+    .footer a { color: rgba(255,255,255,0.85); }
+    @media (max-width: 640px) { body { font-size: 16px; } .nav-links { gap: 12px; font-size: 0.78rem; } }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">HEALTH <span>ARCHI</span></a>
+      <div class="nav-links">
+        <a href="/tools">無料ツール一覧</a>
+        <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener">LINE登録</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <div class="eyebrow">段取りを見える化する</div>
+      <h1>工務店の工程表を簡単に作るには。<br>Excelで詰まりやすい所と無料ツール</h1>
+      <p>工程表は、作ること自体が目的ではありません。業者に渡して、お施主さんに見せて、現場を回すためのツールです。なのに「作る作業」に毎回1〜2時間、変更のたびにまた1時間。そんな状態になりがちです。</p>
+    </div>
+  </header>
+
+  <article>
+    <div class="container">
+
+      <h2>Excelの工程表が詰まる3つの場面</h2>
+      <p>多くの工務店の工程表はExcelで作られています。Excelは自由な反面、工程表では決まった場所で詰まります。</p>
+      <ul>
+        <li><strong>変更が入ったとき</strong>：基礎が2日延びたら、その後ろの全工程のセルを1本ずつ手で動かすことになります。工程変更は必ず起きるのに、その対応が一番重い</li>
+        <li><strong>業者に共有するとき</strong>：ファイルで送ると「どれが最新か」問題が起きます。印刷して渡すと、変更のたびに配り直しです</li>
+        <li><strong>印刷するとき</strong>：画面ではきれいでも、印刷すると1ページに収まらない・バーが切れる。渡せる形にする調整で時間が溶けます</li>
+      </ul>
+
+      <h2>どこはツールで減らせるのか</h2>
+      <p>工程表づくりのうち、<strong>「線を引く・動かす・清書する」はツールに預けられます</strong>。</p>
+      <ul>
+        <li>工事の項目と日数を入れれば、バー（帯）は自動で描かれる</li>
+        <li>開始日をずらせば、後ろの工程がまとめて動く</li>
+        <li>印刷用の形が最初から用意されている</li>
+      </ul>
+      <p>「工程表 エクセル テンプレート」を探すのも一つの手ですが、テンプレートは変更対応までは面倒を見てくれません。変更の多い現場ほど、バーを直接動かせるツールの方が楽になります。</p>
+
+      <h2>どこは人が決めるべきなのか</h2>
+      <p>一方で、工程表の中身そのものはツールでは決まりません。</p>
+      <ul>
+        <li><strong>工程の順番と重ね方</strong>：どこを並行で走らせられるかは、業者と現場を知る人の判断です</li>
+        <li><strong>日数の読み</strong>：職人さんの人数、天気、材料の納期。読みの精度は経験そのものです</li>
+        <li><strong>業者との調整</strong>：「この日程で入れるか」の電話一本は、まだ人の仕事です</li>
+      </ul>
+      <div class="point-box">
+        <strong>整理すると：</strong>線を引く・動かす・配れる形にするのはツールへ。順番の設計と日数の読みは人へ。「作る時間」が減った分だけ、「調整と読み」に頭を使えるようになります。
+      </div>
+
+      <h2>まずは無料ツールで、1現場だけ作ってみてください</h2>
+      <p>HEALTH ARCHIでは、一級建築士・建設業17年（営業・設計・現場管理・アフター）の実務から作った工程表ツールを無料で公開しています。登録不要・ブラウザだけで動き、入力した内容が外部に送られることはありません。</p>
+      <div class="tool-cards">
+        <a class="tool-card" href="https://healtharchi.github.io/gantt-chart/" target="_blank" rel="noopener">
+          <div class="t-name">ガント工程表</div>
+          <div class="t-desc">項目と日数を入れるだけで工程表（ガントチャート）ができる無料ツール。バーを動かして調整、印刷もそのまま。</div>
+          <div class="t-go">無料で試す →</div>
+        </a>
+      </div>
+
+      <div class="line-cta">
+        <h2>工程管理の改善メモを、LINEで受け取る</h2>
+        <p>建設業で使えるAI活用、無料ツールの更新、新しい実例を週1目安でお届けします。<br>登録無料・いつでも解除できます。</p>
+        <a class="btn-line" href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener">LINEで受け取る</a>
+      </div>
+
+      <section class="related">
+        <h2>関連する困りごと</h2>
+        <a href="/tools-estimate-time">工務店の見積に時間がかかる理由と、手作業を減らす方法 → </a>
+        <a href="/tools-site-photo">工事写真の整理と報告書づくりを楽にする → </a>
+        <a href="/tools">無料ツールの一覧を見る → </a>
+      </section>
+
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container">
+      <p><a href="/">HEALTH ARCHI トップへ</a>　｜　<a href="/tools">無料ツール一覧</a></p>
+      <p style="margin-top:10px;">© 2026 HEALTH ARCHI. All rights reserved.</p>
+    </div>
+  </footer>
+
+<script>
+/* HEALTH ARCHI: LINE誘導クリックを計測（キーイベント候補 line_click） */
+document.addEventListener('click', function(e){
+  var a = e.target.closest && e.target.closest('a[href*="line.me"]');
+  if(a && typeof gtag === 'function'){ gtag('event','line_click'); }
+}, true);
+</script>
+</body>
+</html>

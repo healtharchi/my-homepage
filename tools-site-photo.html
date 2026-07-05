@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MJTX97M6NY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MJTX97M6NY');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>工事写真の整理と報告書づくりを楽にする。現場写真が散らかる理由｜HEALTH ARCHI</title>
+  <meta name="description" content="スマホの中に現場写真が何千枚。どの現場のどの工程か分からない。工事写真が散らかる本当の理由と、その場で仕分けを終わらせる方法を、一級建築士・建設業17年の実務から整理しました。登録不要の無料整理ツールつき。">
+  <link rel="canonical" href="https://healtharchi.com/tools-site-photo">
+  <meta property="og:site_name" content="HEALTH ARCHI">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://healtharchi.com/tools-site-photo">
+  <meta property="og:title" content="工事写真の整理と報告書づくりを楽にする。現場写真が散らかる理由">
+  <meta property="og:description" content="撮るときに仕分けが終わっていれば、探す時間はゼロになる。工事写真の手間の減らし方を建設業17年の実務から整理。無料ツールつき。">
+  <meta property="og:image" content="https://healtharchi.com/ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1B2B4B; --navy-deep: #0E1A2F; --copper: #B5703A; --copper-lt: #D4925A;
+      --copper-dk: #8A5228; --charcoal: #2C2C2C; --stone: #7A7875;
+      --cream: #F0EDE8; --silk: #FAF8F5; --white: #FFFFFF; --border: #E8E4DE;
+      --line-green: #06C755;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Noto Sans JP', sans-serif; color: var(--charcoal); background: var(--white); line-height: 2.0; font-size: 17px; -webkit-font-smoothing: antialiased; }
+    h1, h2, h3 { font-family: 'Noto Serif JP', serif; line-height: 1.5; color: var(--navy); }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+    .nav { background: var(--navy-deep); padding: 14px 0; }
+    .nav-inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { color: #fff; font-family: 'Noto Serif JP', serif; font-weight: 700; letter-spacing: 0.1em; font-size: 1.05rem; }
+    .nav-logo span { color: var(--copper-lt); }
+    .nav-links { display: flex; gap: 20px; align-items: center; font-size: 0.85rem; }
+    .nav-links a { color: rgba(255,255,255,0.75); }
+    .nav-links a:hover { color: #fff; }
+    .hero { background: linear-gradient(160deg, var(--navy-deep), var(--navy)); color: #fff; padding: 60px 0 52px; }
+    .hero .eyebrow { color: var(--copper-lt); font-size: 0.8rem; letter-spacing: 0.16em; margin-bottom: 16px; }
+    .hero h1 { color: #fff; font-size: clamp(1.5rem, 4.2vw, 2.1rem); margin-bottom: 20px; }
+    .hero p { color: rgba(255,255,255,0.82); font-size: 1rem; }
+    article { padding: 56px 0 24px; }
+    article h2 { font-size: 1.35rem; margin: 52px 0 18px; padding-bottom: 10px; border-bottom: 2px solid var(--cream); }
+    article h2:first-child { margin-top: 0; }
+    article p { margin-bottom: 1.2em; }
+    article ul { margin: 0 0 1.4em 1.4em; }
+    article li { margin-bottom: 0.5em; }
+    .point-box { background: var(--silk); border-left: 4px solid var(--copper); border-radius: 6px; padding: 18px 22px; margin: 24px 0; font-size: 0.95rem; }
+    .tool-cards { display: grid; gap: 14px; margin: 24px 0 8px; }
+    .tool-card { display: block; border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; background: var(--silk); transition: border-color .2s, transform .2s; }
+    .tool-card:hover { border-color: var(--copper); transform: translateY(-2px); }
+    .tool-card .t-name { font-weight: 700; color: var(--navy); font-size: 1.02rem; margin-bottom: 4px; }
+    .tool-card .t-desc { font-size: 0.88rem; color: var(--stone); }
+    .tool-card .t-go { margin-top: 8px; font-size: 0.8rem; font-weight: 700; color: var(--copper); }
+    .line-cta { background: var(--navy); border-radius: 14px; padding: 36px 28px; margin: 48px 0; text-align: center; color: #fff; }
+    .line-cta h2 { color: #fff; border: none; margin: 0 0 10px; font-size: 1.2rem; }
+    .line-cta p { color: rgba(255,255,255,0.78); font-size: 0.9rem; margin-bottom: 20px; }
+    .btn-line { display: inline-block; background: var(--line-green); color: #fff; font-weight: 700; padding: 15px 34px; border-radius: 999px; font-size: 1rem; min-height: 48px; }
+    .btn-line:hover { opacity: 0.9; }
+    .related { border-top: 1px solid var(--border); padding: 32px 0 8px; }
+    .related h2 { font-size: 1.05rem; border: none; margin: 0 0 14px; }
+    .related a { display: block; color: var(--copper-dk); font-weight: 500; margin-bottom: 8px; font-size: 0.95rem; }
+    .related a:hover { text-decoration: underline; }
+    .footer { background: var(--navy-deep); color: rgba(255,255,255,0.6); text-align: center; padding: 36px 0; margin-top: 56px; font-size: 0.8rem; }
+    .footer a { color: rgba(255,255,255,0.85); }
+    @media (max-width: 640px) { body { font-size: 16px; } .nav-links { gap: 12px; font-size: 0.78rem; } }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">HEALTH <span>ARCHI</span></a>
+      <div class="nav-links">
+        <a href="/tools">無料ツール一覧</a>
+        <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener">LINE登録</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <div class="eyebrow">写真整理を、その場で終わらせる</div>
+      <h1>工事写真の整理と報告書づくりを楽にする。<br>現場写真が散らかる理由</h1>
+      <p>スマホの中に、現場写真が何千枚。「あの配筋の写真、どこだっけ」を探す10分が、月に何度もある。撮るのは一瞬なのに、整理と報告書づくりが夜の仕事になっていきます。</p>
+    </div>
+  </header>
+
+  <article>
+    <div class="container">
+
+      <h2>なぜ現場写真は散らかるのか</h2>
+      <p>写真が散らかるのは、片づけが苦手だからではありません。仕組みの問題です。</p>
+      <ul>
+        <li><strong>撮る時と使う時が離れている</strong>：撮るのは現場のその瞬間、使うのは何日も後の報告書づくり。時間が空くほど「これはどこの何の写真か」が消えていきます</li>
+        <li><strong>撮る人と整理する人が別</strong>：職人さんや監督が撮り、事務所で誰かがまとめる。撮った本人しか分からない写真は、そこで迷子になります</li>
+        <li><strong>スマホは「撮るツール」であって「仕分けるツール」ではない</strong>：カメラロールは日付順に積み上がるだけ。現場別・工程別には並んでくれません</li>
+      </ul>
+
+      <h2>どこはツールで減らせるのか</h2>
+      <p>コツは一つで、<strong>「撮ったその場で、仕分けまで終わらせる」</strong>ことです。後でやるから溜まります。</p>
+      <ul>
+        <li>撮った直後に「どの現場・どの工程か」を選ぶだけなら、1枚数秒で済む</li>
+        <li>仕分けさえ済んでいれば、報告書は「並べる」だけの作業になる</li>
+        <li>探す時間（1枚10分）が、そのままゼロになる</li>
+      </ul>
+      <p>最近はAI（人工知能）に写真の分類やメモの下書きをさせる方法もあり、「選ぶ手間」自体を減らすツールも出てきています。</p>
+
+      <h2>どこは人が判断すべきなのか</h2>
+      <ul>
+        <li><strong>何を撮るか</strong>：配筋、金物、防水の立ち上がり。「あとで見えなくなる所」を押さえる判断は現場を知る人のものです</li>
+        <li><strong>どれを残すか</strong>：似た5枚から証拠になる1枚を選ぶ目は、経験です</li>
+        <li><strong>誰に見せるか</strong>：お施主さん向け・検査向け・社内向けで、必要な写真は違います</li>
+      </ul>
+      <div class="point-box">
+        <strong>整理すると：</strong>仕分け・保管・報告書の体裁はツールへ。「何を撮り、どれを残すか」は人へ。撮影から報告書までの流れが1本につながると、写真は「溜まる荷物」から「守ってくれる記録」に変わります。
+      </div>
+
+      <h2>まずは無料ツールで、今日の現場の分だけ試してみてください</h2>
+      <p>HEALTH ARCHIでは、一級建築士・建設業17年（営業・設計・現場管理・アフター）の実務から作った写真整理ツールを無料で公開しています。登録不要・ブラウザだけで動き、写真が外部に送られることはありません。</p>
+      <div class="tool-cards">
+        <a class="tool-card" href="https://healtharchi.github.io/genba-photo/" target="_blank" rel="noopener">
+          <div class="t-name">現場写真かんたん整理</div>
+          <div class="t-desc">撮った現場写真を、その場でサッと現場別・工程別に仕分け。スマホのブラウザだけで動きます。</div>
+          <div class="t-go">無料で試す →</div>
+        </a>
+      </div>
+
+      <div class="line-cta">
+        <h2>写真整理と報告書の改善メモを、LINEで受け取る</h2>
+        <p>建設業で使えるAI活用、無料ツールの更新、新しい実例を週1目安でお届けします。<br>登録無料・いつでも解除できます。</p>
+        <a class="btn-line" href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener">LINEで受け取る</a>
+      </div>
+
+      <section class="related">
+        <h2>関連する困りごと</h2>
+        <a href="/tools-estimate-time">工務店の見積に時間がかかる理由と、手作業を減らす方法 → </a>
+        <a href="/tools-schedule-gantt">工務店の工程表を簡単に作るには → </a>
+        <a href="/tools">無料ツールの一覧を見る → </a>
+      </section>
+
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container">
+      <p><a href="/">HEALTH ARCHI トップへ</a>　｜　<a href="/tools">無料ツール一覧</a></p>
+      <p style="margin-top:10px;">© 2026 HEALTH ARCHI. All rights reserved.</p>
+    </div>
+  </footer>
+
+<script>
+/* HEALTH ARCHI: LINE誘導クリックを計測（キーイベント候補 line_click） */
+document.addEventListener('click', function(e){
+  var a = e.target.closest && e.target.closest('a[href*="line.me"]');
+  if(a && typeof gtag === 'function'){ gtag('event','line_click'); }
+}, true);
+</script>
+</body>
+</html>
