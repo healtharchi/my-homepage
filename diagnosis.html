@@ -12,7 +12,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>立場別 無料診断｜あなたの現状と次の一歩｜HEALTH ARCHI</title>
-<meta name="description" content="建設業に携わる人のための無料診断。立場（社長・職人・現場監督・事務・後継者など）を選んで約3分。あなたの現状と「次の一歩」を、一級建築士・現場17年の知見でお届けします。登録不要・完全無料。">
+<meta name="description" content="建設業に携わる人のための無料診断。立場（社長・職人・現場監督・事務・後継者など）を選んで約3分。あなたの現状と「次の一歩」を、一級建築士／設計・現場監督17年の知見でお届けします。登録不要・完全無料。">
 <meta property="og:site_name" content="HEALTH ARCHI">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://healtharchi.com/diagnosis">
@@ -129,7 +129,7 @@
       <h1>あなたの会社の<br><em>現状と次の一歩</em>を、3分で。</h1>
       <p class="hero-sub">建設業に携わる人ならどなたでも。立場に応じた質問に答えるだけで、<br>あなた専用の現状分析と「次の一歩」をお届けします。</p>
       <div class="trust-row">
-        <span>営業電話なし</span><span>メアド不要</span><span>一級建築士・現場17年が設計</span>
+        <span>営業電話なし</span><span>メアド不要</span><span>一級建築士／設計・現場監督17年が設計</span>
       </div>
       <h3 style="font-size:17px; margin-bottom:14px; color:var(--copper-dark);">まず、あなたの立場を教えてください</h3>
       <div class="persona-list">
@@ -171,7 +171,7 @@
       <div class="cta-box">
         <h4 id="cta-title">LINE登録で「建設業で役立つAI情報」を無料でお届け</h4>
         <p id="cta-sub">営業電話一切なし。</p>
-        <a class="line-btn" href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" onclick="if(typeof gtag==='function'){gtag('event','line_click');}">📱 LINEで受け取る（無料・30秒）</a>
+        <a class="line-btn" href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" onclick="if(typeof gtag==='function'){gtag('event','line_click');}">LINEで受け取る（無料・30秒）</a>
         <div id="cta-secondary"></div>
       </div>
       <div class="debug-restart"><button onclick="restartDiagnosis()">↻ もう一度・別の立場で試す</button></div>
@@ -202,7 +202,6 @@ const PERSONAS = {
       { num: 'Q3', text: '「もう1人いたら助かるのに」と感じるのはどんな時？', options: ['見積もり・請求書作成の時', '現場と現場の移動・段取りの時', '確定申告・経理処理の時', '顧客対応・電話応対の時', '営業・新規開拓の時'] },
       { num: 'Q4', text: '書類作成（見積・請求・領収書）に1ヶ月で何時間使っていますか？', options: ['5時間以下', '6〜15時間', '16〜30時間', '31時間以上（ほぼ毎日）'] },
       { num: 'Q5', text: '今後5年の事業展開で考えているのは？', options: ['規模拡大して従業員を雇いたい', '今のまま継続したい', '別の事業も並行で立ち上げたい', '将来は引退・縮小を考えている', 'まだ決めていない'] },
-      { num: 'Q6', text: '「建設業で役立つAI情報」をLINEで受け取りますか？', options: ['希望する', '後で考える'] },
     ]
   },
   P3: {
@@ -213,7 +212,6 @@ const PERSONAS = {
       { num: 'Q3', text: '現場で「これ、もう少し良くなるのに」と感じる場面は？', hint: '複数選択可', multi: true, options: ['道具・材料の段取り', '他の職種との連携・順番', '図面の指示が曖昧', '写真撮影・日報の手間', '親方・現場監督との連絡', '安全管理の手間', '特にない'] },
       { num: 'Q4', text: '親方や現場監督に「改善提案」をしたことは？', options: ['頻繁にしている', '数回したが採用されなかった', 'したいけど伝え方がわからない', '立場上、提案はしにくい', '興味がない'] },
       { num: 'Q5', text: 'もし「現場で使えるスマホアプリ」があったら、何が欲しい？', hint: '複数選択可', multi: true, options: ['図面・写真の閲覧・共有', '工程・段取りの確認', '日報の音声入力', '材料発注・在庫確認', '簡単な見積もり計算', '特に欲しいものはない'] },
-      { num: 'Q6', text: '「建設業で役立つAI情報」をLINEで受け取りますか？', options: ['希望する', '後で考える'] },
     ]
   },
   P4: {
@@ -225,7 +223,6 @@ const PERSONAS = {
       { num: 'Q4', text: '職人・下請け・施主・社長との連絡で、一番時間を取られるのは？', options: ['職人への指示・段取り', '下請けとの調整', '施主への報告・確認', '社長への報告', '役所・検査機関対応'] },
       { num: 'Q5', text: '上司・社長に「業務改善の提案」をしたことは？', options: ['提案して採用された', '提案したが採用されなかった', 'したいけど機会・伝え方がわからない', '立場上、提案しにくい', '現状のままで満足'] },
       { num: 'Q6', text: 'もし「業務統合ダッシュボード」があったら、何を一目で見たい？', hint: '複数選択可', multi: true, options: ['全現場の進捗・遅延状況', '各現場の原価・利益率', '職人・下請けの稼働状況', '図面・書類の最新版', '顧客・施主とのやり取り履歴', '安全・品質チェック状況'] },
-      { num: 'Q7', text: '「建設業で役立つAI情報」をLINEで受け取りますか？', options: ['希望する', '後で考える'] },
     ]
   },
   P5: {
@@ -236,7 +233,6 @@ const PERSONAS = {
       { num: 'Q3', text: '「これ、自動化できるのに」と思う作業は？', hint: '複数選択可', multi: true, options: ['請求書発行', '領収書の整理', '給与計算', '売掛・買掛管理', '銀行口座の入出金確認', '工事原価管理'] },
       { num: 'Q4', text: '会社の業務改善を提案したことは？', options: ['提案して採用された', '提案したが採用されなかった', 'したいけど機会がない', '立場上、しにくい'] },
       { num: 'Q5', text: 'もし「自分の業務を半減させるテンプレ集」があったら、まず何を試したい？', options: ['見積書テンプレ', '請求書テンプレ', '工事原価管理表', '資金繰り表', '給与計算テンプレ', '工程表'] },
-      { num: 'Q6', text: '「建設業で役立つAI情報」をLINEで受け取りますか？', options: ['希望する', '後で考える'] },
     ]
   },
   P6: {
@@ -249,14 +245,13 @@ const PERSONAS = {
       { num: 'Q3', text: '「自分が経営権を持ったら／責任ある立場になったら変えたい」ことは？', hint: '複数選択可', multi: true, options: ['古い慣習・紙文化', '評価・給与体系', '営業スタイル', '職人の働き方', '事業領域（新規事業）', '特にない'] },
       { num: 'Q4', text: 'IT・AIへの興味度', hint: '10段階で評価', scale: 10 },
       { num: 'Q5', text: '5年後の自分の姿として描いているのは？', options: ['自分が代表または会社の中核になっている', '番頭・No.2として実務を回している', '別の道に進んでいるかも', 'まだ描けていない'] },
-      { num: 'Q6', text: '「建設業で役立つAI情報」をLINEで受け取りますか？', options: ['希望する', '後で考える'] },
     ]
   }
 };
 
-// ── 回答→文章 ヘルパー（回答内容を結果に反映する）──
+// 回答→文章 ヘルパー（回答内容を結果に反映する）
 function optText(pid, qi, oi){ try{ return PERSONAS[pid].questions[qi].options[oi]; }catch(e){ return ''; } }
-function optMulti(pid, qi, arr){ if(!Array.isArray(arr)) return ''; return arr.map(i=>optText(pid,qi,i)).filter(Boolean).join('・'); }
+function optMulti(pid, qi, arr){ if(!Array.isArray(arr)) return ''; return arr.map(i=>optText(pid,qi,i)).filter(Boolean).join('／'); }
 function p6Personal(a){
   const ai = a[3];
   let aiLine = '';
@@ -267,8 +262,12 @@ function p6Personal(a){
   }
   const ch = optMulti('P6',2,a[2]);
   let body = aiLine || 'あなたの問題意識を起点に、次の一歩を整理しました。';
-  if(ch) body += `<br><br>あなたが「変えたい」と答えたのは<strong>${ch}</strong>。その問題意識を、今のうちに言葉と道具にしておくことが次のステップにつながります。`;
-  return { label:'🔍 あなたの回答から', title:'あなたの「変えたい」を起点に', body };
+  if(ch) body += `<br><br>あなたが「変えたい」と答えたのは<strong>${ch}</strong>。その問題意識を、今のうちに言葉とツールにしておくことが次のステップにつながります。`;
+  if(a[0]===0){
+    if(a[1]===0) body += `<br><br>先代とのやり方の違いを「毎日感じる」。衝突も含めて、それは世代交代が実際に動き始めている証拠です。何も起きない会社より、ずっと健全です。ただし、ぶつかり合いを「どちらが正しいか」で続けると消耗戦になります。必要なのは、あなたの「変えたい」を感覚から<strong>言葉と根拠</strong>に変えることです。`;
+    else if(a[1]===1) body += `<br><br>違和感を飲み込んでいる時間は、外からは従順に見えて、本人の中では静かに溜まっていきます。飲み込んだものを言葉にして書き溜めておくこと。それが、いざ立場が変わった日の設計図になります。`;
+  }
+  return { label:'あなたの回答から', title:'あなたの「変えたい」を起点に', body };
 }
 
 // ═══ 立場別処方箋マトリクス v0.3（回答反映＋無料ファースト）═══
@@ -281,19 +280,21 @@ const PRESCRIPTIONS = {
       const sizeMap = ['6〜10名','11〜15名','16〜30名','31名以上'];
       const size = sizeMap[a[6]] || '';
       let body = `あなたが今いちばん時間を取られているのは<strong>「${q1}」</strong>。そして「会社の記憶」を持っているのは<strong>${mem}</strong>の状態です。`;
-      if(a[4]===0) body += `<br><br>これは能力の問題ではありません。あなたが抜けた瞬間に会社が止まる——その一点が、いちばんの経営リスクです。`;
+      if(a[4]===0) body += `<br><br>これは能力の問題ではありません。あなたが抜けた瞬間に会社が止まる。その一点が、いちばんの経営リスクです。`;
       else body += `<br><br>記憶の分散は進んでいますが、最終判断はまだあなたに集中しているはずです。`;
       if(a[2]===0||a[2]===1) body += ` 「本当は自分でなくてもいい業務」を日々感じているなら、それは"渡せる仕事"が見えているサインです。`;
       if(size) body += `<br><br>従業員${size}の規模で、社長が現場判断を抱え続けるのはそろそろ限界に近づいています。`;
-      return { label:'🔍 あなたの回答から見えた現状', title:'「会社の記憶」と「あなたの時間」の使われ方', body };
+      if(a[3]===0) body += `<br><br>そして、頭の中には常に5件以上の未整理の判断が残ったまま。布団に入ってからも会社のことが頭から離れない。これは業務量の問題ではなく、<strong>「判断を預ける先が、社内のどこにもない」</strong>ことが原因です。社長業で一番すり減るのは、体ではなく「決め続けること」です。`;
+      if(a[5]===4) body += `<br><br>「AIに何を聞きたいかまだイメージがわかない」。正直な答えだと思います。最初の一歩は質問を用意することではなく、毎朝10分「今日の判断」を口に出す相手を持つことから始まります。`;
+      return { label:'あなたの回答から見えた現状', title:'「会社の記憶」と「あなたの時間」の使われ方', body };
     },
     sections: [
-      { label: '📕 まず無料でできる次の一歩', title: '「現場を降りる」という考え方に触れる',
-        body: 'いきなり何かを買う必要はありません。まずは<strong>書籍「社長が現場を降りる日」</strong>（Amazon販売中）で「現場を降りる」という考え方に触れてみてください。<br><br>「会社の記憶を持ったAIに、日々の判断を預ける」とはどういうことか——そのイメージを掴むところから始められます。'},
-      { label: '💡 次の段階：ISHIZUE（会社の記憶を持つAI）※準備中', title: '毎朝の対話で、「会社の記憶」が動き出す',
-        body: 'ISHIZUEは、HIDE本人が自社で毎日稼働させている「AI経営パートナー」を、あなたの会社専用に仕立てる構想です。毎朝10分の対話で、過去の判断との矛盾チェックや、似た案件の振り返りを手伝う——そんな相棒を目指しています。<br><br><strong>※ISHIZUEは現在準備中（2026年内 提供開始予定）です。</strong>くわしい内容や先行案内は、LINEで順次お知らせします。'},
-      { label: '🛠 さらに将来：会社で使える便利ツール群 ※準備中', title: '日々の業務を、現場から事務まで',
-        body: 'ISHIZUEと並んで、現場から事務まで会社で使える便利ツール群<strong>「HEALTH ARCHI Tools」</strong>も準備しています（資金繰り・原価管理・書類テンプレ・顧客台帳ほか）。<br><strong>※こちらも準備中（2026年内 開始予定）。今は「こんな道具が控えている」と知っておくだけで十分です。</strong>'}
+      { label: 'まず無料でできる次の一歩', title: '「現場を降りる」という考え方に触れる',
+        body: 'いきなり何かを買う必要はありません。まずは<strong>書籍「社長が現場を降りる日」</strong>（Amazon販売中）で「現場を降りる」という考え方に触れてみてください。<br><br>「会社の記憶を持ったAIに、日々の判断を預ける」とはどういうことか。そのイメージを掴むところから始められます。'},
+      { label: '次の段階：ISHIZUE（会社の記憶を持つAI）※準備中', title: '毎朝の対話で、「会社の記憶」が動き出す',
+        body: 'ISHIZUEは、HIDE本人が自社で毎日稼働させている「AI経営パートナー」を、あなたの会社専用に仕立てる構想です。毎朝10分の対話で、過去の判断との矛盾チェックや、似た案件の振り返りを手伝う。そんな相棒を目指しています。<br><br><strong>※ISHIZUEは現在準備中（2026年内 提供開始予定）です。</strong>くわしい内容や先行案内は、LINEで順次お知らせします。'},
+      { label: 'さらに将来：会社で使えるツール群 ※準備中', title: '日々の業務を、現場から事務まで',
+        body: 'ISHIZUEと並んで、現場から事務まで会社で使えるツール群<strong>「HEALTH ARCHI Tools」</strong>も準備しています（資金繰り・原価管理・書類テンプレ・顧客台帳ほか）。<br><strong>※こちらも準備中（2026年内 開始予定）。今は「こんなツールが控えている」と知っておくだけで十分です。</strong>'}
     ],
     toolsIntro: '「準備中」を待たなくても、社長の時間を奪っている定番業務は今日から無料ツールで軽くできます。さらに詳しく現状を知りたい方は、社長専用の12問診断もどうぞ。',
     tools: [
@@ -314,18 +315,28 @@ const PRESCRIPTIONS = {
       let body = `あなたが「もう1人いたら」と感じるのは、主に<strong>「${need}」</strong>の場面ですね。`;
       if(hours) body += ` 書類仕事には毎月<strong>${hours}</strong>を使っています。`;
       if(a[3]>=2) body += `<br><br>この時間は、本来なら現場や家族に回せる時間です。仕組みで取り戻せます。`;
-      if(a[4]===0) body += `<br><br>将来は人を雇って広げたい——その時に効く土台を、今から無理なく作れます。`;
-      return { label:'🔍 あなたの回答から見えた現状', title:'「現場で稼ぐ自分」と「事務で消耗する自分」', body };
+      else if(a[0]===0||a[0]===1) body += `<br><br>現場9割で回せているのは、それ自体があなたの段取り力の証明です。だからこそ、残りの事務に「現場と同じ集中力」を使うのはやめて、ツールに任せていい部分です。`;
+      if(a[4]===0) body += `<br><br>将来は人を雇って広げたい。その時に効く土台を、今から無理なく作れます。`;
+      else if(a[4]===1) body += `<br><br>今のかたちを続けたい。それは立派な経営判断です。ただ、体ひとつで回している以上、あなたが事務で消耗しない仕組みだけは先に作っておく価値があります。`;
+      else if(a[4]===2) body += `<br><br>別の事業も立ち上げたい。その原資は、資金より先に「時間」です。事務を軽くすることが、そのまま新しい事業の仕込み時間になります。`;
+      else if(a[4]===3) body += `<br><br>引退・縮小を視野に入れているなら、なおさらです。残りの現役時間を書類仕事に使うのは、もったいない。<strong>事務は、一番先に手放していい荷物です。</strong>`;
+      else if(a[4]===4) body += `<br><br>5年後を決めていないのは、悪いことではありません。決めるための余白（考える時間）を作ること自体が、今の一歩です。`;
+      return { label:'あなたの回答から見えた現状', title:'「現場で稼ぐ自分」と「事務で消耗する自分」', body };
     },
-    sections: [
-      { label: '🛠 もっと効率化したくなったら（準備中）', title: '建設業特化の便利ツールを、いずれ定額で',
-        body: '無料ツールで物足りなくなったら、見積・請求・領収書テンプレ／資金繰り／工事原価管理／顧客台帳などをまとめた<strong>「HEALTH ARCHI Tools」</strong>も準備しています。月10〜20時間の事務を、仕組みで減らすのが狙いです。<br><strong>※現在準備中（2026年内 開始予定）。料金・先行案内はLINEで（急がなくて大丈夫です）。</strong>'},
-      { label: '📕 書籍「社長が現場を降りる日」', title: '未来のための「経営の基礎」',
-        body: '規模を広げて社員を雇う時に必要な「経営の基礎」を、建設業の現場に特化して書いた本（Amazon販売中）。今は1人でも、未来の土台になります。'},
-      { label: '🚀 将来、規模が拡大したら…（準備中）', title: '6名を超えたら、ISHIZUEへ',
-        body: '従業員6名を超えるころには、社長専用の「会社の記憶を持つAI」<strong>ISHIZUE</strong>という選択肢も。<strong>※準備中（2026年内 提供開始予定）。先行案内はLINEで。</strong>'}
-    ],
-    toolsIntro: 'あなたが「もう1人いたら」と感じる事務まわりは、今日から無料の道具で軽くできます。まずは見積づくりと写真整理から。',
+    sections: function(a){
+      const secs = [
+        { label: 'もっと効率化したくなったら（準備中）', title: '建設業特化の便利ツールを、いずれ定額で',
+          body: '無料ツールで物足りなくなったら、見積・請求・領収書テンプレ／資金繰り／工事原価管理／顧客台帳などをまとめた<strong>「HEALTH ARCHI Tools」</strong>も準備しています。月10〜20時間の事務を、仕組みで減らすのが狙いです。<br><strong>※現在準備中（2026年内 開始予定）。料金・先行案内はLINEで（急がなくて大丈夫です）。</strong>'},
+        { label: '書籍「社長が現場を降りる日」', title: '未来のための「経営の基礎」',
+          body: '規模を広げて社員を雇う時に必要な「経営の基礎」を、建設業の現場に特化して書いた本（Amazon販売中）。今は1人でも、未来の土台になります。'}
+      ];
+      if(a[4]===3) secs.push({ label: '将来に向けて', title: 'たたむ日まで、身軽に',
+        body: '引退・縮小を考え始めても、それまでの一日一日の現場は続きます。だからこそ<strong>「残りの現役時間の事務を最小にする」</strong>ことが一番の投資です。これまでの仕事の記録（顧客・見積・図面）を整理して残しておくことは、誰かに引き継ぐ場合にも、たたむ場合にも効いてきます。'});
+      else secs.push({ label: '将来、規模が拡大したら…（準備中）', title: '6名を超えたら、ISHIZUEへ',
+        body: '従業員6名を超えるころには、社長専用の「会社の記憶を持つAI」<strong>ISHIZUE</strong>という選択肢も。<strong>※準備中（2026年内 提供開始予定）。先行案内はLINEで。</strong>'});
+      return secs;
+    },
+    toolsIntro: 'あなたが「もう1人いたら」と感じる事務まわりは、今日から無料のツールで軽くできます。まずは見積づくりと写真整理から。',
     tools: [
       { label: '見積を作ってみる', href: 'https://healtharchi.github.io/smart-quote-general/' },
       { label: '現場写真を整理する', href: 'https://healtharchi.github.io/genba-photo/' }
@@ -337,23 +348,33 @@ const PRESCRIPTIONS = {
   P3: {
     personalize: function(a){
       const spec = optText('P3',0,a[0]) || 'あなたの専門';
-      const improve = optMulti('P3',2,a[2]);
-      const want = optMulti('P3',4,a[4]);
-      let body = `<strong>${spec}</strong>のあなたが現場で感じている改善ポイントは`;
-      body += improve ? `<strong>「${improve}」</strong>。` : `日々の段取りまわり。`;
-      if(want) body += ` そして「あったら欲しい」と答えた道具は<strong>「${want}」</strong>でした。`;
-      body += `<br><br>その「気づき」は、現場を良くする一番の資源です。眠らせておくのはもったいない。`;
-      return { label:'🔍 あなたの回答から見えた現状', title:'あなたの「気づき」は現場の資源です', body };
+      const improveReal = Array.isArray(a[2]) ? a[2].filter(i => i !== 6) : [];
+      const wantReal = Array.isArray(a[4]) ? a[4].filter(i => i !== 5) : [];
+      const improve = optMulti('P3',2,improveReal);
+      const want = optMulti('P3',4,wantReal);
+      let body;
+      if(!improve && !want){
+        body = `今の現場に大きな不満はない。それは恵まれた現場にいる証拠でもあり、<strong>${spec}</strong>としてのあなたの腕と段取りが現場に馴染んでいる証拠でもあります。<br><br>ただ、写真・日報・書類の手間は、この業界でこれから確実に増えていきます。困る前にツールへ慣れておくと、その時いちばん早く対応できるのはあなたになります。`;
+      } else {
+        body = `<strong>${spec}</strong>のあなたが現場で感じている改善ポイントは`;
+        body += improve ? `<strong>「${improve}」</strong>。` : `日々の段取りまわり。`;
+        if(want) body += ` そして「あったら欲しい」と答えたツールは<strong>「${want}」</strong>でした。`;
+        body += `<br><br>その「気づき」は、現場を良くする一番の資源です。眠らせておくのはもったいない。`;
+      }
+      if(a[3]===1) body += `<br><br>一度は声を上げたのに、通らなかった。それはあなたの案が悪かったのではありません。現場の口頭提案は、忙しさの中で流れてしまうものだからです。<strong>紙一枚の「形」になっているかどうか</strong>で、同じ提案でも通り方が変わります。`;
+      else if(a[3]===2) body += `<br><br>「伝え方がわからない」は、気づく力がある人だけが持つ悩みです。中身はもうある。足りないのは翻訳だけです。`;
+      else if(a[3]===3) body += `<br><br>「立場上、言いにくい」。その我慢、心当たりのある職人は多いはずです。気づいているのに黙っている時間は、静かに人を消耗させます。`;
+      return { label:'あなたの回答から見えた現状', title:'あなたの「気づき」は現場の資源です', body };
     },
     sections: [
-      { label: '🛠 改善提案書ジェネレーター（準備中）', title: 'あなたの「こうしたら良いのに」を、形に',
-        body: '現場の「こうしたら良いのに」を、親方・現場監督に渡せる提案書に変換する道具を準備しています。<strong>職人の声が、現場改善に届く仕組み</strong>です。<br><strong>※現在準備中。公開時はLINEで優先案内します。</strong>'},
-      { label: '📝 note従業員視点記事', title: '同じ悩みを持つ仲間がいる',
+      { label: '改善提案書ジェネレーター（準備中）', title: 'あなたの「こうしたら良いのに」を、形に',
+        body: '現場の「こうしたら良いのに」を、親方・現場監督に渡せる提案書に変換するツールを準備しています。<strong>職人の声が、現場改善に届く仕組み</strong>です。<br><strong>※現在準備中。公開時はLINEで優先案内します。</strong>'},
+      { label: 'note従業員視点記事', title: '同じ悩みを持つ仲間がいる',
         body: 'HEALTH ARCHIのnote連載には、「現場で働く人の視点」で書かれた記事があります。読み続けるうちに、自分の言葉で改善を語れるようになります。'},
-      { label: '🛠 会社全体で取り組むなら（準備中）', title: 'HEALTH ARCHI Tools を社長に提案する手も',
-        body: '会社全体（社長・現場監督・職人みんな）で使える便利ツール群<strong>「HEALTH ARCHI Tools」</strong>も準備しています。社長に提案する手も。<strong>※準備中（2026年内 開始予定）。先行案内はLINEで。</strong>'}
+      { label: '会社全体で取り組むなら（準備中）', title: 'HEALTH ARCHI Tools を社長に提案する手も',
+        body: '会社全体（社長・現場監督・職人みんな）で使えるツール群<strong>「HEALTH ARCHI Tools」</strong>も準備しています。社長に提案する手も。<strong>※準備中（2026年内 開始予定）。先行案内はLINEで。</strong>'}
     ],
-    toolsIntro: 'あなたの「気づき」を眠らせないために。現場で今日から無料で使える道具から始めましょう。写真整理は、撮るだけで自動で仕分けされます。',
+    toolsIntro: 'あなたの「気づき」を眠らせないために。現場で今日から無料で使えるツールから始めましょう。写真整理は、撮るだけで自動で仕分けされます。',
     tools: [
       { label: '現場写真を整理する', href: 'https://healtharchi.github.io/genba-photo/' },
       { label: '無料ツールを全部見る', href: '/tools' }
@@ -371,12 +392,14 @@ const PRESCRIPTIONS = {
       if(auto) body += ` 「自動化したい」と答えたのは<strong>「${auto}」</strong>。`;
       body += `<br><br>管理する物事が増える一方で、時間は1日24時間のまま。これは個人の問題ではなく、<strong>「統合ダッシュボード」を誰も用意してくれていない</strong>だけです。`;
       if(a[1]>=2) body += ` 現場が増えるほど、この"手作業の管理"が首を絞めます。`;
-      return { label:'🔍 あなたの回答から見えた現状', title:'管理する物事が増える一方、時間は24時間のまま', body };
+      if(a[0]===2||a[0]===3) body += `<br><br>設計のあなたなら、2025年の法改正（4号特例の縮小・省エネ義務化）で図面と申請の手間が一段と増えたのを、肌で感じているはずです。1現場あたり設計で約11時間増という調査もあります。腕の問題ではなく、業界全体に乗った負荷です。だからこそ、修正・差し替え・台帳のような<strong>「設計の周辺作業」</strong>からツールに渡していくのが現実的な順番です。`;
+      if(a[4]===1) body += `<br><br>業務改善を提案して通らなかった経験があるなら、その悔しさごと分かります。提案が通らない一番の理由は中身ではなく、「数字と画面で見せられなかった」こと。<strong>まず無料のツールで"見える形"を作ってから再提案する</strong>、が通し方の定石です。`;
+      return { label:'あなたの回答から見えた現状', title:'管理する物事が増える一方、時間は24時間のまま', body };
     },
     sections: [
-      { label: '🛠 本格的に管理を統合するなら（準備中）', title: '全現場を一画面で——統合ダッシュボード構想',
+      { label: '本格的に管理を統合するなら（準備中）', title: '全現場を一画面で：統合ダッシュボード構想',
         body: 'いま手作業で散らばっている管理を、一画面に統合する<strong>「HEALTH ARCHI Tools」</strong>を準備しています。<br>・工程管理ダッシュボード：全現場の進捗・遅延を一画面で<br>・原価管理：各現場の予実をリアルタイムで<br>・図面・写真台帳：版管理・共有・検索<br>・安全書類テンプレ：産廃マニフェスト等を半自動<br><br>狙いは「月20〜40時間の管理業務の削減」。<strong>※現在準備中（2026年内 開始予定）。先行案内はLINEで。</strong>'},
-      { label: '📝 note管理者向け記事', title: '業界全体の動きと、自社の位置',
+      { label: 'note管理者向け記事', title: '業界全体の動きと、自社の位置',
         body: 'HEALTH ARCHIのnote連載には、現場管理者・設計者の業務改善ヒントが書かれた記事があります。'}
     ],
     toolsIntro: '「統合ダッシュボード」そのものはまだ準備中ですが、その入口になる&quot;見える化&quot;は、今日から無料で試せます。工程はガント、写真は自動整理、図面はCAD、木造の概算はスマート見積で。',
@@ -403,13 +426,13 @@ const PRESCRIPTIONS = {
         if(a[4]===0 || a[4]===1 || a[4]===5) body += `<br><br>特に試したいと答えた<strong>「${tmpl}」</strong>は、下の無料ツールで今日からそのまま使えます。`;
         else body += `<br><br>特に試したいと答えた<strong>「${tmpl}」</strong>は現在準備中です。完成したらLINEでいち早くご案内します。`;
       }
-      body += `<br><br>システム導入の決済権はなくても、<strong>今ある道具を変えるだけで業務時間は半分になります。</strong>`;
-      return { label:'🔍 あなたの回答から見えた現状', title:'「自動化できる」のに、決済権がない', body };
+      body += `<br><br>システム導入の決裁権はなくても、<strong>今あるツールを少し変えるだけで、月に数時間〜十数時間は自分の手で取り戻せます。</strong>まずは下の無料ツールで"1つ"試すところからです。`;
+      return { label:'あなたの回答から見えた現状', title:'「自動化できる」のに、決裁権がない', body };
     },
     sections: [
-      { label: '🛠 バックオフィス全体を半減するなら（準備中）', title: '建設業特化のバックオフィスツールを準備中',
-        body: '見積・請求・領収書・工事原価管理表などの書類テンプレ、資金繰りダッシュボード、給与計算、顧客台帳——建設業のバックオフィスをまるごと支える<strong>「HEALTH ARCHI Tools」</strong>を準備しています。月次業務を半減するのが狙いです。<br><strong>※現在準備中（2026年内 開始予定）。先行案内はLINEで。</strong>'},
-      { label: '📝 note事務作業ハック記事', title: '「自分しかやっていない非効率」が見えてくる',
+      { label: 'バックオフィス全体を半減するなら（準備中）', title: '建設業特化のバックオフィスツールを準備中',
+        body: '見積・請求・領収書・工事原価管理表などの書類テンプレ、資金繰りダッシュボード、給与計算、顧客台帳。建設業のバックオフィスをまるごと支える<strong>「HEALTH ARCHI Tools」</strong>を準備しています。月次業務を半減するのが狙いです。<br><strong>※現在準備中（2026年内 開始予定）。先行案内はLINEで。</strong>'},
+      { label: 'note事務作業ハック記事', title: '「自分しかやっていない非効率」が見えてくる',
         body: '事務作業ハック記事を読めば、「自分しかやっていない非効率」が見えてきます。「気づき」が次の改善行動につながります。'}
     ],
     toolsIntro: '会社の許可を待たずに、自分の手元で今日から試せます。「これ便利」を自分で体感してから、社長に提案できます。',
@@ -427,12 +450,12 @@ const PRESCRIPTIONS = {
     // 0:後継者
     0: {
       sections: [
-        { label: '🔍 問題の言語化', title: '「変えたい」気持ちはあるけれど、まだ言葉になっていない',
-          body: 'あなたは「先代との違い」と「今の会社の課題」の両方を感じています。古い慣習、紙文化、属人化した業務——変えたい気持ちはあるけれど、自分が経営者になった時に<strong>「具体的に何をすべきか」</strong>は、まだ言葉になっていません。<br><br>その曖昧さを、今のうちに解像度を上げておくこと。それが、いざ経営権を持った時に<strong>「迷わない後継者」</strong>になる準備です。'},
-        { label: '📕 書籍を使えばこうなる', title: '後継者として「会社をどう変えていくか」',
+        { label: '問題の言語化', title: '「変えたい」気持ちはあるけれど、まだ言葉になっていない',
+          body: 'あなたは「先代との違い」と「今の会社の課題」の両方を感じています。古い慣習、紙文化、属人化した業務。変えたい気持ちはあるけれど、自分が経営者になった時に<strong>「具体的に何をすべきか」</strong>は、まだ言葉になっていません。<br><br>その曖昧さを、今のうちに解像度を上げておくこと。それが、いざ経営権を持った時に<strong>「迷わない後継者」</strong>になる準備です。'},
+        { label: '書籍を使えばこうなる', title: '後継者として「会社をどう変えていくか」',
           body: '「社長が現場を降りる日」（Amazon販売中）には、<strong>後継者として「会社をどう変えていくか」のヒント</strong>が書かれています。先代との対話のきっかけにもなります。'},
-        { label: '🚀 数年後…（準備中）', title: '経営権を持ったら、ISHIZUEという選択肢',
-          body: 'あなたが経営権を持つころには、「会社の記憶を持つAI」<strong>ISHIZUE</strong>で、新しい時代の会社の記憶を作るという選択肢も。先代の暗黙知を可視化し、自分の判断軸を重ねていく道具を目指しています。<strong>※準備中（2026年内 提供開始予定）。先行案内はLINEで。</strong>'}
+        { label: '数年後…（準備中）', title: '経営権を持ったら、ISHIZUEという選択肢',
+          body: 'あなたが経営権を持つころには、「会社の記憶を持つAI」<strong>ISHIZUE</strong>で、新しい時代の会社の記憶を作るという選択肢も。先代の暗黙知を可視化し、自分の判断軸を重ねていくツールを目指しています。<strong>※準備中（2026年内 提供開始予定）。先行案内はLINEで。</strong>'}
       ],
       toolsIntro: '今のうちに無料ツールに慣れておくと、いざ立場が上がった時に「使える」と一目置かれます。デジタル世代の強みが活きます。',
       tools: [ { label: '無料ツールを全部見る', href: '/tools' } ],
@@ -443,9 +466,9 @@ const PRESCRIPTIONS = {
     // 1,2:若手社員
     1: {
       sections: [
-        { label: '🔍 問題の言語化', title: '「使える若手」になる準備は、今からできる',
-          body: 'あなたは入社して間もない若手として、業界の慣習や仕事のやり方を吸収する時期にいます。「もっと効率的にできるはずなのに」と感じても、提案する立場でも、知識もまだ十分ではない。<br><br>でも、<strong>「使える若手」になる準備は、今からでもできます</strong>。'},
-        { label: '📝 note記事', title: 'キャリアの方向性を考える材料',
+        { label: '問題の言語化', title: 'あなたは「観察している側」の人です',
+          body: '入社してまだ数年のあなたが、この診断をここまで答えた。その時点で、現場を「ただこなす」のではなく<strong>「観察している」側の人</strong>です。<br><br>「もっと効率的にできるはずなのに」というモヤモヤは、言える立場でも知識でもない今は行き場がありません。でも、そのモヤモヤは消さずに取っておいてください。観察眼は、経験より先に身につく数少ない武器です。<br><br>3年後、<strong>「デジタルはあの人に聞け」と言われる場所</strong>を先に取っておく。それが今からできる一番の準備です。'},
+        { label: 'note記事', title: 'キャリアの方向性を考える材料',
           body: '建設業の未来を考える人向けのnote記事を読み続ければ、業界全体の動きが見えてきます。キャリアの方向性を考える材料になります。'}
       ],
       toolsIntro: '今のうちに無料ツールに慣れておくと、3年後・5年後に「デジタルが使える若手」として頼られるようになります。現場で「これやっといて」に即対応できます。',
@@ -457,12 +480,12 @@ const PRESCRIPTIONS = {
     // 3:幹部候補
     3: {
       sections: [
-        { label: '🔍 問題の言語化', title: '社長と現場の間で、両方の課題を見ている',
-          body: 'あなたは社長と現場の間で、両方の課題を見ています。「ここを変えれば会社が変わる」と思う場所がいくつもあるけれど、自分一人では決めきれない。提案するにも、根拠と道具がない。<br><br><strong>幹部候補に必要なのは「会社全体を見渡す道具」</strong>です。'},
-        { label: '📝 note管理者向け記事', title: '次のステップに進むためのヒント',
+        { label: '問題の言語化', title: '社長と現場の間で、両方の課題を見ている',
+          body: 'あなたは社長と現場の間で、両方の課題を見ています。「ここを変えれば会社が変わる」と思う場所がいくつもあるけれど、自分一人では決めきれない。提案するにも、根拠とツールがない。<br><br><strong>幹部候補に必要なのは「会社全体を見渡すツール」</strong>です。'},
+        { label: 'note管理者向け記事', title: '次のステップに進むためのヒント',
           body: '組織運営・幹部育成の記事を読めば、自分が次のステップに進むためのヒントが得られます。'},
-        { label: '🛠 会社全体を見渡す道具（準備中）', title: 'HEALTH ARCHI Tools で提案に説得力を',
-          body: '会社全体を見渡せるダッシュボードと管理ツールが揃う<strong>「HEALTH ARCHI Tools」</strong>を準備しています。「これを使えば社長への提案に説得力が出る」レベルの道具を目指しています。<strong>※準備中（2026年内 開始予定）。先行案内はLINEで。</strong>'}
+        { label: '会社全体を見渡すツール（準備中）', title: 'HEALTH ARCHI Tools で提案に説得力を',
+          body: '会社全体を見渡せるダッシュボードと管理ツールが揃う<strong>「HEALTH ARCHI Tools」</strong>を準備しています。「これを使えば社長への提案に説得力が出る」レベルのツールを目指しています。<strong>※準備中（2026年内 開始予定）。先行案内はLINEで。</strong>'}
       ],
       toolsIntro: 'まずは無料ツールに触れておくと、「これを全社で使えば」という提案の手触りが掴めます。すべて無料・登録不要。',
       tools: [ { label: '無料ツールを全部見る', href: '/tools' } ],
@@ -473,8 +496,8 @@ const PRESCRIPTIONS = {
     // 4:その他
     4: {
       sections: [
-        { label: '🔍 問題の言語化', title: '建設業の未来を考える',
-          body: 'あなたは建設業に何らかの形で関わっている人です。立場は違っても、業界の課題と未来に関心を持っているはず。書籍「社長が現場を降りる日」やnote連載とあわせて、無料ツールから「今できること」に触れてみてください。立場が明確になったら、より具体的な処方箋をお届けします。'}
+        { label: '問題の言語化', title: '建設業の未来を考える',
+          body: '用意した選択肢に、あなたの立場がぴったり無かったかもしれません。設計事務所、メーカー、不動産、行政、これから業界に入る方。建設業は、現場の周りに立つ人の裾野が広い業界です。<br><br>立場は違っても、<strong>「この業界の仕事の重さを、ツールで軽くできないか」</strong>という問いは共通です。その問いに対して今すぐ試せるものを、下に置いておきます。書籍「社長が現場を降りる日」やnote連載も、業界の課題と未来を考える入口になります。'}
       ],
       toolsIntro: '立場を問わず、まずは無料ツールから。触れてみると、建設業×AIの「今できること」が見えてきます。',
       tools: [ { label: '無料ツールを全部見る', href: '/tools' } ],
@@ -645,11 +668,12 @@ function showResult() {
       const cls = 'tool-btn' + (i === 0 ? ' tool-btn-primary' : '');
       return `<a class="${cls}" href="${t.href}"${ext}>${t.label} →</a>`;
     }).join('');
-    tdiv.innerHTML = `<span class="result-section-label">🆓 今すぐ無料で試せる</span><h3>あなたの立場に合う無料ツール</h3>${intro}<div class="tool-btn-row">${btns}</div>`;
+    tdiv.innerHTML = `<span class="result-section-label">今すぐ無料で試せる</span><h3>あなたの立場に合う無料ツール</h3>${intro}<div class="tool-btn-row">${btns}</div>`;
     content.appendChild(tdiv);
   }
 
-  prescription.sections.forEach(sec => {
+  const secList = (typeof prescription.sections === 'function') ? prescription.sections(state.answers) : prescription.sections;
+  secList.forEach(sec => {
     const div = document.createElement('div');
     div.className = 'result-section';
     div.innerHTML = `<span class="result-section-label">${sec.label}</span><h3>${sec.title}</h3><p>${sec.body}</p>`;
@@ -686,22 +710,22 @@ function showResult() {
 function restartDiagnosis() {
   if (!confirm('立場選択からやり直しますか？')) return;
   state = { persona: null, currentQuestion: 0, answers: [] };
-  localStorage.removeItem('ha_proto_state_v2');
+  localStorage.removeItem('ha_proto_state_v3');
   showScreen('persona');
 }
 
 function saveState() {
-  try { localStorage.setItem('ha_proto_state_v2', JSON.stringify(state)); } catch(e) {}
+  try { localStorage.setItem('ha_proto_state_v3', JSON.stringify(state)); } catch(e) {}
 }
 function loadState() {
   try {
-    const saved = localStorage.getItem('ha_proto_state_v2');
+    const saved = localStorage.getItem('ha_proto_state_v3');
     if (saved) {
       const s = JSON.parse(saved);
       if (s.persona && s.answers && s.answers.length > 0) {
         if (confirm('前回の途中から再開しますか？')) {
           state = s; showScreen('question'); renderQuestion(); return true;
-        } else { localStorage.removeItem('ha_proto_state_v2'); }
+        } else { localStorage.removeItem('ha_proto_state_v3'); }
       }
     }
   } catch(e) {}
