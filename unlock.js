@@ -4,7 +4,7 @@
  *   <script src="https://healtharchi.com/unlock.js" data-tool="T011_smart-quote-pro"></script>
  *
  * 利用者に見える言葉は世界標準（Claude/ChatGPT等と同じ）に合わせる：
- *   パスワードなし。「メールアドレス → 届いた6桁の確認コード → ログイン」の2ステップ。
+ *   パスワードなし。「メールアドレス → 届いた8桁の確認コード → ログイン」の2ステップ。
  *
  * ツール側からの使い方（3つだけ）：
  *   HAUnlock.isPro()          … 有料機能を使える状態か（true/false）
@@ -228,7 +228,7 @@
   function renderLogin(presetEmail, leadText) {
     box.textContent = "";
     box.appendChild(header("ログイン"));
-    box.appendChild(note(leadText || "お申し込み時のメールアドレスを入力してください。ログイン用の確認コード（6桁）をお送りします。パスワードは不要です。"));
+    box.appendChild(note(leadText || "お申し込み時のメールアドレスを入力してください。ログイン用の確認コード（8桁）をお送りします。パスワードは不要です。"));
 
     var email = input("メールアドレス", "email");
     if (presetEmail) email.value = presetEmail;
@@ -275,11 +275,11 @@
   function renderCode(email) {
     box.textContent = "";
     box.appendChild(header("確認コードの入力"));
-    box.appendChild(note(email + " 宛にログイン用の確認コード（6桁）をお送りしました。\nメールに届いた6桁の数字を、下の枠に入力してください。"));
+    box.appendChild(note(email + " 宛にログイン用の確認コード（8桁）をお送りしました。\nメールに届いた8桁の数字を、下の枠に入力してください。"));
 
-    var code = input("6桁の数字（例：123456）");
+    var code = input("8桁の数字（例：12345678）");
     code.inputMode = "numeric";
-    code.maxLength = 6;
+    code.maxLength = 8;
     code.style.textAlign = "center";
     code.style.fontSize = "24px";
     code.style.letterSpacing = "6px";
@@ -294,7 +294,7 @@
 
     loginBtn.addEventListener("click", function () {
       var v = code.value.trim();
-      if (!/^\d{6}$/.test(v)) return showMsg("メールに届いた6桁の数字を入力してください。");
+      if (!/^\d{8}$/.test(v)) return showMsg("メールに届いた8桁の数字を入力してください。");
       loginBtn.disabled = true;
       loginBtn.textContent = "確認中…";
       post("/verify-code", { email: email, code: v }, function (ok, data) {
