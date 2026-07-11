@@ -11,14 +11,14 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>工務店の工程表を簡単に作るには。Excelで詰まりやすい所と無料ツール｜HEALTH ARCHI</title>
-  <meta name="description" content="工程表づくりに毎回時間を取られていませんか。Excelで詰まりやすい3つの場面（変更・共有・印刷）と、ツールで減らせる部分・人が決めるべき部分を、一級建築士・建設業17年の実務から整理。登録不要の無料工程表ツールつき。">
-  <link rel="canonical" href="https://healtharchi.com/tools-schedule-gantt">
+  <title>工程表エクセルテンプレート（無料・登録不要）｜週間・月間の2種、着工日から日付が自動｜HEALTH ARCHI</title>
+  <meta name="description" content="工務店向けの工程表エクセルテンプレートを無料配布。月間（16週の線表・在来木造の標準工程20件入り）と週間（職人手配用）の2種類。着工日を入れると日付が自動で変わります。一級建築士・建設業17年の実務から作成。登録不要。">
+  <link rel="canonical" href="https://healtharchi.com/template-schedule">
   <meta property="og:site_name" content="HEALTH ARCHI">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://healtharchi.com/tools-schedule-gantt">
-  <meta property="og:title" content="工務店の工程表を簡単に作るには。Excelで詰まりやすい所と無料ツール">
-  <meta property="og:description" content="変更のたびに作り直し、業者への共有、印刷のズレ。工程表の手間をどこまで減らせるか、建設業17年の実務から整理。無料ツールつき。">
+  <meta property="og:url" content="https://healtharchi.com/template-schedule">
+  <meta property="og:title" content="工程表エクセルテンプレート（無料・登録不要）｜週間・月間の2種">
+  <meta property="og:description" content="在来木造の標準工程20件入り・着工日から日付が自動。一級建築士・建設業17年の実務から作った工程表テンプレートを無料配布。">
   <meta property="og:image" content="https://healtharchi.com/ogp.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -57,6 +57,14 @@
     article ul { margin: 0 0 1.4em 1.4em; }
     article li { margin-bottom: 0.5em; }
     .point-box { background: var(--silk); border-left: 4px solid var(--copper); border-radius: 6px; padding: 18px 22px; margin: 24px 0; font-size: 0.95rem; }
+    .dl-box { background: var(--silk); border: 1px solid var(--border); border-radius: 14px; padding: 32px 28px; margin: 28px 0; text-align: center; }
+    .dl-box .dl-name { font-weight: 700; color: var(--navy); font-size: 1.05rem; margin-bottom: 6px; }
+    .dl-box .dl-meta { font-size: 0.84rem; color: var(--stone); margin-bottom: 18px; }
+    .btn-dl { display: inline-block; background: var(--copper-dk); color: #fff; font-weight: 700; padding: 15px 34px; border-radius: 999px; font-size: 1rem; min-height: 48px; }
+    .btn-dl:hover { opacity: 0.9; }
+    .sheet-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.92rem; }
+    .sheet-table th, .sheet-table td { border: 1px solid var(--border); padding: 10px 14px; text-align: left; vertical-align: top; }
+    .sheet-table th { background: var(--silk); color: var(--navy); white-space: nowrap; }
     .tool-cards { display: grid; gap: 14px; margin: 24px 0 8px; }
     .tool-card { display: block; border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; background: var(--silk); transition: border-color .2s, transform .2s; }
     .tool-card:hover { border-color: var(--copper); transform: translateY(-2px); }
@@ -91,64 +99,67 @@
 
   <header class="hero">
     <div class="container">
-      <div class="eyebrow">段取りを見える化する</div>
-      <h1>工務店の工程表を簡単に作るには。<br>Excelで詰まりやすい所と無料ツール</h1>
-      <p>工程表は、作ること自体が目的ではありません。業者に渡して、お施主さんに見せて、現場を回すためのツールです。なのに「作る作業」に毎回1〜2時間、変更のたびにまた1時間。そんな状態になりがちです。</p>
+      <div class="eyebrow">無料テンプレート</div>
+      <h1>工程表エクセルテンプレート<br>（無料・週間と月間の2種）</h1>
+      <p>工程表を組むたびに、罫線と日付を作り直していませんか。月間（16週の線表）と週間（職人手配用）の2種類が入った工程表テンプレートです。着工日を入れると各週の日付が自動で変わります。登録不要で、そのままダウンロードできます。</p>
     </div>
   </header>
 
   <article>
     <div class="container">
 
-      <h2>Excelの工程表が詰まる3つの場面</h2>
-      <p>多くの工務店の工程表はExcelで作られています。Excelは自由な反面、工程表では決まった場所で詰まります。</p>
-      <ul>
-        <li><strong>変更が入ったとき</strong>：基礎が2日延びたら、その後ろの全工程のセルを1本ずつ手で動かすことになります。工程変更は必ず起きるのに、その対応が一番重い</li>
-        <li><strong>業者に共有するとき</strong>：ファイルで送ると「どれが最新か」問題が起きます。印刷して渡すと、変更のたびに配り直しです</li>
-        <li><strong>印刷するとき</strong>：画面ではきれいでも、印刷すると1ページに収まらない・バーが切れる。渡せる形にする調整で時間が溶けます</li>
-      </ul>
-
-      <h2>どこはツールで減らせるのか</h2>
-      <p>工程表づくりのうち、<strong>「バー（帯）を描く・日程をずらす・清書する」はツールに預けられます</strong>。</p>
-      <ul>
-        <li>工事の項目と日数を入れれば、バー（帯）は自動で描かれる</li>
-        <li>開始日をずらせば、後ろの工程がまとめて動く</li>
-        <li>印刷用の形が最初から用意されている</li>
-      </ul>
-      <p>「工程表 エクセル テンプレート」を探すのも一つの手ですが、テンプレートは変更対応までは面倒を見てくれません。変更の多い現場ほど、バーを直接動かせるツールの方が楽になります。</p>
-
-      <h2>どこは人が決めるべきなのか</h2>
-      <p>一方で、工程表の中身そのものはツールでは決まりません。</p>
-      <ul>
-        <li><strong>工程の順番と重ね方</strong>：どこを並行で走らせられるかは、業者と現場を知る人の判断です</li>
-        <li><strong>日数の読み</strong>：職人さんの人数、天気、材料の納期。読みの精度は経験そのものです</li>
-        <li><strong>業者との調整</strong>：「この日程で入れるか」の電話一本は、まだ人の仕事です</li>
-      </ul>
-      <div class="point-box">
-        <strong>整理すると：</strong>バーを描く・日程をずらす・配れる形にする作業はツールへ。順番の設計と日数の読みは人へ。「作る時間」が減った分だけ、「調整と読み」に頭を使えるようになります。
+      <div class="dl-box">
+        <div class="dl-name">工程表テンプレート（週間・月間）</div>
+        <div class="dl-meta">Excel形式（.xlsx）／約13KB／登録不要・無料</div>
+        <a class="btn-dl" href="/templates/koutei-template-weekly-monthly.xlsx" download data-template="schedule">テンプレートをダウンロード</a>
       </div>
 
-      <h2>まずは無料ツールで、1現場だけ作ってみてください</h2>
-      <p>HEALTH ARCHIでは、一級建築士・建設業17年（営業・設計・現場管理・アフター）の実務から作った工程表ツールを無料で公開しています。登録不要・ブラウザだけで動き、入力した内容が外部に送られることはありません。</p>
+      <h2>何が入っているか</h2>
+      <table class="sheet-table">
+        <tr><th>月間工程表</th><td>16週の線表。地縄張り〜引き渡しまで、在来木造の標準工程20件と目安日数が入っています。着工日を1箇所入れるだけで、各週の日付が自動で変わります。A4横で印刷できます。</td></tr>
+        <tr><th>週間工程表</th><td>現場×曜日の職人手配表。週の開始日を入れると日付が自動で入ります。複数現場の掛け持ち管理に。</td></tr>
+        <tr><th>使い方</th><td>手順と、崩れない工程の組み方（実務のコツ）をまとめています。</td></tr>
+      </table>
+
+      <h2>使い方（3ステップ）</h2>
+      <ul>
+        <li><strong>1．着工日を入れる</strong>：月間工程表のB2セルに着工日を入力。各週の日付が自動で変わります。</li>
+        <li><strong>2．週のセルを塗る</strong>：実施する週のセルを塗りつぶし（または「■」を入力）して線表にします。</li>
+        <li><strong>3．工程を現場に合わせる</strong>：行の削除・追加は自由です。目安日数は30坪前後の新築の感覚値です。</li>
+      </ul>
+
+      <h2>工程が崩れる本当の原因</h2>
+      <p>工程表が崩れるのは、書式のせいではありません。実務でつまずくのは次の3つです。</p>
+      <ul>
+        <li><strong>着工日から積み上げて組んでいる</strong>：引き渡し日から逆算しないと、必ず後ろが詰まります。</li>
+        <li><strong>バッファの位置が決まっていない</strong>：雨と検査待ちは必ず起きます。上棟後と仕上げ前に1週ずつが実務の目安です。</li>
+        <li><strong>変更のたびに全部引き直している</strong>：まずクリティカルパス（引き渡しに直結する工程）だけ確定させると、夜の線の書き換えが減ります。</li>
+      </ul>
+      <div class="point-box">
+        <strong>整理すると：</strong>罫線と日付はテンプレートへ。引き直しの手間はツールへ。逆算とバッファの判断は人へ。工程表づくりの詰まりどころは<a href="/tools-schedule-gantt" style="color:var(--copper-dk);text-decoration:underline;">「工務店の工程表を簡単に作るには」</a>にまとめています。
+      </div>
+
+      <h2>引き直しを楽にしたい方へ（無料ツール）</h2>
+      <p>変更のたびの引き直しが重い場合は、ブラウザだけで動く無料のガントチャート工程表もあります。登録不要で、入力した内容が外部に送られることはありません。</p>
       <div class="tool-cards">
         <a class="tool-card" href="https://healtharchi.github.io/gantt-chart/" target="_blank" rel="noopener">
-          <div class="t-name">ガント工程表</div>
-          <div class="t-desc">項目と日数を入れるだけで工程表（ガントチャート）ができる無料ツール。バーを動かして調整、印刷もそのまま。</div>
+          <div class="t-name">ガントチャート工程表</div>
+          <div class="t-desc">ブラウザだけで工程表を作成・印刷。バーをドラッグで動かせるので、引き直しが数分で終わります。</div>
           <div class="t-go">無料で試す →</div>
         </a>
       </div>
 
       <div class="line-cta">
         <h2>工程管理の改善メモを、LINEで受け取る</h2>
-        <p>建設業で使えるAI活用、無料ツールの更新、新しい実例を週1目安でお届けします。<br>登録無料・いつでも解除できます。</p>
+        <p>建設業で使えるAI活用、無料ツール・テンプレートの更新、新しい実例を週1目安でお届けします。<br>登録無料・いつでも解除できます。</p>
         <a class="btn-line" href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener">LINEで受け取る</a>
       </div>
 
       <section class="related">
-        <h2>関連する困りごと</h2>
-        <a href="/template-schedule">工程表エクセルテンプレート（無料・週間・月間の2種）→ </a>
-        <a href="/tools-estimate-time">工務店の見積に時間がかかる理由と、手作業を減らす方法 → </a>
-        <a href="/tools-site-photo">工事写真の整理と報告書づくりを楽にする → </a>
+        <h2>関連するテンプレート・困りごと</h2>
+        <a href="/template-estimate">工事見積書エクセルテンプレート（木造在来の項目入り）→ </a>
+        <a href="/template-photo-ledger">工事写真台帳テンプレート（撮り忘れ防止リスト付き）→ </a>
+        <a href="/tools-schedule-gantt">工務店の工程表を簡単に作るには → </a>
         <a href="/tools">無料ツールの一覧を見る → </a>
       </section>
 
@@ -163,8 +174,10 @@
   </footer>
 
 <script>
-/* HEALTH ARCHI: LINE誘導クリックを計測（キーイベント候補 line_click） */
+/* HEALTH ARCHI: テンプレDL・LINE誘導クリックを計測 */
 document.addEventListener('click', function(e){
+  var dl = e.target.closest && e.target.closest('a[data-template]');
+  if(dl && typeof gtag === 'function'){ gtag('event','template_download',{template: dl.getAttribute('data-template')}); }
   var a = e.target.closest && e.target.closest('a[href*="line.me"]');
   if(a && typeof gtag === 'function'){ gtag('event','line_click'); }
 }, true);
