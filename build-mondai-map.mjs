@@ -28,6 +28,31 @@ const roleNav = data.roles
   .map((r) => `<a href="#${r.id}">${esc(r.label)}<span class="cnt">${r.items.length}</span></a>`)
   .join("");
 
+// AI検索（LLMO）向け：FAQPage構造化データ（正本＝JSONから機械生成・事実のみ）
+const faqJsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "name": `工務店の困りごとマップ（${totalCount}の悩みと解決の道）`,
+  "url": "https://healtharchi.com/mondai-map",
+  "mainEntity": data.roles.flatMap((r) =>
+    r.items.map((item) => {
+      const sols = (item.sol || []).map((k) => {
+        const t = data.tools[k];
+        const url = t.url.startsWith("http") ? t.url : `https://healtharchi.com${t.url}`;
+        return `${t.name}（${t.desc}）: ${url}`;
+      });
+      const answer = sols.length
+        ? `${item.h}。解決の道: ${sols.join(" ／ ")}`
+        : `${item.h}。この悩みに合うツール・記事は準備中です。`;
+      return {
+        "@type": "Question",
+        "name": `【${r.label}】${item.p}`,
+        "acceptedAnswer": { "@type": "Answer", "text": answer },
+      };
+    })
+  ),
+});
+
 const sections = data.roles
   .map(
     (r) => `
@@ -64,6 +89,7 @@ const html = `<!DOCTYPE html>
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
+  <script type="application/ld+json">${faqJsonLd}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
