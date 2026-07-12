@@ -17,11 +17,14 @@ const solCard = (key) => {
 };
 
 const itemHtml = (item) => {
+  const approach = item.a
+    ? `<p class="approach"><span class="approach-label">考え方と最初の一歩</span>${esc(item.a)}</p>`
+    : "";
   const sols = (item.sol || []).map(solCard).join("");
   const body = sols
     ? `<div class="sols">${sols}</div>`
-    : `<p class="prep">この悩みに合うツール・記事は、いま準備を進めています。<br>「先に知りたい」と<a href="${LINE_URL}" target="_blank" rel="noopener">LINEでひと言</a>いただければ、優先してお作りします。</p>`;
-  return `<details class="item"><summary>${esc(item.p)}</summary><div class="item-body"><p class="honne">${esc(item.h)}</p>${body}</div></details>`;
+    : `<p class="prep">この悩みに合う専用のツール・記事はまだありません。<br>「この悩みを先に」と<a href="${LINE_URL}" target="_blank" rel="noopener">LINEでひと言</a>いただければ、作る順番の参考にします。</p>`;
+  return `<details class="item"><summary>${esc(item.p)}</summary><div class="item-body"><p class="honne">${esc(item.h)}</p>${approach}${body}</div></details>`;
 };
 
 const roleNav = data.roles
@@ -41,9 +44,10 @@ const faqJsonLd = JSON.stringify({
         const url = t.url.startsWith("http") ? t.url : `https://healtharchi.com${t.url}`;
         return `${t.name}（${t.desc}）: ${url}`;
       });
+      const approach = item.a ? ` 考え方と最初の一歩: ${item.a}` : "";
       const answer = sols.length
-        ? `${item.h}。解決の道: ${sols.join(" ／ ")}`
-        : `${item.h}。この悩みに合うツール・記事は準備中です。`;
+        ? `${item.h}。${approach} 解決の道: ${sols.join(" ／ ")}`.trim()
+        : `${item.h}。${approach}${approach ? "" : " この悩みに合う専用のツール・記事は準備中です。"}`.trim();
       return {
         "@type": "Question",
         "name": `【${r.label}】${item.p}`,
@@ -138,6 +142,8 @@ const html = `<!DOCTYPE html>
     .item summary:hover { background: var(--silk); }
     .item-body { padding: 4px 20px 18px; border-top: 1px solid var(--border); }
     .honne { color: var(--stone); font-size: 0.92rem; margin: 12px 0 8px; padding-left: 14px; border-left: 3px solid var(--cream); }
+    .approach { font-size: 0.95rem; margin: 12px 0 8px; }
+    .approach-label { display: block; font-size: 0.75rem; font-weight: 700; color: var(--copper-dk); letter-spacing: 0.08em; margin-bottom: 4px; }
     .sols { display: grid; gap: 10px; margin-top: 10px; }
     .sol { display: block; border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; background: var(--silk); transition: border-color .2s; }
     .sol:hover { border-color: var(--copper); }
