@@ -35,9 +35,10 @@
       --copper:      #B5703A;
       --copper-lt:   #D4925A;
       --copper-dk:   #8A5228;
+      --copper-btn:  #A05E2C; /* 白文字ボタン専用（コントラスト4.5:1以上） */
       --blue-mid:    #8BA3C7;
       --charcoal:    #2C2C2C;
-      --stone:       #7A7875;
+      --stone:       #6B6863; /* 本文グレー（明色背景でコントラスト5:1以上） */
       --cream:       #F0EDE8;
       --silk:        #FAF8F5;
       --white:       #FFFFFF;
@@ -75,8 +76,9 @@
     }
     .sec-title.on-dark { color: var(--white); }
     .sec-body {
-      font-size: 0.95rem; color: var(--stone); line-height: 2; margin-top: 14px;
+      font-size: 1rem; color: var(--stone); line-height: 2; margin-top: 14px;
     }
+    .nb { display: inline-block; } /* 単語の途中で折り返さないための塊 */
 
     /* ============================================================
        NAVIGATION
@@ -106,14 +108,14 @@
     .nav-links a:hover { color: var(--white); }
     .nav-btn {
       font-size: 0.78rem; font-weight: 700;
-      color: var(--white); background: var(--copper);
+      color: var(--white); background: var(--copper-btn);
       padding: 9px 22px; border-radius: 3px;
       letter-spacing: 0.05em; transition: background 0.2s;
     }
     .nav-btn:hover { background: var(--copper-dk); color: var(--white); }
     .nav-hamburger {
       display: none; flex-direction: column; gap: 5px;
-      cursor: pointer; padding: 4px; background: none; border: none;
+      cursor: pointer; padding: 14px; margin: -10px; background: none; border: none; /* タップ領域44px以上を確保（見た目の位置は不変） */
     }
     .nav-hamburger span { width: 22px; height: 2px; background: var(--white); border-radius: 2px; display: block; }
     .nav-mobile { display: none; background: var(--navy-deep); border-top: 1px solid rgba(255,255,255,0.05); }
@@ -392,7 +394,7 @@
     }
     .btn-line {
       display: flex; align-items: center; justify-content: center; gap: 12px;
-      background: var(--copper);
+      background: var(--copper-btn);
       color: var(--white);
       font-size: 1rem; font-weight: 700;
       padding: 18px 36px; border-radius: 4px; width: 100%;
@@ -444,16 +446,16 @@
     .footer-logo span { color: var(--copper); }
     .footer-copy {
       font-size: 0.75rem;
-      color: rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.5);
       letter-spacing: 0.06em;
     }
     .footer-back {
       display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.78rem; color: rgba(255,255,255,0.4);
+      font-size: 0.8rem; color: rgba(255,255,255,0.62);
       margin-bottom: 20px;
       transition: color 0.2s;
     }
-    .footer-back:hover { color: rgba(255,255,255,0.7); }
+    .footer-back:hover { color: var(--white); }
     .footer-back svg { width: 14px; height: 14px; }
 
     /* ============================================================
@@ -484,7 +486,7 @@
       padding: 3px 10px; border-radius: 2px;
       margin-bottom: 10px;
     }
-    .biz-status.open    { background: var(--copper); color: var(--white); }
+    .biz-status.open    { background: var(--copper-btn); color: var(--white); }
     .biz-status.soon    { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.15); }
     .biz-status.making  { background: rgba(139,163,199,0.15); color: var(--blue-mid); border: 1px solid rgba(139,163,199,0.30); }
 
@@ -640,6 +642,10 @@
     }
     @media (max-width: 480px) {
       .template-grid { grid-template-columns: 1fr; }
+      .tools-header { text-align: left; }
+      .tools-header .sec-body br { display: none; }
+      .coming-note { text-align: left; }
+      .hero-sub br { display: none; }
     }
   </style>
 </head>
@@ -674,9 +680,9 @@
   ============================================================ -->
   <section class="hero">
     <div class="container hero-inner">
-      <div class="hero-eyebrow">Laboratory ／ HEALTH ARCHI 実験室</div>
+      <div class="hero-eyebrow">Laboratory ／ HEALTH ARCHI <span class="nb">実験室</span></div>
       <h1 class="hero-h1">
-        HEALTH ARCHIツールで、<br>業務を<span class="accent">もっと楽に。</span>
+        HEALTH ARCHI<span class="nb">ツールで、</span><br>業務を<span class="accent nb">もっと楽に。</span>
       </h1>
       <p class="hero-sub">
         一級建築士・建設業17年（営業・設計・現場管理・アフター）の実務経験から生まれた<br>
@@ -718,7 +724,7 @@
     <div class="container">
       <div class="tools-header">
         <div class="sec-label">Tools</div>
-        <h2 class="sec-title">HEALTH ARCHIツール</h2>
+        <h2 class="sec-title">HEALTH ARCHI<span class="nb">ツール</span></h2>
         <p class="sec-body">
           営業・設計・現場管理・アフターの実務で、あったら助かるのに、と思ってきたツールを、AIで作って無料で置いています。<br>
           登録不要・完全無料・ブラウザだけで動きます。
@@ -783,7 +789,7 @@
                 </svg>
                 無料で使ってみる
               </a>
-              <a href="https://healtharchi.github.io/healtharchi-cad/guide.html" class="btn-tool" style="background:var(--copper);flex:0 0 auto" target="_blank" rel="noopener">
+              <a href="https://healtharchi.github.io/healtharchi-cad/guide.html" class="btn-tool" style="background:var(--copper-btn);flex:0 0 auto" target="_blank" rel="noopener">
                 📖 使い方ガイド
               </a>
             </div>
@@ -818,7 +824,7 @@
                 </svg>
                 無料で使ってみる
               </a>
-              <a href="https://healtharchi.github.io/smart-quote/guide.html" class="btn-tool" style="background:var(--copper);flex:0 0 auto" target="_blank" rel="noopener">
+              <a href="https://healtharchi.github.io/smart-quote/guide.html" class="btn-tool" style="background:var(--copper-btn);flex:0 0 auto" target="_blank" rel="noopener">
                 📖 使い方ガイド
               </a>
             </div>
@@ -853,7 +859,7 @@
                 </svg>
                 無料で使ってみる
               </a>
-              <a href="https://healtharchi.github.io/smart-quote-general/guide.html" class="btn-tool" style="background:var(--copper);flex:0 0 auto" target="_blank" rel="noopener">
+              <a href="https://healtharchi.github.io/smart-quote-general/guide.html" class="btn-tool" style="background:var(--copper-btn);flex:0 0 auto" target="_blank" rel="noopener">
                 📖 使い方ガイド
               </a>
             </div>
@@ -888,7 +894,7 @@
                 </svg>
                 無料で使ってみる
               </a>
-              <a href="https://healtharchi.github.io/genba-photo/manual.html" class="btn-tool" style="background:var(--copper);flex:0 0 auto" target="_blank" rel="noopener">
+              <a href="https://healtharchi.github.io/genba-photo/manual.html" class="btn-tool" style="background:var(--copper-btn);flex:0 0 auto" target="_blank" rel="noopener">
                 📖 使い方ガイド
               </a>
             </div>

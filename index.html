@@ -37,9 +37,10 @@
       --copper:      #B5703A;
       --copper-lt:   #D4925A;
       --copper-dk:   #8A5228;
+      --copper-btn:  #A05E2C; /* 白文字ボタン専用（コントラスト4.5:1以上） */
       --blue-mid:    #8BA3C7;
       --charcoal:    #2C2C2C;
-      --stone:       #7A7875;
+      --stone:       #6B6863; /* 本文グレー（明色背景でコントラスト5:1以上） */
       --cream:       #F0EDE8;
       --silk:        #FAF8F5;
       --white:       #FFFFFF;
@@ -82,8 +83,9 @@
     }
     .sec-title.on-dark { color: var(--white); }
     .sec-body {
-      font-size: 0.95rem; color: var(--stone); line-height: 2; margin-top: 14px;
+      font-size: 1rem; color: var(--stone); line-height: 2; margin-top: 14px;
     }
+    .nb { display: inline-block; } /* 単語の途中で折り返さないための塊 */
 
     /* ============================================================
        NAVIGATION
@@ -115,14 +117,14 @@
     .nav-links a:hover { color: var(--white); }
     .nav-btn {
       font-size: 0.78rem; font-weight: 700;
-      color: var(--white); background: var(--copper);
+      color: var(--white); background: var(--copper-btn);
       padding: 9px 22px; border-radius: 3px;
       letter-spacing: 0.05em; transition: background 0.2s;
     }
     .nav-btn:hover { background: var(--copper-dk); color: var(--white); }
     .nav-hamburger {
       display: none; flex-direction: column; gap: 5px;
-      cursor: pointer; padding: 4px;
+      cursor: pointer; padding: 14px; margin: -10px; /* タップ領域44px以上を確保（見た目の位置は不変） */
     }
     .nav-hamburger span {
       width: 22px; height: 2px;
@@ -176,7 +178,7 @@
     }
     .hero-badge {
       display: inline-block;
-      background: var(--copper); color: var(--white);
+      background: var(--copper-btn); color: var(--white);
       font-size: 0.82rem; font-weight: 700;
       letter-spacing: 0.18em;
       padding: 7px 16px; border-radius: 3px;
@@ -206,7 +208,7 @@
     .btn-hero {
       display: inline-flex; align-items: center;
       justify-content: center; gap: 10px;
-      background: var(--copper); color: var(--white);
+      background: var(--copper-btn); color: var(--white);
       font-weight: 700; font-size: 1rem;
       padding: 18px 38px; border-radius: 4px;
       letter-spacing: 0.05em; transition: background 0.2s, transform 0.2s;
@@ -441,7 +443,7 @@
       font-weight: 700; color: var(--white);
       line-height: 1.55; margin-bottom: 14px;
     }
-    .line-title em { font-style: normal; color: var(--copper); }
+    .line-title em { font-style: normal; color: var(--copper); display: inline-block; }
     .line-sub {
       font-size: 0.97rem; color: rgba(255,255,255,0.52);
       line-height: 1.9; margin-bottom: 44px;
@@ -474,7 +476,7 @@
     .btn-line {
       display: flex; align-items: center;
       justify-content: center; gap: 12px;
-      background: var(--copper); color: var(--white);
+      background: var(--copper-btn); color: var(--white);
       font-weight: 700; font-size: 1rem;
       padding: 18px 36px; border-radius: 4px; width: 100%;
       letter-spacing: 0.05em; transition: background 0.2s, transform 0.2s;
@@ -685,7 +687,7 @@
     }
     .footer-logo span { color: var(--copper); }
     .footer-tagline {
-      font-size: 0.72rem; color: rgba(255,255,255,0.28);
+      font-size: 0.72rem; color: rgba(255,255,255,0.55);
       letter-spacing: 0.16em;
     }
     .footer-links {
@@ -693,12 +695,12 @@
       justify-content: center; gap: 22px;
     }
     .footer-links a {
-      font-size: 0.76rem; color: rgba(255,255,255,0.32);
+      font-size: 0.8rem; color: rgba(255,255,255,0.62);
       letter-spacing: 0.07em; transition: color 0.2s;
     }
-    .footer-links a:hover { color: rgba(255,255,255,0.7); }
+    .footer-links a:hover { color: var(--white); }
     .footer-copy {
-      font-size: 0.68rem; color: rgba(255,255,255,0.18);
+      font-size: 0.68rem; color: rgba(255,255,255,0.5);
       letter-spacing: 0.1em;
     }
 
@@ -716,6 +718,8 @@
     }
     @media (max-width: 540px) {
       .hero-stats { gap: 22px; }
+      .line-sub { text-align: left; }
+      .line-sub br { display: none; }
       .hero-ctas { flex-direction: column; align-items: flex-start; }
       .btn-hero { width: 100%; }
       .line-card { padding: 30px 22px; }
@@ -781,7 +785,7 @@
         <div class="hero-ctas">
           <a href="https://healtharchi.com/diagnosis" class="btn-hero">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            まず無料診断（3分・登録不要）
+            まず無料診断<span class="nb">（3分・登録不要）</span>
           </a>
           <a href="https://healtharchi.com/tools" class="btn-hero" style="background:transparent;border:1px solid rgba(255,255,255,0.28);">無料ツールを見る →</a>
           <span class="hero-note">登録不要・すぐ使えます</span>
