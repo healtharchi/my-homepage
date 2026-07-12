@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!--
+  ■ SAMLiNE実名事例ページ【下書き・非公開】
+  ・公開判断は神島さんの承諾（オーナー🔴）の後。それまで noindex・どこからもリンクしない。
+  ・【 】の箇所は掲載前に神島さん・オーナーに確認して埋める（または削る）。
+  ・作成：2026-07-12 S5（P040並列v2）。素材＝P017ブリーフ・顧客台帳・受託再現プロセスv1.0
+-->
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>導入事例：サムライン様（下書き・非公開）｜HEALTH ARCHI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy: #1B2B4B; --navy-deep: #0E1A2F; --copper: #B5703A; --copper-lt: #D4925A;
+      --copper-dk: #8A5228; --charcoal: #2C2C2C; --stone: #7A7875;
+      --cream: #F0EDE8; --silk: #FAF8F5; --white: #FFFFFF; --border: #E8E4DE;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Noto Sans JP', sans-serif; color: var(--charcoal); background: var(--white); line-height: 2.0; font-size: 17px; -webkit-font-smoothing: antialiased; }
+    h1, h2, h3 { font-family: 'Noto Serif JP', serif; line-height: 1.5; color: var(--navy); }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+    .draft-banner { background: #B3261E; color: #fff; text-align: center; font-size: 0.85rem; font-weight: 700; padding: 10px 16px; }
+    .nav { background: var(--navy-deep); padding: 14px 0; }
+    .nav-inner { max-width: 1080px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { color: #fff; font-family: 'Noto Serif JP', serif; font-weight: 700; letter-spacing: 0.1em; font-size: 1.05rem; }
+    .nav-logo span { color: var(--copper-lt); }
+    .hero { background: linear-gradient(160deg, var(--navy-deep), var(--navy)); color: #fff; padding: 60px 0 52px; }
+    .hero .eyebrow { color: var(--copper-lt); font-size: 0.8rem; letter-spacing: 0.16em; margin-bottom: 16px; }
+    .hero h1 { color: #fff; font-size: clamp(1.5rem, 4.2vw, 2.1rem); margin-bottom: 20px; }
+    .hero p { color: rgba(255,255,255,0.82); font-size: 1rem; }
+    article { padding: 56px 0 24px; }
+    article h2 { font-size: 1.35rem; margin: 52px 0 18px; padding-bottom: 10px; border-bottom: 2px solid var(--cream); }
+    article h2:first-child { margin-top: 0; }
+    article p { margin-bottom: 1.2em; }
+    article ul { margin: 0 0 1.4em 1.4em; }
+    article li { margin-bottom: 0.5em; }
+    .fact-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95rem; }
+    .fact-table th, .fact-table td { border: 1px solid var(--border); padding: 12px 16px; text-align: left; vertical-align: top; }
+    .fact-table th { background: var(--silk); color: var(--navy); white-space: nowrap; width: 10em; }
+    .todo { background: #FFF6E5; border: 1px dashed #C87F1B; border-radius: 8px; padding: 14px 18px; margin: 20px 0; font-size: 0.9rem; color: #7A5210; }
+    .quote-box { background: var(--silk); border-left: 4px solid var(--copper); border-radius: 6px; padding: 20px 24px; margin: 24px 0; }
+    .quote-box .who { font-size: 0.85rem; color: var(--stone); margin-top: 10px; }
+    .footer { background: var(--navy-deep); color: rgba(255,255,255,0.6); text-align: center; padding: 36px 0; margin-top: 56px; font-size: 0.8rem; }
+    @media (max-width: 640px) { body { font-size: 16px; } .fact-table th { width: auto; white-space: normal; } }
+  </style>
+</head>
+<body>
+
+  <div class="draft-banner">下書き（非公開）：掲載内容はすべてサムライン様の承諾を得てから公開します。このページはどこからもリンクされていません。</div>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">HEALTH <span>ARCHI</span></a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container">
+      <div class="eyebrow">導入事例</div>
+      <h1>新築3件の見積書づくりを、<br>専用のWebシステムで納品</h1>
+      <p>サムライン様（代表：神島様）との取り組みをご紹介します。Google Workspaceの導入支援から始まり、新築見積のシステム化まで。実際の案件で使われたシステムは、その後かたちを変えて無料ツールとして公開されています。</p>
+    </div>
+  </header>
+
+  <article>
+    <div class="container">
+
+      <div class="todo">【公開前の確認事項】① 会社紹介の書きぶり（所在地・事業内容をどこまで書くか）② 金額の掲載可否 ③ 神島様のコメント（生声）の掲載可否と文面 ④ 会社名の表記（「サムライン」表記で契約書と統一済み）⑤ ロゴ・写真の提供可否</div>
+
+      <h2>お客様について</h2>
+      <table class="fact-table">
+        <tr><th>会社名</th><td>サムライン様（代表：神島様）</td></tr>
+        <tr><th>事業内容</th><td>【確認のうえ記載：木造新築・リフォームなど】</td></tr>
+        <tr><th>所在地</th><td>【確認のうえ記載】</td></tr>
+      </table>
+
+      <h2>きっかけ</h2>
+      <p>最初のご依頼は、Google Workspace（メール・カレンダー・ドライブなどの業務基盤）の導入支援でした。日々の情報のやり取りを整えるところからのお付き合いです。</p>
+      <p>その中で伺ったのが、新築の見積書づくりの手間でした。木造新築の見積は項目数が多く、1件つくるだけでも大きな時間がかかります。市販の積算ソフトは高額で、規模に合わない。そこで「新築3件分の見積書作成」を、システムづくりとセットでお受けすることになりました。</p>
+
+      <h2>やったこと</h2>
+      <ul>
+        <li><strong>専用のWeb見積システムを構築</strong>：サムライン様の単価・仕様に合わせた見積システムをつくり、ブラウザだけで見積書を出せる形にしました。構築期間は【確認：実働数時間〜1日程度】。AIを使った高速開発と、一級建築士（設計・現場監督17年）による数量・単価の目視確認を組み合わせています。</li>
+        <li><strong>実案件3件の見積書を作成・納品</strong>（2026年5月）：システムで作成した見積書を、実際の新築案件3件分納品しました。数量・単価・仕様の最終判断は必ず人（建築士）が確認しています。</li>
+        <li><strong>操作の説明資料をお渡し</strong>：納品して終わりではなく、神島様ご自身が使えるよう説明用のガイドを添えました。</li>
+      </ul>
+
+      <h2>その後：実案件のシステムが、無料ツールになった</h2>
+      <p>この案件で生まれた見積システムは、サムライン様固有の部分を切り離して汎用化し、現在は<a href="https://healtharchi.github.io/smart-quote/" target="_blank" rel="noopener" style="color:var(--copper-dk);text-decoration:underline;">スマート見積（木造新築版）</a>として無料公開しています。実際の工務店の実務から生まれたものであることが、この無料ツールの土台です。</p>
+
+      <h2>神島様のコメント</h2>
+      <div class="quote-box">
+        <p>【掲載承諾後に、神島様の生声をここに。例：導入前の手間／使ってみての変化／どんな会社に薦めたいか】</p>
+        <div class="who">サムライン 代表・神島様</div>
+      </div>
+
+      <h2>同じお困りごとをお持ちの会社へ</h2>
+      <p>「見積づくりに時間がかかりすぎる」「高額なソフトは規模に合わない」という会社は、まず無料ツールからお試しください。会社ごとの個別のご相談は、内容を伺ったうえで、できること・できないことを正直にお答えします。</p>
+
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 HEALTH ARCHI. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
