@@ -151,6 +151,9 @@ const html = `<!DOCTYPE html>
     .line-cta p { color: rgba(255,255,255,0.78); font-size: 0.9rem; margin-bottom: 20px; }
     .btn-line { display: inline-block; background: var(--line-green); color: #fff; font-weight: 700; padding: 15px 34px; border-radius: 999px; font-size: 1rem; min-height: 48px; }
     .btn-line:hover { opacity: 0.9; }
+    .share-row { text-align: center; margin: 20px 0 8px; }
+    .btn-share { display: inline-flex; align-items: center; gap: 8px; background: var(--white); color: var(--navy); border: 1px solid var(--border); font-weight: 500; padding: 12px 28px; border-radius: 999px; font-size: 0.95rem; min-height: 48px; cursor: pointer; font-family: inherit; }
+    .btn-share:hover { border-color: var(--copper); }
     .related { border-top: 1px solid var(--border); padding: 32px 0 8px; }
     .related h2 { font-size: 1.05rem; border: none; margin: 0 0 14px; }
     .related a { display: block; color: var(--copper-dk); font-weight: 500; margin-bottom: 8px; font-size: 0.95rem; }
@@ -195,6 +198,10 @@ ${sections}
         <a class="btn-line" href="${LINE_URL}" target="_blank" rel="noopener">LINEでひと言送る</a>
       </div>
 
+      <div class="share-row">
+        <button type="button" class="btn-share" data-ha-share aria-label="このページを共有"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>共有</button>
+      </div>
+
       <section class="related">
         <h2>あわせて使う</h2>
         <a href="/diagnosis">無料診断：7つの質問で、自分の会社の詰まりどころを特定する → </a>
@@ -218,6 +225,7 @@ document.addEventListener('click', function(e){
   if(a && typeof gtag === 'function'){ gtag('event','line_click'); }
 }, true);
 </script>
+<script src="https://healtharchi.com/share.js" defer></script>
 <script src="https://healtharchi.com/feedback.js" data-tool="mondai-map"></script>
 </body>
 </html>
