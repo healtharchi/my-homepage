@@ -489,6 +489,19 @@
     .biz-status.open    { background: var(--copper-btn); color: var(--white); }
     .biz-status.soon    { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.15); }
     .biz-status.making  { background: rgba(139,163,199,0.15); color: var(--blue-mid); border: 1px solid rgba(139,163,199,0.30); }
+    .biz-status.experiment { background: rgba(139,163,199,0.12); color: var(--blue-mid); border: 1px dashed rgba(139,163,199,0.5); }
+    .lab-note {
+      max-width: 720px;
+      margin: 24px auto 0;
+      font-size: 0.85rem;
+      color: var(--stone);
+      line-height: 1.9;
+      text-align: left;
+      background: var(--white);
+      border: 1px dashed var(--border);
+      border-radius: 4px;
+      padding: 14px 20px;
+    }
 
     /* ============================================================
        INTRO SECTION（実験室v1.0で追加）
@@ -729,14 +742,20 @@
           営業・設計・現場管理・アフターの実務で、あったら助かるのに、と思ってきたツールを、AIで作って無料で置いています。<br>
           登録不要・完全無料・ブラウザだけで動きます。
         </p>
+        <div class="lab-note">
+          ここは実験室です。並んでいるツールはすべて<strong>「実験中」</strong>＝現場で実際に使われて育ったものから、順に「定番」へ昇格していきます。動かないところ・こうしてほしいところがあれば、各ツール内の「不具合・要望」ボタンから教えてください。次の改良の種になります。
+        </div>
       </div>
+
+      <!-- ✅定番ツールセクション（昇格第1号が出たら有効化＝ルール正本『ツール管理と公開のルール_v1.0』§3。
+           構成：tools-header（sec-label: Standard／sec-title: 定番ツール）＋tools-grid。昇格したカードを下のグリッドからここへ移動する -->
 
       <div class="tools-grid">
 
         <!-- T001: ガントチャート工程表（公開中） -->
         <div class="tool-card">
           <div class="tool-card-header">
-            <span class="biz-status open">公開中</span>
+            <span class="biz-status experiment">実験中</span>
             <div class="biz-tags">
               <span class="biz-tag">現場管理</span>
               <span class="biz-tag biz-tag-target">個人事業主・現場監督向け</span>
@@ -765,7 +784,7 @@
         <!-- T008: HEALTH ARCHI CAD（公開中・実験室ベータ） -->
         <div class="tool-card">
           <div class="tool-card-header">
-            <span class="biz-status open">公開中（β）</span>
+            <span class="biz-status experiment">実験中</span>
             <div class="biz-tags">
               <span class="biz-tag">設計・現場</span>
               <span class="biz-tag biz-tag-target">工務店・建築士向け</span>
@@ -799,7 +818,7 @@
         <!-- T009: スマート見積システム（公開中・NEW） -->
         <div class="tool-card">
           <div class="tool-card-header">
-            <span class="biz-status open">公開中（NEW）</span>
+            <span class="biz-status experiment">実験中</span>
             <div class="biz-tags">
               <span class="biz-tag">営業・事務</span>
               <span class="biz-tag biz-tag-target">個人事業主・工務店事務向け</span>
@@ -834,7 +853,7 @@
         <!-- T011: スマート見積（汎用版）（公開中・NEW） -->
         <div class="tool-card">
           <div class="tool-card-header">
-            <span class="biz-status open">公開中（NEW）</span>
+            <span class="biz-status experiment">実験中</span>
             <div class="biz-tags">
               <span class="biz-tag">営業・事務</span>
               <span class="biz-tag biz-tag-target">リフォーム・全業種の個人事業主・工務店向け</span>
@@ -869,7 +888,7 @@
         <!-- T010: 現場写真整理アプリ（公開中・NEW） -->
         <div class="tool-card">
           <div class="tool-card-header">
-            <span class="biz-status open">公開中（NEW）</span>
+            <span class="biz-status experiment">実験中</span>
             <div class="biz-tags">
               <span class="biz-tag">現場管理</span>
               <span class="biz-tag biz-tag-target">現場監督・職人・個人事業主向け</span>
