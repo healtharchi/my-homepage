@@ -19,7 +19,6 @@
 
 - [スマート見積（汎用版）](https://healtharchi.github.io/smart-quote-general/): どんな工事でも、項目を入れると集計・書式・変更見積・請求書まで自動で作れる見積ツール。
 - [スマート見積（木造新築版）](https://healtharchi.github.io/smart-quote/): 木造在来工法の新築専用。坪数と仕様を選ぶと概算見積の骨格が3分でできる。
-- [図面AI積算（実験版）](https://healtharchi.github.io/zumen-ai/): 図面画像からAIが数量拾いの下書きを作る実験ツール。
 - [ガントチャート工程表](https://healtharchi.github.io/gantt-chart/): ブラウザだけで工程表を作成・印刷できる。バーをドラッグで動かせるため引き直しが速い。
 - [現場写真かんたん整理](https://healtharchi.github.io/genba-photo/): 撮った写真を現場×工種で自動命名・整理する。
 
