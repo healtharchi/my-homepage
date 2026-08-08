@@ -5,6 +5,11 @@
     "note": "工務店の困りごとマップの正本データ。ページ生成＝ node build-mondai-map.mjs → mondai-map.html。編集はこのJSONのみ（HTML直編集禁止）。a＝「考え方と最初の一歩」（任意）。出典・内部メモは 3_プロジェクト/進行中/P049_工務店問題マップ/ 参照。"
   },
   "tools": {
+    "shikin": {
+      "name": "資金計画まるみえシート",
+      "url": "https://healtharchi.github.io/shikin-keikaku/",
+      "desc": "7つの質問だけで、土地から引っ越しまでの必要額を約60項目から自動計算。A4で施主に渡せる"
+    },
     "sqg": {
       "name": "スマート見積（汎用版）",
       "url": "https://healtharchi.github.io/smart-quote-general/",
@@ -263,7 +268,8 @@
           "p": "商談の場で「この選択ならおおよそこの金額」とその場で示せない",
           "h": "持ち帰るたびに温度が下がっていく",
           "sol": [
-            "sq"
+            "sq",
+            "shikin"
           ]
         },
         {
@@ -553,6 +559,7 @@
           "h": "期待値がズレたまま設計が進んでしまう",
           "sol": [
             "sq",
+            "shikin",
             "tpl-shikin"
           ]
         },
