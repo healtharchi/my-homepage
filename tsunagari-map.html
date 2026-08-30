@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>工務店業務つながりマップ v2.0｜HEALTH ARCHI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root {
+  --paper:#f8f7f2; --card:#ffffff; --ink:#1f2a37; --ink2:#566170; --muted:#8b93a1;
+  --line:rgba(31,42,55,.16); --line-soft:rgba(31,42,55,.08);
+  --accent:#2a78d6; --halo:#f8f7f2; --chrome:rgba(252,251,247,.94);
+  --warn:#b7791f; --ok:#1baf7a;
+  --f-min:"Yu Mincho","YuMincho","Hiragino Mincho ProN","MS PMincho",serif;
+  --f-got:"Yu Gothic UI","Yu Gothic","Hiragino Kaku Gothic ProN","Meiryo",system-ui,sans-serif;
+  --f-mono:Consolas,"Courier New",ui-monospace,monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    --paper:#101d30; --card:#182a42; --ink:#eef4fb; --ink2:#b3c4da; --muted:#7e93ad;
+    --line:rgba(238,244,251,.2); --line-soft:rgba(238,244,251,.09);
+    --accent:#8fc1ff; --halo:#101d30; --chrome:rgba(13,24,40,.94);
+  }
+}
+:root[data-theme="dark"] {
+  --paper:#101d30; --card:#182a42; --ink:#eef4fb; --ink2:#b3c4da; --muted:#7e93ad;
+  --line:rgba(238,244,251,.2); --line-soft:rgba(238,244,251,.09);
+  --accent:#8fc1ff; --halo:#101d30; --chrome:rgba(13,24,40,.94);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-got)}
+button{font-family:var(--f-got)}
+
+/* ===== header ===== */
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;padding:12px 18px 8px;border-bottom:1px solid var(--line)}
+.top h1{font-family:var(--f-min);font-size:19px;font-weight:600;margin:0;letter-spacing:.04em}
+.top .ver{font-family:var(--f-mono);font-size:10.5px;color:var(--muted)}
+.hypo{font-size:11.5px;color:var(--ink2);background:color-mix(in srgb,var(--warn) 12%,transparent);border:1px solid color-mix(in srgb,var(--warn) 35%,transparent);border-radius:7px;padding:4px 10px;line-height:1.5}
+.hypo b{color:var(--warn)}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:8px 18px;border-bottom:1px solid var(--line-soft);position:sticky;top:0;z-index:40;background:var(--chrome);backdrop-filter:blur(4px)}
+.tabs{display:flex;gap:0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.tabs button{font-size:13px;padding:8px 16px;border:none;background:var(--card);color:var(--ink);cursor:pointer;border-right:1px solid var(--line-soft)}
+.tabs button:last-child{border-right:none}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.toolbar .grow{flex:1}
+.toolbar input[type=search]{font-size:12.5px;padding:7px 11px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);width:190px}
+.btn{font-size:12.5px;padding:7px 13px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);cursor:pointer}
+.btn:hover{border-color:var(--ink2)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.orgname{font-size:11.5px;color:var(--ink2)}
+.orgname b{color:var(--ink)}
+.statchips{display:flex;flex-wrap:wrap;gap:6px;padding:8px 18px;border-bottom:1px solid var(--line-soft);font-size:11.5px;color:var(--ink2)}
+.statchips span{border:1px solid var(--line-soft);border-radius:20px;padding:3px 11px;background:var(--card)}
+.statchips b{font-family:var(--f-mono);color:var(--ink)}
+.filters{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:7px 18px;border-bottom:1px solid var(--line-soft)}
+.fchip{font-size:11.5px;padding:4px 11px;border-radius:20px;border:1px solid var(--line);background:var(--card);color:var(--ink2);cursor:pointer}
+.fchip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.flabelhead{font-size:11px;color:var(--muted);margin-right:2px}
+.hitlist{position:absolute;top:calc(100% - 4px);right:160px;z-index:70;background:var(--card);border:1px solid var(--line);border-radius:9px;min-width:260px;max-width:360px;box-shadow:0 8px 22px rgba(15,23,36,.18);padding:6px}
+.hitlist div{padding:5px 10px;font-size:12px;cursor:pointer;border-radius:6px;line-height:1.5}
+.hitlist div b{font-family:var(--f-mono);font-size:10.5px;color:var(--accent);margin-right:5px}
+.hitlist div:hover{background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.hitlist .more{color:var(--muted);cursor:default}
+.hitlist .more:hover{background:none}
+
+/* ===== layout ===== */
+.wrap{display:grid;grid-template-columns:1fr 360px;align-items:start}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}.panel{border-left:none;border-top:1px solid var(--line)}}
+.stage{min-height:420px}
+.view{display:none}
+.view.on{display:block}
+
+/* ===== shelf view ===== */
+#view-shelf{padding:12px 16px 40px}
+.deptsec{margin:0 0 18px;border:1px solid var(--line-soft);border-radius:12px;background:var(--card);overflow:hidden}
+.depthead{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 14px;padding:9px 14px;border-bottom:1px solid var(--line-soft)}
+.depthead .dname{font-size:14.5px;font-weight:700}
+.depthead .dbar{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:2px}
+.depthead .dstat{font-size:11.5px;color:var(--ink2)}
+.depthead .dstat b{font-family:var(--f-mono)}
+.phasegrp{padding:8px 14px 4px}
+.phasegrp h4{font-size:10.5px;color:var(--muted);letter-spacing:.08em;margin:2px 0 6px;font-weight:600}
+.tiles{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.tile{position:relative;border:1.4px solid;border-radius:8px;padding:5px 8px 4px;cursor:pointer;background:var(--card);min-width:86px;max-width:200px}
+.tile .tid{font-family:var(--f-mono);font-size:9.5px;opacity:.75}
+.tile .tnm{font-size:11.5px;font-weight:600;line-height:1.35}
+.tile .th{font-family:var(--f-mono);font-size:9.5px;color:var(--muted)}
+.tile.szl .tnm{font-size:12.5px}
+.tile.szxl{padding:8px 11px}
+.tile.szxl .tnm{font-size:13.5px}
+.tile.szs{opacity:.92}
+.tile .dots{position:absolute;top:5px;right:7px;display:flex;gap:3px}
+.tile .dots i{width:6px;height:6px;border-radius:50%;display:block}
+.tile.dim{opacity:.18}
+.tile.sel{outline:2.5px solid var(--accent);outline-offset:1px}
+.tile.offd{opacity:.45;border-style:dashed}
+.tile .offmark{position:absolute;bottom:4px;right:7px;font-size:9px;color:var(--muted)}
+
+/* ===== flow view ===== */
+#view-flow .flowbar{display:flex;gap:10px;align-items:center;padding:8px 18px 0;font-size:11.5px;color:var(--ink2)}
+.maparea{position:relative;overflow:auto;height:calc(100vh - 210px);min-height:430px}
+#flowsvg{display:block}
+.node{cursor:pointer}
+.node rect{fill:var(--card);stroke-width:1.2;rx:5}
+.node .nid{font-family:var(--f-mono);font-size:8px;fill:var(--muted)}
+.node .nnm{font-size:9.5px;font-weight:600;fill:var(--ink)}
+.node.dim{opacity:.22}
+.node.sel rect{stroke-width:2.6}
+.node.rel rect{stroke-width:2.2}
+.node.offd{opacity:.35}
+.gedge{fill:none;stroke:var(--ink2);opacity:.16;cursor:pointer}
+.gedge:hover{opacity:.5;stroke:var(--accent)}
+.gedge.dim{opacity:.04}
+.sedge{fill:none;stroke-width:2.2;opacity:.95}
+.sedge.in{stroke:#7c5cd6}
+.sedge.out{stroke:#eb6834}
+.sedge.loopk{stroke-dasharray:6 5}
+.elabel{font-size:10px;fill:var(--ink);paint-order:stroke;stroke:var(--halo);stroke-width:3.6px;stroke-linejoin:round;font-weight:600}
+.lanelab{font-size:12px;font-weight:700;fill:var(--ink)}
+.lanelab2{font-size:9.5px;fill:var(--muted)}
+.phaselab{font-size:11px;font-weight:600;fill:var(--ink2)}
+.laneband{opacity:.05}
+.extband{opacity:.10}
+.extnode{cursor:pointer}
+.extnode rect{fill:var(--card);stroke-width:1.3;stroke-dasharray:5 4;opacity:.96}
+.extnode text{font-size:10px;font-weight:600}
+.extnode:hover rect{stroke-width:2.4;stroke-dasharray:none}
+
+/* ===== matrix view ===== */
+#view-matrix{padding:14px 18px 40px;overflow-x:auto}
+.mnote{font-size:11.5px;color:var(--ink2);margin:0 0 10px;line-height:1.7}
+table.mx{border-collapse:collapse;font-size:11.5px}
+.mx th,.mx td{border:1px solid var(--line-soft);padding:0;text-align:center}
+.mx thead th{background:var(--card);font-size:11px;padding:7px 6px;min-width:64px}
+.mx tbody th{background:var(--card);font-size:11px;padding:7px 9px;text-align:left;white-space:nowrap}
+.mx td{min-width:64px;height:44px;cursor:pointer;position:relative}
+.mx td .n1{font-family:var(--f-mono);font-size:14px;font-weight:600}
+.mx td .n2{font-size:9px;color:var(--ink2)}
+.mx td.zero{color:var(--muted);cursor:default}
+.mx td.selc{outline:2.5px solid var(--accent);outline-offset:-2px}
+.mx .dg{background:color-mix(in srgb,var(--ink) 4%,transparent)}
+.mxlegend{display:flex;gap:16px;margin-top:10px;font-size:11px;color:var(--muted);flex-wrap:wrap}
+
+/* ===== panel ===== */
+.panel{position:sticky;top:104px;height:calc(100vh - 112px);overflow:auto;border-left:1px solid var(--line);background:var(--card);padding:14px 16px 30px}
+.panel h2{font-size:15px;margin:0 0 2px;line-height:1.5}
+.panel .pid{font-family:var(--f-mono);font-size:11px;color:var(--accent)}
+.pchips{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0 10px}
+.pchip{font-size:10.5px;padding:2.5px 9px;border-radius:20px;border:1px solid var(--line);color:var(--ink2)}
+.pchip.dept{color:#fff;border:none;font-weight:600}
+.pnote{font-size:12.5px;color:var(--ink2);line-height:1.8;border-left:3px solid var(--line);padding-left:10px;margin:9px 0 12px}
+.panel h3{font-size:11.5px;color:var(--muted);letter-spacing:.09em;font-weight:600;margin:16px 0 7px;border-bottom:1px solid var(--line-soft);padding-bottom:4px}
+.scgrid{display:flex;gap:8px}
+.scgrid div{flex:1;border:1px solid var(--line-soft);border-radius:8px;padding:6px 8px;text-align:center}
+.scgrid .v{font-family:var(--f-mono);font-size:15px;font-weight:600}
+.scgrid .k{font-size:9.5px;color:var(--muted)}
+.eitem{display:flex;gap:7px;margin:0 0 7px;font-size:12px;line-height:1.55;align-items:baseline;border-radius:6px;padding:2px 4px}
+.eitem:hover{background:color-mix(in srgb,var(--accent) 8%,transparent)}
+.flowcap{font-size:11px;color:var(--muted);margin:8px 0 5px;font-weight:600;letter-spacing:.05em}
+.stopline{font-size:12.5px;color:var(--warn);border-left:3px solid var(--warn);padding-left:9px;line-height:1.8;margin:10px 0}
+.mini{font-size:10px;padding:2px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--accent);cursor:pointer;flex:none;font-family:var(--f-got)}
+.mini:hover{border-color:var(--accent)}
+details.subfold{margin:12px 0 4px}
+details.subfold summary{cursor:pointer;font-size:12px;color:var(--ink2)}
+.eitem .dir{font-size:9.5px;font-weight:700;flex:none;width:30px;text-align:center;border-radius:4px;padding:1px 0}
+.eitem .dir.in{color:#7c5cd6;border:1px solid #7c5cd6}
+.eitem .dir.out{color:#eb6834;border:1px solid #eb6834}
+.eitem .ew{color:var(--ink);font-weight:600}
+.eitem .ep{color:var(--ink2)}
+.eitem .ek{font-size:9px;color:var(--muted);border:1px solid var(--line-soft);border-radius:4px;padding:0 4px;flex:none}
+.pbtns{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.pbtns .btn{font-size:11.5px;padding:5px 10px}
+.pintro{font-size:12.5px;color:var(--ink2);line-height:1.9}
+.pintro b{color:var(--ink)}
+.toplist{margin:6px 0 0;padding:0;list-style:none}
+.toplist li{display:flex;justify-content:space-between;gap:8px;font-size:12px;padding:3.5px 2px;border-bottom:1px dashed var(--line-soft);cursor:pointer}
+.toplist li:hover{color:var(--accent)}
+.toplist .hh{font-family:var(--f-mono);color:var(--muted);flex:none}
+
+/* ===== modal ===== */
+.modalbg{position:fixed;inset:0;background:rgba(15,23,36,.55);z-index:90;display:none;align-items:flex-start;justify-content:center;padding:5vh 16px}
+.modalbg.on{display:flex}
+.modal{background:var(--paper);border:1px solid var(--line);border-radius:14px;max-width:660px;width:100%;max-height:88vh;overflow:auto;padding:18px 22px 22px}
+.modal h2{font-size:16px;margin:0 0 4px}
+.modal .sub{font-size:12px;color:var(--ink2);line-height:1.7;margin-bottom:12px}
+.presetrow{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+.orgtable{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:12px}
+.orgtable th,.orgtable td{border:1px solid var(--line-soft);padding:6px 9px;text-align:left}
+.orgtable select,.orgtable input{font-size:12.5px;padding:4px 7px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
+.rolechip{display:inline-block;font-size:11px;border-radius:14px;padding:2px 9px;color:#fff;font-weight:600;margin:1px 3px 1px 0}
+.dlist{margin-bottom:12px}
+.drow{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.drow input[type=text]{flex:1;font-size:12.5px;padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--ink)}
+.offlist{font-size:12px;color:var(--ink2);line-height:1.8}
+
+/* ===== guide ===== */
+#guide{position:fixed;inset:0;background:rgba(15,23,36,.6);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}
+#guide.on{display:flex}
+.gcard{background:var(--paper);border:1px solid var(--line);border-radius:16px;max-width:520px;width:100%;padding:26px 30px}
+.gcard .gstep{font-family:var(--f-mono);font-size:11px;color:var(--accent);margin-bottom:6px}
+.gcard h2{font-family:var(--f-min);font-size:20px;margin:0 0 10px;line-height:1.5}
+.gcard p{font-size:13.5px;line-height:2;color:var(--ink2);margin:0 0 18px}
+.gcard p b{color:var(--ink)}
+.gbtns{display:flex;justify-content:space-between;align-items:center}
+.legend{padding:10px 18px 28px;font-size:11px;color:var(--muted);line-height:1.9}
+.hl{background:color-mix(in srgb,var(--accent) 14%,transparent);border-radius:3px;padding:0 3px}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>工務店業務つながりマップ</h1>
+  <span class="ver">v2.0｜P056 業務解体新書</span>
+  <span class="hypo">⚠ <b>これはAIの仮説です</b>（201業務＋つながり<span id="hEdgeN">-</span>本）。実態と違う所は「番号＋一言」でどうぞ＝差分台帳に積みます。</span>
+</header>
+
+<div class="toolbar">
+  <div class="tabs" role="tablist">
+    <button id="tab-shelf" aria-pressed="true" onclick="setView('shelf')">① 業務の棚</button>
+    <button id="tab-flow" aria-pressed="false" onclick="setView('flow')">② 流れ</button>
+    <button id="tab-matrix" aria-pressed="false" onclick="setView('matrix')">③ 部門連携</button>
+  </div>
+  <span class="orgname">組織：<b id="orgName">-</b></span>
+  <button class="btn" onclick="openOrg()">🏢 組織を変える</button>
+  <div class="grow"></div>
+  <input type="search" id="q" placeholder="検索（番号・業務名）" oninput="onSearch()" onkeydown="if(event.key==='Enter')searchJump()">
+  <span id="qinfo" style="font-size:11.5px;color:var(--ink2)"></span>
+  <div id="hitlist" class="hitlist" style="display:none"></div>
+  <button class="btn" onclick="startGuide()">案内</button>
+</div>
+
+<div class="statchips" id="statchips"></div>
+
+<div class="filters" id="filters">
+  <span class="flabelhead">絞り込み：</span>
+  <button class="fchip" data-f="line-new" aria-pressed="false" onclick="toggleF(this)">新築（A〜I）</button>
+  <button class="fchip" data-f="line-ref" aria-pressed="false" onclick="toggleF(this)">リフォーム（J）</button>
+  <button class="fchip" data-f="line-com" aria-pressed="false" onclick="toggleF(this)">横断・間接（X/K/M/L/N）</button>
+  <button class="fchip" data-f="ai3" aria-pressed="false" onclick="toggleF(this)">AIが得意（AI=3）</button>
+  <button class="fchip" data-f="pain3" aria-pressed="false" onclick="toggleF(this)">痛み最大（痛=3）</button>
+  <button class="fchip" data-f="h100" aria-pressed="false" onclick="toggleF(this)">年100h以上</button>
+  <button class="fchip" id="resetChip" style="display:none;border-color:var(--warn);color:var(--warn)" onclick="resetFilters()">✕ 絞り込みを全部やめる</button>
+</div>
+
+<div class="wrap">
+  <main class="stage">
+    <section id="view-shelf" class="view on"></section>
+    <section id="view-flow" class="view">
+      <div class="flowbar">
+        <span>線＝情報の受け渡し（薄い線＝全体の幹線。<b>業務をクリック</b>すると、その業務の分だけ濃く出ます）。<b>点線の箱＝施主・業者・役所の「行動」</b>＝何をするとその情報が動くか。箱をクリックで中身一覧</span>
+        <span style="margin-left:auto">拡大 <input type="range" id="zoom" min="55" max="130" value="90" oninput="applyZoom()" style="width:110px;accent-color:var(--accent)"></span>
+      </div>
+      <div class="maparea" id="maparea"><div id="mapinner"><svg id="flowsvg" xmlns="http://www.w3.org/2000/svg"></svg></div></div>
+    </section>
+    <section id="view-matrix" class="view">
+      <p class="mnote">数字＝<b>受け渡しの種類の数</b>（何種類の情報が行き来するか）。<b>仕事量の大きさではありません</b>。下段の小さい数字＝2部門が同じ業務を共同で担当している数。セルをクリックすると中身の一覧が右に出ます。</p>
+  <p class="mnote" id="mxFilterNote" style="display:none;color:var(--warn)">⚠ いま検索・絞り込みが掛かっていますが、<b>この表はいつも全業務で計算</b>しています（絞り込みが反映されるのは①業務の棚と②流れ）。解除は上の「✕絞り込みを全部やめる」。</p>
+      <div id="mxwrap"></div>
+      <div class="mxlegend"><span>行＝渡す側 → 列＝受け取る側</span><span>対角線＝部門の中での受け渡し</span><span>色が濃い＝種類が多い</span></div>
+    </section>
+  </main>
+  <aside class="panel" id="panel"></aside>
+</div>
+
+<div class="legend">
+  対象モデル＝従業員6〜15名の元請け工務店（新築5棟＋リフォーム52件/年・約11名）。年間時間・スコアはAI推定（Codex相互検証済み・桁と相対順位が目的）。
+  つながり1本1本の根拠（正本の記述／前作流れ図の精緻化／実務推論）は、一覧の行にカーソルを載せると表示。
+  このツールが扱える組織の違い＝「役割をどの部門にまとめるか」「業務をやらない/外注する」まで。承認権限・個人単位の兼務・拠点別体制は対象外。
+  正本＝業務マップ仮説v1.0／時間・優先度モデルv1.0（P056）。
+</div>
+
+<!-- org modal -->
+<div class="modalbg" id="orgModal">
+  <div class="modal">
+    <h2>組織のかたちを変える</h2>
+    <p class="sub">会社によって「営業と設計が同じ人」「監督が営業もやる」など分け方は違います。<b>7つの役割をどの部門に入れるか</b>を決めると、棚・流れ・連携表がぜんぶ描き直されます。</p>
+    <div class="presetrow" id="presetrow"></div>
+    <div class="dlist" id="dlist"></div>
+    <button class="btn" onclick="addDept()">＋ 部門を足す</button>
+    <table class="orgtable" id="roletable"></table>
+    <div id="offinfo" class="offlist"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px">
+      <button class="btn" onclick="closeOrg(false)">閉じる</button>
+      <button class="btn primary" onclick="closeOrg(true)">この組織で描き直す</button>
+    </div>
+  </div>
+</div>
+
+<!-- guide -->
+<div id="guide"><div class="gcard" id="gcard"></div></div>
+
+<script>
+"use strict";
+/* ============ data ============ */
+const TASKS = [{"id":"A-01","sec":"A","name":"年間集客計画・予算配分","gist":"年間受注目標→必要反響数を逆算→見学会/Web/紙媒体へ予算と担当を配分。〔仮説〕実際は計画なしで前年踏襲の会社が多い","tanto":"社長","roles":["社長"],"gaibu":[],"hours":12,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":3,"d":3,"total":9}},{"id":"A-02","sec":"A","name":"HP運営・施工事例更新","gist":"完工物件の写真・コメント掲載。更新は不定期になりがち","tanto":"営業/社長","roles":["営業","社長"],"gaibu":[],"hours":50,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":1,"a":3,"d":3,"total":9}},{"id":"A-03","sec":"A","name":"SNS発信","gist":"Instagram中心に現場進捗・完成写真。担当は属人的（若手・社長の家族）","tanto":"営業/事務","roles":["営業","事務"],"gaibu":[],"hours":100,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":1,"a":3,"d":2,"total":9}},{"id":"A-04","sec":"A","name":"Googleビジネスプロフィール・口コミ管理","gist":"店舗情報・写真・口コミ返信。地域検索の入口","tanto":"営業/事務","roles":["営業","事務"],"gaibu":[],"hours":25,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":3,"d":3,"total":9}},{"id":"A-05","sec":"A","name":"ポータルサイト掲載管理","gist":"SUUMO注文住宅等。掲載料と反響の費用対効果判断","tanto":"社長","roles":["社長"],"gaibu":[],"hours":12,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":1,"a":2,"d":3,"total":7}},{"id":"A-06","sec":"A","name":"見学会の企画・準備","gist":"開催物件選定→施主承諾→日程→告知物制作→予約管理→設営","tanto":"営業","roles":["営業"],"gaibu":[],"hours":60,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":2,"d":2,"total":8}},{"id":"A-07","sec":"A","name":"見学会の当日運営・事後","gist":"当日接客→来場記録→施主へのお礼→来場者の個別追客へ接続","tanto":"営業全員","roles":["営業"],"gaibu":[],"hours":45,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":1,"d":2,"total":7}},{"id":"A-08","sec":"A","name":"OB客からの紹介","gist":"紹介制度（謝礼）はあっても、実際は制度より人間関係で発生〔仮説〕","tanto":"社長/営業","roles":["社長","営業"],"gaibu":[],"hours":12,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":1,"d":2,"total":6}},{"id":"A-09","sec":"A","name":"紹介元の開拓・維持","gist":"不動産会社・金融機関・士業・地域事業者からの案件紹介ルート。訪問・情報交換・紹介後の報告と礼","tanto":"社長/営業","roles":["社長","営業"],"gaibu":[],"hours":40,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":1,"d":2,"total":7}},{"id":"A-10","sec":"A","name":"チラシ・地域広告","gist":"新聞折込・ポスティング。見学会告知とセット","tanto":"営業","roles":["営業"],"gaibu":[],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":1,"a":3,"d":3,"total":9}},{"id":"A-11","sec":"A","name":"モデルハウス/ショールーム維持","gist":"ある場合のみ。掃除・展示替え・光熱費","tanto":"事務","roles":["事務"],"gaibu":[],"hours":50,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":1,"a":1,"d":2,"total":6}},{"id":"A-12","sec":"A","name":"資料請求対応","gist":"パンフ発送→発送後の追客に接続","tanto":"事務/営業","roles":["事務","営業"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":1,"a":3,"d":3,"total":8}},{"id":"A-13","sec":"A","name":"問い合わせ一次対応・振り分け","gist":"電話・メール・LINE・フォーム。新築/リフォーム/OB/緊急の振り分け（→X-01共通台帳へ記録）","tanto":"事務","roles":["事務"],"gaibu":[],"hours":80,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":3,"d":3,"total":10}},{"id":"A-14","sec":"A","name":"反響・追客リスト管理","gist":"ランク分け（今すぐ客/そのうち客）。Excelか手帳で曖昧になりがち","tanto":"営業","roles":["営業"],"gaibu":[],"hours":50,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":3,"d":2,"total":9}},{"id":"B-01","sec":"B","name":"面談予約・事前準備・社内共有","gist":"日程調整・参加者確認・土地資料等の事前依頼・担当への引継ぎ。問い合わせ→面談の間の空白を埋める","tanto":"事務/営業","roles":["事務","営業"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":3,"d":3,"total":9}},{"id":"B-02","sec":"B","name":"初回面談","gist":"意思決定者の把握・要望聴取・予算/時期確認・自社説明・次回約束・面談記録。1.5〜2時間","tanto":"営業","roles":["営業"],"gaibu":[],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":1,"d":2,"total":8}},{"id":"B-03","sec":"B","name":"受注可能性の一次判定・お断り","gist":"対応地域・工種・予算・時期・相性・施工余力で進めるか断るかを判断。〔仮説〕明文基準はなく社長の勘","tanto":"営業/社長","roles":["営業","社長"],"gaibu":[],"hours":5,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":3,"total":9}},{"id":"B-04","sec":"B","name":"土地探し支援","gist":"条件整理→不動産会社へ探索依頼→候補収集→現地同行→建築可否と総額の一次判定。※可否の断定は調査後（C部）","tanto":"営業/設計","roles":["営業","設計"],"gaibu":[],"hours":60,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":2,"d":2,"total":8}},{"id":"B-05","sec":"B","name":"土地購入の期限調整・買付支援","gist":"買付期限とプラン/概算/融資の提出日をすり合わせ。「待ってもらう交渉」が発生","tanto":"営業","roles":["営業"],"gaibu":[],"hours":10,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":1,"d":2,"total":7}},{"id":"B-06","sec":"B","name":"資金計画の概算提示","gist":"本体+付帯+諸費用の総額感。ここの精度が信頼を左右","tanto":"営業","roles":["営業"],"gaibu":[],"hours":25,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":3,"total":10}},{"id":"B-07","sec":"B","name":"住宅ローン事前審査","gist":"銀行紹介・必要書類案内・事前審査サポート","tanto":"営業","roles":["営業"],"gaibu":[],"hours":20,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":3,"total":9}},{"id":"B-08","sec":"B","name":"完成宅・施工中現場への個別案内","gist":"見学先施主との調整・現地説明・反応記録。集団見学会とは別の個別営業","tanto":"営業","roles":["営業"],"gaibu":[],"hours":20,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":1,"d":2,"total":6}},{"id":"B-09","sec":"B","name":"追客・長期客管理","gist":"ニュースレター・定期連絡・イベント案内。長期客は数年がかり","tanto":"営業","roles":["営業"],"gaibu":[],"hours":60,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":3,"d":2,"total":9}},{"id":"B-10","sec":"B","name":"相見積もり対応","gist":"他社比較への対応。価格勝負を避け強みで差別化","tanto":"営業/社長","roles":["営業","社長"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":2,"total":8}},{"id":"C-01","sec":"C","name":"資料調査","gist":"公図・登記事項・地積測量図・過去図面の収集。現地に行く前の下調べ","tanto":"設計","roles":["設計"],"gaibu":[],"hours":14,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":3,"d":3,"total":9}},{"id":"C-02","sec":"C","name":"敷地調査（現地）","gist":"形状/寸法・高低差・接道幅員・インフラ引込・越境・隣家窓・日当たり・搬入経路・写真記録","tanto":"設計/監督","roles":["設計","監督"],"gaibu":[],"hours":21,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":1,"d":2,"total":7}},{"id":"C-03","sec":"C","name":"境界の確認・測量手配","gist":"現地でわかるのは境界標の有無まで。確定測量・隣接立会いが必要な案件は土地家屋調査士へ","tanto":"設計","roles":["設計"],"gaibu":[],"hours":10,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":1,"d":3,"total":8}},{"id":"C-04","sec":"C","name":"法規調査","gist":"用途地域・建ぺい/容積・高さ/斜線・防火指定・地区計画・条例","tanto":"設計","roles":["設計"],"gaibu":[],"hours":14,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":2,"total":8}},{"id":"C-05","sec":"C","name":"役所・台帳調査","gist":"上下水道台帳・道路種別（42条）・開発許可要否・埋蔵文化財・農地転用","tanto":"設計","roles":["設計"],"gaibu":[],"hours":21,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":3,"total":9}},{"id":"C-06","sec":"C","name":"造成・擁壁・災害リスク判定","gist":"ハザード・既存擁壁・盛土・セットバック等が追加費用と工期に与える影響を判定","tanto":"設計/監督","roles":["設計","監督"],"gaibu":[],"hours":7,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":3,"total":9}},{"id":"C-07","sec":"C","name":"建替え前提条件の確認","gist":"既存建物・解体範囲・残置物・石綿の可能性・仮住まい・引越し。契約前に総予算へ反映（着工準備段階では遅い）","tanto":"営業/監督","roles":["営業","監督"],"gaibu":[],"hours":6,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":3,"total":9}},{"id":"C-08","sec":"C","name":"プランヒアリング","gist":"家族構成・生活動線・こだわり・予算枠の深掘り","tanto":"営業/設計","roles":["営業","設計"],"gaibu":[],"hours":14,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":2,"d":2,"total":7}},{"id":"C-09","sec":"C","name":"ラフプラン・提案書作成","gist":"平面+外観+概算のセット。無料/有料は会社方針","tanto":"設計","roles":["設計"],"gaibu":[],"hours":70,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":2,"d":3,"total":9}},{"id":"C-10","sec":"C","name":"提案説明・反応記録・修正ループ","gist":"提案→顧客反応→採否→宿題の記録。回数無制限だとタダ働き化","tanto":"設計/営業","roles":["設計","営業"],"gaibu":[],"hours":84,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":2,"d":2,"total":8}},{"id":"C-11","sec":"C","name":"設計申込み・設計契約","gist":"申込金（5〜20万円）。設計受託する場合は建築士法の重要事項説明・書面交付が必要","tanto":"営業/設計","roles":["営業","設計"],"gaibu":[],"hours":5,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":3,"d":3,"total":9}},{"id":"C-12","sec":"C","name":"概算見積作成","gist":"坪単価ベース+オプション概算。実施見積との乖離が後のトラブル源","tanto":"営業/設計","roles":["営業","設計"],"gaibu":[],"hours":35,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":3,"total":10}},{"id":"D-01","sec":"D","name":"見積前提の確定","gist":"どこまで仕様を凍結して見積るかを決める。ここが曖昧だと見積が何度も出戻る〔仮説〕","tanto":"設計/営業","roles":["設計","営業"],"gaibu":[],"hours":6,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":3,"total":9}},{"id":"D-02","sec":"D","name":"数量拾い・業者見積徴収","gist":"拾い出し→専門業者へ見積依頼→質疑回答→見積比較→抜け重複確認","tanto":"監督/設計","roles":["監督","設計"],"gaibu":[],"hours":150,"hoursNote":"150（6本×25h）","hKasetsu":false,"sc":{"t":3,"p":3,"a":2,"d":2,"total":10}},{"id":"D-03","sec":"D","name":"見積組立て・売価決定","gist":"自社大工の労務算定・諸経費/リスク計上・粗利設定→売価決定","tanto":"監督/社長","roles":["監督","社長"],"gaibu":[],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"D-04","sec":"D","name":"見積提示・減額調整","gist":"予算オーバー時の減額案（仕様ダウン・面積縮小）提示","tanto":"営業/設計","roles":["営業","設計"],"gaibu":[],"hours":24,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":3,"total":10}},{"id":"D-05","sec":"D","name":"請負契約書作成","gist":"契約書・約款・工程表・見積書一式。建設業法19条の法定記載事項を満たす書面","tanto":"事務/営業","roles":["事務","営業"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":3,"total":10}},{"id":"D-06","sec":"D","name":"契約締結・契約時金受領","gist":"契約時金の受領。※支払条件全体（着工/上棟/完成の出来高払い）は別管理（D-07）","tanto":"営業/社長","roles":["営業","社長"],"gaibu":[],"hours":10,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":1,"d":3,"total":8}},{"id":"D-07","sec":"D","name":"支払条件・請求予定の設定","gist":"契約時/着工/上棟/完成の請求予定を確定し、資金繰り（L-05）と接続","tanto":"事務/社長","roles":["事務","社長"],"gaibu":[],"hours":5,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":3,"total":10}},{"id":"D-08","sec":"D","name":"ローン本審査・つなぎ融資","gist":"本審査書類・金消契約・つなぎ融資の段取り。入金時期に直結","tanto":"営業","roles":["営業"],"gaibu":[],"hours":25,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":2,"total":8}},{"id":"D-09","sec":"D","name":"失注・中止の処理","gist":"融資否決・他決・土地不成立・辞退。理由記録・預り金/作成資料の精算・再追客判断。〔仮説〕記録されず消える会社が大半","tanto":"営業","roles":["営業"],"gaibu":[],"hours":4,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":3,"d":3,"total":9}},{"id":"E-01","sec":"E","name":"申請ルートの判定","gist":"新2号/新3号の別・構造は仕様規定か計算か・省エネは仕様基準か計算か。必要図書と日程をここで確定（2025年法改正後の最初の分かれ道）","tanto":"設計","roles":["設計"],"gaibu":[],"hours":5,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":3,"total":10}},{"id":"E-02","sec":"E","name":"地盤調査","gist":"調査方法の選定（SWSが代表だが固定ではない）→手配→判定書。基礎設計より前","tanto":"監督/設計","roles":["監督","設計"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":1,"d":3,"total":8}},{"id":"E-03","sec":"E","name":"地盤補強の判定・基礎設計反映","gist":"地盤会社/保証会社の提案を設計者が妥当性確認→補強仕様・基礎形式を確定→構造図・申請図書と整合","tanto":"設計","roles":["設計"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":3,"total":9}},{"id":"E-04","sec":"E","name":"性能仕様の凍結","gist":"サッシ・断熱・換気・給湯・太陽光・屋根/外壁など構造/防火/省エネに効く仕様は申請前に確定。色柄はE-15で後決め可","tanto":"設計","roles":["設計"],"gaibu":[],"hours":20,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":2,"total":8}},{"id":"E-05","sec":"E","name":"実施設計図書作成","gist":"意匠詳細・構造図・設備図・建具表/仕上表・納まり図・図面間整合チェック","tanto":"設計","roles":["設計"],"gaibu":[],"hours":400,"hoursNote":"400（80h/棟）","hKasetsu":false,"sc":{"t":3,"p":2,"a":2,"d":2,"total":9}},{"id":"E-06","sec":"E","name":"構造安全性の確認","gist":"壁量計算・N値・水平構面等。新2号は構造関係図書が審査対象、新3号は一定条件で省略が残る","tanto":"設計","roles":["設計"],"gaibu":[],"hours":40,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"E-07","sec":"E","name":"省エネ適合","gist":"仕様基準ルートなら計算不要・計算ルートなら一次エネ計算。ルートで業務量が大きく変わる","tanto":"設計/外注","roles":["設計"],"gaibu":["外注"],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":3,"d":2,"total":9}},{"id":"E-08","sec":"E","name":"設備設計・納まり調整","gist":"24時間換気・空調・給湯・配管経路・基礎スリーブ/梁貫通の意匠構造との衝突確認","tanto":"設計","roles":["設計"],"gaibu":[],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":2,"d":2,"total":8}},{"id":"E-09","sec":"E","name":"建築確認申請・工事届","gist":"検査機関への申請・質疑補正・確認済証受領。建築工事届（統計様式）も別途","tanto":"設計","roles":["設計"],"gaibu":[],"hours":60,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"E-10","sec":"E","name":"確認後の変更手続き判定","gist":"施主変更・商品廃番→計画変更確認/軽微変更/認定変更の要否判定→再計算・届出","tanto":"設計","roles":["設計"],"gaibu":[],"hours":10,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":3,"total":9}},{"id":"E-11","sec":"E","name":"性能認定・評価の申請","gist":"長期優良（行政認定）・ZEH（補助区分）・BELS（第三者評価）・性能評価は申請先も図書も別物。該当時のみ","tanto":"設計/外注","roles":["設計"],"gaibu":["外注"],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":2,"d":2,"total":8}},{"id":"E-12","sec":"E","name":"補助金の申請業務","gist":"制度選定→事業者登録→予算予約→交付申請。完了報告はH-10。予算枠の争奪戦で時期が命","tanto":"設計/事務","roles":["設計","事務"],"gaibu":[],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"E-13","sec":"E","name":"瑕疵保険の申込・検査手配","gist":"保険申込→基礎配筋/躯体の現場検査の受検手配（証券発行はH-09）","tanto":"監督/事務","roles":["監督","事務"],"gaibu":[],"hours":20,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":3,"total":10}},{"id":"E-14","sec":"E","name":"工事監理計画","gist":"誰が・どの工程で・何を設計図書と照合するか決め、検査項目を施工側へ渡す","tanto":"設計","roles":["設計"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":3,"d":3,"total":9}},{"id":"E-15","sec":"E","name":"色決め・内装仕様打合せ","gist":"内外装の色柄・住設グレード・照明・造作。ショールーム同行。数回〜十数回","tanto":"設計/営業","roles":["設計","営業"],"gaibu":[],"hours":125,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":2,"a":2,"d":2,"total":9}},{"id":"E-16","sec":"E","name":"打合せ議事録・変更履歴管理","gist":"「言った言わない」防止。全打合せの決定事項の記録（→X-02変更管理へ接続）","tanto":"設計","roles":["設計"],"gaibu":[],"hours":50,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"E-17","sec":"E","name":"性能・認定根拠資料の収集照合","gist":"品番・性能証明を集め、確認/省エネ/長期優良/瑕疵保険/補助金の図書間で一致確認。〔仮説〕ズレたまま申請して補正を食らう事故が多い","tanto":"設計","roles":["設計"],"gaibu":[],"hours":25,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":3,"total":10}},{"id":"F-01","sec":"F","name":"社内引継ぎ・施工前会議","gist":"営業/設計→監督へ：契約条件・未決事項・申請条件・補助金要件・原価・施主の注意点を正式に引き渡す（→X-03）","tanto":"全員","roles":["社長","営業","設計","監督","大工","事務"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":2,"total":8}},{"id":"F-02","sec":"F","name":"実行予算書作成","gist":"見積を原価ベースに組み替え。粗利目標の確定（→G-25で工事中も更新）","tanto":"監督/社長","roles":["監督","社長"],"gaibu":[],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":3,"d":2,"total":10}},{"id":"F-03","sec":"F","name":"全体工程表作成","gist":"着工〜引渡し。職人・外注の空き状況とすり合わせ","tanto":"監督","roles":["監督"],"gaibu":[],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":3,"d":3,"total":10}},{"id":"F-04","sec":"F","name":"専門業者への発注","gist":"見積合わせ→書面発注（内容・金額・工期・支払条件）。※口頭発注が現実に多いこと自体が管理リスク","tanto":"監督","roles":["監督"],"gaibu":[],"hours":40,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":3,"d":2,"total":10}},{"id":"F-05","sec":"F","name":"プレカット打合せ","gist":"プレカット図の承認・納期確定。梁伏・金物の整合確認","tanto":"設計/監督","roles":["設計","監督"],"gaibu":[],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"F-06","sec":"F","name":"長納期材の発注","gist":"構造材・サッシ・住設・玄関ドア。納期遅延が工程を壊す","tanto":"監督","roles":["監督"],"gaibu":[],"hours":25,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":2,"total":8}},{"id":"F-07","sec":"F","name":"施工図・製作図の承認","gist":"プレカット以外＝階段・造作・板金・設備配管等の業者施工図を設計図と照合","tanto":"設計/監督","roles":["設計","監督"],"gaibu":[],"hours":20,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":2,"total":8}},{"id":"F-08","sec":"F","name":"解体工事一式（建替え時）","gist":"石綿事前調査（資格者）→建設リサイクル法の事前届出（7日前）→近隣説明→ライフライン停止→解体・分別→整地→滅失登記案内。地鎮祭より前","tanto":"監督","roles":["監督"],"gaibu":[],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"F-09","sec":"F","name":"近隣挨拶","gist":"着工前に両隣・向かい・裏へ。工事車両・騒音の説明","tanto":"監督/営業","roles":["監督","営業"],"gaibu":[],"hours":10,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":1,"d":3,"total":7}},{"id":"F-10","sec":"F","name":"地鎮祭","gist":"神主手配・準備物・当日運営。やらない施主も増加。建替えは解体・整地後","tanto":"営業/監督","roles":["営業","監督"],"gaibu":[],"hours":20,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":1,"a":1,"d":3,"total":6}},{"id":"F-11","sec":"F","name":"仮設・ライフライン申請","gist":"仮設電気・仮設水道・仮設トイレ・足場計画・車両動線。本設の電気/給水加入/下水接続/ガス申請・道路使用/占用も期限付きで","tanto":"監督","roles":["監督"],"gaibu":[],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":2,"d":3,"total":9}},{"id":"F-12","sec":"F","name":"掲示・保険・体制の確認","gist":"建設業許可票・確認済表示板の掲示。労災/賠償保険の適用確認。施工体制台帳の要否判定（民間戸建は原則不要だが判定業務は要る）","tanto":"事務/監督","roles":["事務","監督"],"gaibu":[],"hours":10,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":3,"d":3,"total":9}},{"id":"G-01","sec":"G","name":"地縄張り・遣り方","gist":"建物位置出し・BM設定・施主の位置確認","tanto":"監督/大工","roles":["監督","大工"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":1,"d":3,"total":8}},{"id":"G-02","sec":"G","name":"地盤改良工事","gist":"立会い・施工記録の確認","tanto":"監督","roles":["監督"],"gaibu":[],"hours":10,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":1,"d":3,"total":7}},{"id":"G-03","sec":"G","name":"基礎工事管理","gist":"掘方・砕石・防湿・型枠・生コン受入/打設・養生・脱型・出来形確認","tanto":"監督","roles":["監督"],"gaibu":[],"hours":60,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":1,"d":2,"total":8}},{"id":"G-04","sec":"G","name":"基礎の検査対応","gist":"配筋検査（瑕疵保険）・スリーブ位置・アンカーボルト位置/レベル確認","tanto":"監督","roles":["監督"],"gaibu":[],"hours":20,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":3,"total":9}},{"id":"G-05","sec":"G","name":"先行配管","gist":"給排水の基礎貫通・スリーブの位置確認","tanto":"監督","roles":["監督"],"gaibu":[],"hours":10,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":1,"d":3,"total":7}},{"id":"G-06","sec":"G","name":"土台敷き・上棟準備","gist":"土台/大引・断熱。レッカー手配・応援大工手配・搬入段取り・天候判断","tanto":"大工/監督","roles":["大工","監督"],"gaibu":[],"hours":120,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":2,"a":1,"d":2,"total":8}},{"id":"G-07","sec":"G","name":"上棟（建て方）","gist":"1〜2日で棟上げ。上棟式・施主対応・ご祝儀文化","tanto":"大工/監督","roles":["大工","監督"],"gaibu":[],"hours":300,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":2,"a":1,"d":1,"total":7}},{"id":"G-08","sec":"G","name":"屋根工事","gist":"ルーフィング（雨仕舞いの初動）→本葺き。板金/瓦業者","tanto":"監督","roles":["監督"],"gaibu":[],"hours":10,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":1,"d":3,"total":8}},{"id":"G-09","sec":"G","name":"躯体・金物・検査","gist":"耐力壁・構造金物・火打→躯体検査（瑕疵保険/中間検査）","tanto":"大工/監督","roles":["大工","監督"],"gaibu":[],"hours":300,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":3,"a":1,"d":2,"total":9}},{"id":"G-10","sec":"G","name":"サッシ取付・開口部防水","gist":"サッシ取付・防水テープ処理・水切り","tanto":"大工/監督","roles":["大工","監督"],"gaibu":[],"hours":200,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":3,"a":1,"d":2,"total":9}},{"id":"G-11","sec":"G","name":"外部防水・通気","gist":"透湿防水シート・バルコニー防水・外壁通気。隠蔽前検査＝雨漏りリスクの本丸","tanto":"監督","roles":["監督"],"gaibu":[],"hours":25,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":3,"total":9}},{"id":"G-12","sec":"G","name":"電気工事管理","gist":"配線・弱電・施主立会いのコンセント/スイッチ位置確認","tanto":"監督","roles":["監督"],"gaibu":[],"hours":25,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":2,"d":3,"total":8}},{"id":"G-13","sec":"G","name":"給排水・換気・ガス管理","gist":"配管・ダクト・試験（漏水/風量）・隠蔽前確認","tanto":"監督","roles":["監督"],"gaibu":[],"hours":25,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":2,"d":3,"total":8}},{"id":"G-14","sec":"G","name":"断熱・気密","gist":"断熱材施工・欠損確認・気密処理。気密測定は会社による","tanto":"大工/監督","roles":["大工","監督"],"gaibu":[],"hours":400,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":3,"a":1,"d":2,"total":9}},{"id":"G-15","sec":"G","name":"外壁仕上げ","gist":"サイディング/塗り壁/板張り・シーリング","tanto":"監督","roles":["監督"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":1,"d":3,"total":7}},{"id":"G-16","sec":"G","name":"内部造作","gist":"フローリング・建具枠・階段・造作家具。大工の腕の見せ所","tanto":"大工","roles":["大工"],"gaibu":[],"hours":3000,"hoursNote":"3,000〔仮説〕","hKasetsu":true,"sc":{"t":3,"p":2,"a":1,"d":1,"total":7}},{"id":"G-17","sec":"G","name":"内装仕上げ","gist":"クロス・左官・タイル・塗装","tanto":"監督","roles":["監督"],"gaibu":[],"hours":25,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":1,"d":3,"total":7}},{"id":"G-18","sec":"G","name":"住設取付","gist":"UB・キッチン・洗面・トイレ。設置日と給排水接続の段取り","tanto":"監督","roles":["監督"],"gaibu":[],"hours":20,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":2,"d":3,"total":8}},{"id":"G-19","sec":"G","name":"外構工事","gist":"引渡し前or後。予算不足で後回しになりがち","tanto":"監督/営業","roles":["監督","営業"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":2,"d":3,"total":8}},{"id":"G-20","sec":"G","name":"週間工程管理","gist":"週単位の工程更新・職人/納材/検査の予定組み","tanto":"監督","roles":["監督"],"gaibu":[],"hours":150,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":2,"a":2,"d":2,"total":9}},{"id":"G-21","sec":"G","name":"日次の段取り調整","gist":"翌日〜数日先の人員・搬入・前工程完了確認・職種間引継ぎ。〔仮説〕実態は電話とLINEの応酬で、ここが監督の時間を最も食う","tanto":"監督","roles":["監督"],"gaibu":[],"hours":500,"hoursNote":"500〔仮説〕","hKasetsu":true,"sc":{"t":3,"p":2,"a":2,"d":1,"total":8}},{"id":"G-22","sec":"G","name":"発注・納材管理","gist":"追加材料の発注・納期追いかけ・受入検品","tanto":"監督","roles":["監督"],"gaibu":[],"hours":150,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":3,"a":2,"d":2,"total":10}},{"id":"G-23","sec":"G","name":"工程内検査・是正管理","gist":"防水下地・アンカー・断熱欠損・配管漏水・絶縁など隠蔽前検査→不適合の是正→再確認。写真保存（G-24）とは別の業務","tanto":"監督","roles":["監督"],"gaibu":[],"hours":75,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"G-24","sec":"G","name":"現場写真・施工記録","gist":"隠蔽部の写真・検査記録。撮り忘れると取り返しがつかない","tanto":"監督","roles":["監督"],"gaibu":[],"hours":100,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":3,"a":2,"d":2,"total":10}},{"id":"G-25","sec":"G","name":"出来高・原価管理","gist":"発注済額・追加原価・残工事見込→粗利着地を工事中に更新。赤字兆候の早期捕捉（→L-02）","tanto":"監督/社長","roles":["監督","社長"],"gaibu":[],"hours":60,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":3,"d":2,"total":10}},{"id":"G-26","sec":"G","name":"安全衛生管理（元方として）","gist":"作業間の連絡調整・安全巡視・KY・下請への指導。開口部養生・足場点検・熱中症対策。一人親方の特別加入確認","tanto":"監督","roles":["監督"],"gaibu":[],"hours":75,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"G-27","sec":"G","name":"新規入場者・安全書類管理","gist":"入場者名簿・資格証・保険加入・持込機械（グリーンファイル）。徴収→更新→入場可否","tanto":"監督/事務","roles":["監督","事務"],"gaibu":[],"hours":40,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":3,"d":3,"total":10}},{"id":"G-28","sec":"G","name":"事故・ヒヤリハット対応","gist":"救護・連絡・現場保存・労災手続への情報提供・原因調査・再発防止・関係業者への周知","tanto":"監督/社長","roles":["監督","社長"],"gaibu":[],"hours":10,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":2,"total":8}},{"id":"G-29","sec":"G","name":"近隣対応","gist":"騒音・駐車・ホコリのクレーム対応。菓子折り持参も","tanto":"監督","roles":["監督"],"gaibu":[],"hours":25,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":1,"d":2,"total":7}},{"id":"G-30","sec":"G","name":"追加・変更工事の管理","gist":"現場発生の変更→記録→原価確認→金額/工期提示→施主承認→図面/発注/予算へ反映→精算（型はX-02）","tanto":"監督/営業","roles":["監督","営業"],"gaibu":[],"hours":100,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":3,"a":2,"d":2,"total":10}},{"id":"G-31","sec":"G","name":"施主への進捗報告","gist":"定例or随時。写真付きLINEが主流に","tanto":"監督/営業","roles":["監督","営業"],"gaibu":[],"hours":75,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":3,"d":3,"total":10}},{"id":"G-32","sec":"G","name":"産廃管理・現場清掃","gist":"分別・マニフェスト・引取り手配。現場美化は近隣の評価に直結","tanto":"監督","roles":["監督"],"gaibu":[],"hours":100,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":2,"a":1,"d":2,"total":8}},{"id":"H-01","sec":"H","name":"社内検査","gist":"傷・建付け・動作の自主検査→是正指示","tanto":"監督","roles":["監督"],"gaibu":[],"hours":20,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":3,"total":9}},{"id":"H-02","sec":"H","name":"完了検査","gist":"検査機関の完了検査受検・是正・検査済証受領","tanto":"監督/設計","roles":["監督","設計"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":1,"d":3,"total":8}},{"id":"H-03","sec":"H","name":"施主検査・手直し","gist":"内覧→手直しリスト→消し込み。引渡しまでに完了が原則","tanto":"監督/大工","roles":["監督","大工"],"gaibu":[],"hours":150,"hoursNote":"150（30h/棟・大工補修含む）","hKasetsu":false,"sc":{"t":3,"p":3,"a":2,"d":2,"total":10}},{"id":"H-04","sec":"H","name":"美装","gist":"ハウスクリーニング手配・仕上がり確認","tanto":"監督","roles":["監督"],"gaibu":[],"hours":10,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":1,"d":3,"total":7}},{"id":"H-05","sec":"H","name":"取扱説明","gist":"設備機器の使い方・メンテ方法の説明","tanto":"監督/営業","roles":["監督","営業"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":2,"d":3,"total":8}},{"id":"H-06","sec":"H","name":"引き渡し","gist":"鍵引渡し（工事用シリンダー切替）・竣工図書/保証書/検査済証の交付・未完事項と期限の合意・式典/記念品","tanto":"営業/社長","roles":["営業","社長"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":3,"total":9}},{"id":"H-07","sec":"H","name":"残金請求・入金確認","gist":"最終金請求・ローン実行との連動確認","tanto":"事務/営業","roles":["事務","営業"],"gaibu":[],"hours":5,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":3,"total":10}},{"id":"H-08","sec":"H","name":"登記・火災保険の連携","gist":"表題/保存/抵当権設定の士業・銀行との日程/書類連携（登記自体は士業の仕事）・火災保険の案内","tanto":"営業","roles":["営業"],"gaibu":[],"hours":10,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":2,"d":3,"total":8}},{"id":"H-09","sec":"H","name":"瑕疵保険の証券発行","gist":"完成後の証券発行申請・保険付保証明書の施主交付","tanto":"事務","roles":["事務"],"gaibu":[],"hours":5,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":3,"total":10}},{"id":"H-10","sec":"H","name":"補助金の完了実績報告","gist":"完了写真・請求書・性能証明を揃えて実績報告→交付額確定→入金確認。未提出＝もらえない","tanto":"事務/設計","roles":["事務","設計"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":3,"total":10}},{"id":"H-11","sec":"H","name":"竣工図書確定・アフター引継ぎ","gist":"施工変更反映の竣工図・隠蔽写真・設備品番・保証期限・未完事項を物件台帳へ確定し、アフター担当へ渡す（→X-03）","tanto":"監督","roles":["監督"],"gaibu":[],"hours":20,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":2,"total":9}},{"id":"H-12","sec":"H","name":"竣工写真・事例化","gist":"撮影・掲載承諾の取得→HP/SNSの事例へ（→A-02）","tanto":"営業","roles":["営業"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":1,"a":2,"d":3,"total":7}},{"id":"I-01","sec":"I","name":"定期点検","gist":"3ヶ月/1年/2年/5年/10年など。案内→訪問→記録","tanto":"監督/アフター担当","roles":["監督","アフター"],"gaibu":[],"hours":60,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"I-02","sec":"I","name":"点検是正・補修","gist":"点検で出た不具合の補修。無償/有償の線引き","tanto":"監督/大工","roles":["監督","大工"],"gaibu":[],"hours":40,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":1,"d":2,"total":8}},{"id":"I-03","sec":"I","name":"不具合受付台帳・進捗管理","gist":"受付日時・症状・緊急度・訪問予定・原因・無償有償・完了確認を一件単位で管理。〔仮説〕電話とLINEだけで台帳がなく、未処理が埋もれるのが実態","tanto":"事務","roles":["事務"],"gaibu":[],"hours":20,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":3,"total":10}},{"id":"I-04","sec":"I","name":"不具合コール対応","gist":"一次受付・安全確認→緊急度判定→応急措置案内→現地調査→修理手配→費用説明→完了確認","tanto":"事務→監督","roles":["事務","監督"],"gaibu":[],"hours":60,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"I-05","sec":"I","name":"原因調査・責任判定","gist":"施工不良か経年劣化か・契約不適合かを契約図書/施工写真と照合して判定→対応方針を説明","tanto":"監督","roles":["監督"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":2,"total":8}},{"id":"I-06","sec":"I","name":"10年瑕疵の保険事故手続き","gist":"構造/雨水浸入の疑い→保険法人へ事故通知→現場調査→補修見積承認→補修→保険金請求","tanto":"監督/事務","roles":["監督","事務"],"gaibu":[],"hours":5,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":2,"total":9}},{"id":"I-07","sec":"I","name":"メーカー修理・費用回収","gist":"メーカーサービス手配・部品廃番確認・出張費の顧客了承・支払処理","tanto":"事務","roles":["事務"],"gaibu":[],"hours":20,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":3,"d":3,"total":9}},{"id":"I-08","sec":"I","name":"災害時のOB一斉対応","gist":"台風/豪雨/凍結後の同時多発コール。優先順位付け→応急養生→本復旧の二段構え","tanto":"全員","roles":["社長","営業","設計","監督","大工","事務"],"gaibu":[],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"I-09","sec":"I","name":"有償メンテ提案","gist":"10年目防蟻・外壁/屋根メンテ・給湯器交換の提案","tanto":"営業/監督","roles":["営業","監督"],"gaibu":[],"hours":25,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":3,"d":3,"total":9}},{"id":"I-10","sec":"I","name":"OB客管理・関係維持","gist":"台帳・ニュースレター・感謝祭イベント","tanto":"事務/営業","roles":["事務","営業"],"gaibu":[],"hours":40,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":3,"d":2,"total":9}},{"id":"I-11","sec":"I","name":"OBリフォーム受注への育成","gist":"アフターの信頼→リフォーム・紹介の生命線（→J線へ接続）","tanto":"全員","roles":["社長","営業","設計","監督","大工","事務"],"gaibu":[],"hours":20,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":2,"total":8}},{"id":"J-01","sec":"J","name":"問い合わせ・受付","gist":"水まわり・内装・外装・増改築・修繕。OB/新規の別を共通台帳（X-01）で管理","tanto":"事務","roles":["事務"],"gaibu":[],"hours":25,"hoursNote":"25（70件）","hKasetsu":false,"sc":{"t":1,"p":2,"a":3,"d":3,"total":9}},{"id":"J-02","sec":"J","name":"現地調査・劣化診断","gist":"採寸・写真・劣化診断・搬入経路。小工事は即答見積も","tanto":"監督/営業","roles":["監督","営業"],"gaibu":[],"hours":130,"hoursNote":"130（失注含む65件×2h）","hKasetsu":false,"sc":{"t":3,"p":3,"a":2,"d":2,"total":10}},{"id":"J-03","sec":"J","name":"中規模以上の設計・仕様決定","gist":"現況図→改修図・設備図・仕様書→ショールーム選定→施主承認。現調→見積に直結しない案件がある","tanto":"設計/営業","roles":["設計","営業"],"gaibu":[],"hours":60,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":2,"d":2,"total":8}},{"id":"J-04","sec":"J","name":"石綿事前調査・届出","gist":"解体・改修部分は規模を問わず事前調査（資格者）。一定規模以上は行政報告。見積計上・結果説明・記録保存まで","tanto":"監督","roles":["監督"],"gaibu":[],"hours":25,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":3,"total":10}},{"id":"J-05","sec":"J","name":"見積作成","gist":"小規模は定価ベース即出し・中規模以上は詳細積算","tanto":"監督/営業","roles":["監督","営業"],"gaibu":[],"hours":190,"hoursNote":"190（小40×1.5h＋中10×6h＋大2×20h＋失注13×2h）","hKasetsu":false,"sc":{"t":3,"p":3,"a":2,"d":2,"total":10}},{"id":"J-06","sec":"J","name":"契約","gist":"金額の大小に関わらず建設業法19条の書面化が必要（注文書方式なら請書+約款）。訪販扱いのクーリングオフ対応","tanto":"営業/事務","roles":["営業","事務"],"gaibu":[],"hours":25,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":3,"total":10}},{"id":"J-07","sec":"J","name":"実行予算・発注・段取り","gist":"実行予算→商品発注→職人手配→鍵/駐車/搬入計画","tanto":"監督","roles":["監督"],"gaibu":[],"hours":100,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":3,"a":2,"d":2,"total":10}},{"id":"J-08","sec":"J","name":"在宅配慮・近隣対応","gist":"住みながら工事の養生・生活動線・仮設（風呂が使えない期間等）の説明。マンションは管理組合手続きも","tanto":"監督","roles":["監督"],"gaibu":[],"hours":50,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"J-09","sec":"J","name":"施工・監理","gist":"工期数日〜数ヶ月。新築との大工/監督の取り合い調整（→M-01）","tanto":"監督/大工","roles":["監督","大工"],"gaibu":[],"hours":2450,"hoursNote":"2,450（小40×30h＋中10×60h＋大2×250h＋監督150h）","hKasetsu":false,"sc":{"t":3,"p":2,"a":1,"d":1,"total":7}},{"id":"J-10","sec":"J","name":"解体後の追加変更処理","gist":"開けて判明する腐朽・蟻害・漏水・配管劣化→工事停止→写真と説明→追加見積→工期変更→書面承認（X-02の型）","tanto":"監督","roles":["監督"],"gaibu":[],"hours":40,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"J-11","sec":"J","name":"完了検査・引き渡し","gist":"社内検査→施主確認→手直し→取扱説明→保証書/完了書類交付→不具合受付先の案内（→I線へ接続）","tanto":"監督","roles":["監督"],"gaibu":[],"hours":120,"hoursNote":"120（2h/件超・大規模含む）","hKasetsu":false,"sc":{"t":3,"p":3,"a":2,"d":2,"total":10}},{"id":"J-12","sec":"J","name":"請求・集金","gist":"完工確認→請求→入金。小工事は集金袋文化も残る〔仮説〕","tanto":"事務","roles":["事務"],"gaibu":[],"hours":35,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":3,"d":3,"total":10}},{"id":"J-13","sec":"J","name":"火災保険を使う修繕","gist":"風災等の事故申告は施主が行う（適用判断は保険会社）。工務店の役割＝応急措置・被害写真・復旧見積・施工","tanto":"営業/監督","roles":["営業","監督"],"gaibu":[],"hours":20,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":2,"d":2,"total":7}},{"id":"J-14","sec":"J","name":"補助金リフォーム","gist":"介護保険住宅改修・国の省エネ補助・自治体補助は申請者/着工前条件/証憑/入金経路が制度ごとに別","tanto":"事務/営業","roles":["事務","営業"],"gaibu":[],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"J-15","sec":"J","name":"大規模リノベ","gist":"既存調査→設計→法適合/申請要否の判定（規模でなく工事内容＝構造に触るかで決まる）→耐震診断/補強→仮住まい→長期工程","tanto":"設計/監督","roles":["設計","監督"],"gaibu":[],"hours":160,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":3,"a":2,"d":1,"total":9}},{"id":"J-16","sec":"J","name":"緊急修繕","gist":"雨漏り・水漏れ・台風後。OB優先で駆けつけ（→I-08と同基盤）","tanto":"監督/大工","roles":["監督","大工"],"gaibu":[],"hours":40,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":1,"d":2,"total":8}},{"id":"X-01","sec":"X","name":"顧客・案件台帳の一元管理","gist":"新築客・OB・リフォーム・緊急を1つの台帳で。過去履歴・対応状況・失注理由も記録。分けると履歴が切れる","tanto":"事務","roles":["事務"],"gaibu":[],"hours":null,"hoursNote":"計上先=A-14/I-03/J-01","hKasetsu":false,"sc":{"t":0,"p":3,"a":3,"d":2,"total":null}},{"id":"X-02","sec":"X","name":"変更管理（契約〜精算の横断）","gist":"変更の記録→原価確認→金額/工期提示→施主承認→図面/発注/予算へ反映→精算。契約直後から引渡しまで連続発生。曖昧だと引渡し時に揉める","tanto":"監督/営業","roles":["監督","営業"],"gaibu":[],"hours":null,"hoursNote":"計上先=G-30/J-10/E-16","hKasetsu":false,"sc":{"t":0,"p":3,"a":2,"d":2,"total":null}},{"id":"X-03","sec":"X","name":"部門間の正式な引継ぎ","gist":"営業→設計→監督→アフターで確定事項・未決事項・予算・顧客注意点を渡し、受領確認する型","tanto":"全員","roles":["社長","営業","設計","監督","大工","事務"],"gaibu":[],"hours":null,"hoursNote":"計上先=F-01/H-11","hKasetsu":false,"sc":{"t":0,"p":3,"a":3,"d":2,"total":null}},{"id":"X-04","sec":"X","name":"完了後の振り返り→標準へ反映","gist":"実績原価・工程遅延・手戻り・クレーム原因→次の見積単価・標準仕様・業者評価へ戻す循環。〔仮説〕ほぼどの会社もやれていない","tanto":"社長/監督","roles":["社長","監督"],"gaibu":[],"hours":null,"hoursNote":"計上先=（未実施が実態）","hKasetsu":false,"sc":{"t":0,"p":2,"a":3,"d":1,"total":null}},{"id":"X-05","sec":"X","name":"標準マスタの維持","gist":"見積単価・標準仕様・標準工程・帳票ひな型の改定管理（誰がいつ変えたか・旧版停止）","tanto":"設計/事務","roles":["設計","事務"],"gaibu":[],"hours":null,"hoursNote":"計上先=（散在）","hKasetsu":false,"sc":{"t":0,"p":2,"a":3,"d":2,"total":null}},{"id":"X-06","sec":"X","name":"年間・季節カレンダー","gist":"猛暑/台風/凍結・長期休暇・年度末集中・補助金公募時期を受注/工程/資金/人員へ反映","tanto":"社長","roles":["社長"],"gaibu":[],"hours":null,"hoursNote":"計上先=（社長の頭の中）","hKasetsu":false,"sc":{"t":0,"p":2,"a":3,"d":3,"total":null}},{"id":"K-01","sec":"K","name":"業者開拓・選定","gist":"腕・単価・人柄・対応力。紹介ベースが主","tanto":"社長/監督","roles":["社長","監督"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":1,"d":2,"total":6}},{"id":"K-02","sec":"K","name":"単価交渉・値上げ対応","gist":"常用単価・㎡単価の取り決め。昨今は値上げ要請への対応が常態","tanto":"社長","roles":["社長"],"gaibu":[],"hours":12,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":2,"total":8}},{"id":"K-03","sec":"K","name":"見積依頼・書面発注・変更発注","gist":"見積条件提示→質疑→比較→決定→書面発注→変更発注→完了確認。※口頭発注の常態化が揉め事の温床","tanto":"監督","roles":["監督"],"gaibu":[],"hours":40,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":3,"d":2,"total":10}},{"id":"K-04","sec":"K","name":"請求照合・支払い","gist":"月末締め請求の照合→翌月末払い等。追加分の認識ズレが揉め所","tanto":"事務/監督","roles":["事務","監督"],"gaibu":[],"hours":60,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":3,"d":2,"total":10}},{"id":"K-05","sec":"K","name":"品質管理・是正指導","gist":"施工品質のバラつき対応・手直し要請・安全違反の是正記録・場合により切り替え","tanto":"監督","roles":["監督"],"gaibu":[],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":1,"d":2,"total":8}},{"id":"K-06","sec":"K","name":"安全書類の徴収・管理","gist":"グリーンファイル・保険加入確認・資格確認（→G-27と同基盤）","tanto":"事務/監督","roles":["事務","監督"],"gaibu":[],"hours":20,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":3,"d":3,"total":9}},{"id":"K-07","sec":"K","name":"繁忙期の職人確保","gist":"上棟ラッシュ・年度末の取り合い。日頃の関係が物を言う","tanto":"監督/社長","roles":["監督","社長"],"gaibu":[],"hours":20,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":1,"d":1,"total":6}},{"id":"K-08","sec":"K","name":"業者会・関係維持","gist":"業者会・安全大会・飲み会文化。やらない会社もある（任意行事と法定の現場安全管理は別物）","tanto":"社長","roles":["社長"],"gaibu":[],"hours":15,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":1,"a":1,"d":2,"total":5}},{"id":"K-09","sec":"K","name":"資材業者・メーカー管理","gist":"建材店・プレカット工場・住設メーカーの価格改定対応・納期・掛け条件・返品・廃番/代替品","tanto":"監督/事務","roles":["監督","事務"],"gaibu":[],"hours":25,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":2,"d":2,"total":7}},{"id":"M-01","sec":"M","name":"配置・班編成","gist":"新築×リフォーム×応援の割付。技量・相性・育成目的で班を組み、職長（作業指揮・安全指導役)を決める。配置表の正本は1つ","tanto":"監督/社長","roles":["監督","社長"],"gaibu":[],"hours":50,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"M-02","sec":"M","name":"賃金と外注の区分管理","gist":"社員大工の給与（日給月給等）と、手間請け=外注費は別管理。名義が手間請けでも実態が指揮命令下なら労働者扱いのリスク","tanto":"社長/事務","roles":["社長","事務"],"gaibu":[],"hours":12,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":2,"total":8}},{"id":"M-03","sec":"M","name":"人工集計・生産性把握","gist":"大工ごとの投入日数を新築/リフォーム/手直しへ配賦→見積人工との差・手空き・赤字工程の把握","tanto":"監督/事務","roles":["監督","事務"],"gaibu":[],"hours":24,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":2,"total":9}},{"id":"M-04","sec":"M","name":"加工場作業","gist":"造作材の刻み・建具調整・プレカット外の加工","tanto":"大工","roles":["大工"],"gaibu":[],"hours":200,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":2,"a":1,"d":2,"total":8}},{"id":"M-05","sec":"M","name":"技能評価・棟梁登用","gist":"構造・造作・改修・後輩指導・段取り・安全の評価→賃金/役割/教育計画へ","tanto":"社長/棟梁","roles":["社長","大工"],"gaibu":[],"hours":6,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":2,"d":2,"total":7}},{"id":"M-06","sec":"M","name":"見習い育成","gist":"道具の使い方から。育つまで数年、辞めるリスクと隣り合わせ","tanto":"棟梁","roles":["大工"],"gaibu":[],"hours":150,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":2,"a":2,"d":2,"total":9}},{"id":"M-07","sec":"M","name":"応援大工の手配","gist":"外部応援の選定・契約・保険確認・支払いは外注管理（K）。技能面の指示だけが大工部門","tanto":"棟梁/監督","roles":["大工","監督"],"gaibu":[],"hours":10,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":1,"d":2,"total":6}},{"id":"M-08","sec":"M","name":"雨天・空き日の仕事配分","gist":"加工場・道具整備・残材整理・アフター補修・研修へ振り替え。固定人件費の稼働平準化","tanto":"監督","roles":["監督"],"gaibu":[],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":2,"d":2,"total":8}},{"id":"M-09","sec":"M","name":"工具・保護具・作業車の管理","gist":"個人工具と会社資産の区分・購入/貸与/点検/修理/紛失。外注大工なら先方負担のものが自社に来る","tanto":"事務/棟梁","roles":["事務","大工"],"gaibu":[],"hours":25,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":1,"a":2,"d":2,"total":6}},{"id":"M-10","sec":"M","name":"勤怠・労働時間管理","gist":"現場別出退勤・休日・残業・移動/待機時間の扱い。2024年から建設業も時間外上限規制の対象","tanto":"事務","roles":["事務"],"gaibu":[],"hours":36,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":3,"d":2,"total":9}},{"id":"M-11","sec":"M","name":"安全衛生教育・健康管理","gist":"雇入れ時/作業変更時教育・職長教育・資格管理・健康診断・保護具支給。社員を抱える会社は自ら実施する義務","tanto":"事務/社長","roles":["事務","社長"],"gaibu":[],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"L-01","sec":"L","name":"日常経理","gist":"仕訳・請求書受付・発注/納品との照合・支払承認・振込・二重払い防止","tanto":"事務","roles":["事務"],"gaibu":[],"hours":250,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":2,"a":3,"d":2,"total":10}},{"id":"L-02","sec":"L","name":"工事台帳・原価の月次締め","gist":"材料費/外注費/自社労務費/経費を工事別に配賦。請求書未着分も含めて締める（→G-25と接続）","tanto":"事務","roles":["事務"],"gaibu":[],"hours":60,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":3,"d":2,"total":10}},{"id":"L-03","sec":"L","name":"未成工事・完成工事の振替","gist":"未成工事支出金/受入金の残高管理→引渡日判定→完成工事原価へ振替→完成工事高計上。建設業経理の心臓部","tanto":"事務/税理士","roles":["事務"],"gaibu":["税理士"],"hours":24,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":2,"total":8}},{"id":"L-04","sec":"L","name":"請求予定・入金消込・債権回収","gist":"全工事の請求予定管理・入金消込・未収金の滞留確認・督促","tanto":"事務","roles":["事務"],"gaibu":[],"hours":60,"hoursNote":"60（D-07/H-07/J-12の個別実務を除く・v1.0で境界確定）","hKasetsu":false,"sc":{"t":2,"p":3,"a":3,"d":2,"total":10}},{"id":"L-05","sec":"L","name":"資金繰り管理","gist":"預金日繰り・工事別入出金予定・税金/賞与/返済の予定・不足予測。実は最重要〔仮説〕どんぶりの会社はここで死ぬ","tanto":"社長/事務","roles":["社長","事務"],"gaibu":[],"hours":100,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":3,"a":2,"d":2,"total":10}},{"id":"L-06","sec":"L","name":"銀行対応・融資","gist":"運転資金・折り返し融資・当座貸越・決算書説明","tanto":"社長","roles":["社長"],"gaibu":[],"hours":24,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":2,"total":8}},{"id":"L-07","sec":"L","name":"決算・税務","gist":"税理士対応・節税判断・消費税/インボイス・電子帳簿保存","tanto":"社長/事務","roles":["社長","事務"],"gaibu":[],"hours":40,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":3,"total":10}},{"id":"L-08","sec":"L","name":"固定資産・在庫の管理","gist":"車両/機械/工具/PCの資産台帳・減価償却・棚卸し・除却","tanto":"事務","roles":["事務"],"gaibu":[],"hours":12,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":1,"a":3,"d":2,"total":7}},{"id":"L-09","sec":"L","name":"給与計算・社会保険","gist":"勤怠締め→給与計算→源泉/住民税→社保。社員大工の変動賃金も（外注大工への支払はL-01/K-04）","tanto":"事務","roles":["事務"],"gaibu":[],"hours":60,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":2,"d":2,"total":8}},{"id":"L-10","sec":"L","name":"年間労務手続","gist":"労働保険の年度更新（賃金総額申告・精算）・社保算定基礎・年末調整・定期健康診断と事後措置","tanto":"事務","roles":["事務"],"gaibu":[],"hours":40,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":2,"d":2,"total":8}},{"id":"L-11","sec":"L","name":"入退社・雇用管理","gist":"労働条件通知・雇用契約・社員台帳・入退社時の保険手続・有給管理","tanto":"事務","roles":["事務"],"gaibu":[],"hours":10,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":3,"d":3,"total":9}},{"id":"L-12","sec":"L","name":"採用","gist":"大工見習い・監督の求人。ハローワーク・縁故が主","tanto":"社長","roles":["社長"],"gaibu":[],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"L-13","sec":"L","name":"教育・資格","gist":"建築士・施工管理技士の取得支援・技能講習・特別教育","tanto":"社長","roles":["社長"],"gaibu":[],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":2,"d":2,"total":8}},{"id":"L-14","sec":"L","name":"許認可の維持","gist":"建設業許可更新（5年）・決算変更届（毎年）・建築士事務所登録更新・管理建築士","tanto":"事務/社長","roles":["事務","社長"],"gaibu":[],"hours":10,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":3,"total":10}},{"id":"L-15","sec":"L","name":"保険の管理","gist":"労働保険（法定・年度更新）と任意保険（賠償責任・建設工事・車両）を区別して更新管理","tanto":"事務","roles":["事務"],"gaibu":[],"hours":8,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":2,"d":3,"total":8}},{"id":"L-16","sec":"L","name":"車両・重機管理","gist":"社用車の車検/点検/保険・ユニック・発電機等","tanto":"事務/監督","roles":["事務","監督"],"gaibu":[],"hours":30,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":1,"a":2,"d":3,"total":8}},{"id":"L-17","sec":"L","name":"資材置き場・倉庫","gist":"残材・仮設材・工具の管理。整理されない魔窟になりがち〔仮説〕","tanto":"大工/監督","roles":["大工","監督"],"gaibu":[],"hours":50,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":1,"a":1,"d":1,"total":5}},{"id":"L-18","sec":"L","name":"IT・情報管理","gist":"機器台帳・ライセンス・アカウント権限・バックアップ・退職者のアクセス停止・事故時の復旧","tanto":"社長","roles":["社長"],"gaibu":[],"hours":25,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":2,"d":2,"total":7}},{"id":"L-19","sec":"L","name":"文書・印章・個人情報","gist":"契約原本・図面・印章・顧客個人情報の保管/廃棄ルール","tanto":"事務","roles":["事務"],"gaibu":[],"hours":12,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":3,"d":3,"total":9}},{"id":"L-20","sec":"L","name":"制度対応","gist":"CCUS登録（対象なら）・その他新制度への追随。インボイス/電帳法はL-07","tanto":"事務","roles":["事務"],"gaibu":[],"hours":10,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":1,"a":2,"d":3,"total":7}},{"id":"L-21","sec":"L","name":"社内会議","gist":"工程会議（週1）・営業会議・朝礼など","tanto":"社長","roles":["社長"],"gaibu":[],"hours":250,"hoursNote":"","hKasetsu":false,"sc":{"t":3,"p":1,"a":2,"d":2,"total":8}},{"id":"L-22","sec":"L","name":"地域付き合い","gist":"商工会・工務店組合・消防団・祭り。会社業務として扱う範囲と社長個人の生活の線引きは会社次第〔仮説〕実際は分離不能","tanto":"社長","roles":["社長"],"gaibu":[],"hours":60,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":1,"d":1,"total":6}},{"id":"N-01","sec":"N","name":"年度計画・予算編成","gist":"受注・完工・粗利・人員・設備投資・借入返済の年度予算→月次で予実見直し。〔仮説〕作らない社長が多数派","tanto":"社長","roles":["社長"],"gaibu":[],"hours":12,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":2,"total":9}},{"id":"N-02","sec":"N","name":"受注判断・値決め・受注上限","gist":"どの客をいくらで受けるか＋受注残×監督/大工/外注の空き×資金余力で「これ以上受けない」判断","tanto":"社長","roles":["社長"],"gaibu":[],"hours":50,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":3,"a":2,"d":2,"total":9}},{"id":"N-03","sec":"N","name":"決裁・例外承認","gist":"値引き・赤字受注・無償手直し・大口支払・設備投資・採用・借入の決裁。〔仮説〕基準は明文化されず社長の頭の中","tanto":"社長","roles":["社長"],"gaibu":[],"hours":12,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":2,"total":8}},{"id":"N-04","sec":"N","name":"経営数字の把握","gist":"完工高・粗利・資金繰り・月次試算表。見ない社長も多い〔仮説〕","tanto":"社長","roles":["社長"],"gaibu":[],"hours":24,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":3,"d":2,"total":9}},{"id":"N-05","sec":"N","name":"重大クレーム対応","gist":"原因・契約責任・証拠を確認してから交渉（謝罪即断は保険対応と責任範囲を悪化させる）。落とし所の決定","tanto":"社長","roles":["社長"],"gaibu":[],"hours":20,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":2,"total":8}},{"id":"N-06","sec":"N","name":"重大事故・事業継続","gist":"労災重大事故・重大欠陥・情報漏えい・資金ショート・社長不在時の代行権限。事実保全→保険会社連絡→対外説明","tanto":"社長","roles":["社長"],"gaibu":[],"hours":5,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":3,"a":2,"d":1,"total":7}},{"id":"N-07","sec":"N","name":"人事評価・給与決定","gist":"昇給・賞与の決定。明文基準がなく勘案になりがち","tanto":"社長","roles":["社長"],"gaibu":[],"hours":10,"hoursNote":"","hKasetsu":false,"sc":{"t":1,"p":2,"a":2,"d":2,"total":7}},{"id":"N-08","sec":"N","name":"対外関係の構築","gist":"銀行/不動産会社/仕入先・メーカー/行政・士業/同業。相手ごとに目的も頻度も別","tanto":"社長","roles":["社長"],"gaibu":[],"hours":60,"hoursNote":"","hKasetsu":false,"sc":{"t":2,"p":2,"a":1,"d":1,"total":6}}];
+const EDGES = [{"from":"N-01","to":"A-01","what":"年度受注目標","kind":"main","basis":"正本A-01（受注目標から逆算）"},{"from":"A-01","to":"A-06","what":"見学会の予算・担当","kind":"sub","basis":"正本A-01配分／前作b1→s1精緻化"},{"from":"A-02","to":"CUST","what":"施工事例の発信","kind":"sub","basis":"前作FLOW s1→q1精緻化"},{"from":"A-10","to":"CUST","what":"見学会チラシ告知","kind":"sub","basis":"正本A-10（見学会告知とセット）"},{"from":"H-12","to":"A-02","what":"竣工写真・掲載承諾","kind":"loop","basis":"正本H-12明示（→A-02）"},{"from":"CUST","to":"A-06","what":"見学会の予約","kind":"main","basis":"正本A-06（予約管理）"},{"from":"A-06","to":"A-07","what":"予約者名簿・設営","kind":"main","basis":"正本A-06→A-07順接"},{"from":"A-07","to":"A-14","what":"来場記録","kind":"main","basis":"正本A-07（個別追客へ接続）"},{"from":"CUST","to":"A-08","what":"OB客からの紹介話","kind":"main","basis":"正本A-08（OB＝CUST）"},{"from":"A-08","to":"A-14","what":"紹介客の登録","kind":"main","basis":"実務上必須の推論"},{"from":"I-11","to":"A-08","what":"OBの信頼→紹介","kind":"loop","basis":"正本I-11（紹介の生命線）"},{"from":"EXT","to":"A-09","what":"紹介案件の連絡","kind":"main","basis":"正本A-09（不動産・士業等をEXT扱い）"},{"from":"A-09","to":"EXT","what":"紹介後の報告と礼","kind":"sub","basis":"正本A-09明示"},{"from":"CUST","to":"A-12","what":"資料請求","kind":"main","basis":"正本A-12／前作q1→a1精緻化"},{"from":"A-12","to":"CUST","what":"パンフ発送","kind":"main","basis":"正本A-12"},{"from":"A-12","to":"A-14","what":"発送後の追客引継ぎ","kind":"main","basis":"正本A-12（追客に接続）"},{"from":"CUST","to":"A-13","what":"問い合わせ","kind":"main","basis":"正本A-13／前作q1→a1精緻化"},{"from":"A-13","to":"X-01","what":"反響の台帳記録","kind":"main","basis":"正本A-13明示（→X-01）"},{"from":"A-13","to":"B-01","what":"新築客の取次","kind":"main","basis":"正本A-13振り分け／前作a1→s2精緻化"},{"from":"A-13","to":"J-01","what":"リフォーム客の取次","kind":"main","basis":"正本A-13振り分け"},{"from":"A-13","to":"I-04","what":"OB・緊急の取次","kind":"main","basis":"正本A-13振り分け"},{"from":"A-14","to":"A-05","what":"媒体別反響の実績","kind":"sub","basis":"正本A-05（費用対効果判断の材料）"},{"from":"A-14","to":"B-09","what":"追客対象リスト","kind":"main","basis":"重点指定／前作s2内の順接精緻化"},{"from":"A-14","to":"B-01","what":"今すぐ客の面談設定","kind":"main","basis":"正本A-14ランク分け→面談の実務推論"},{"from":"D-09","to":"A-14","what":"再追客候補の戻し","kind":"loop","basis":"正本D-09（再追客判断）"},{"from":"B-01","to":"B-02","what":"面談日程・事前情報","kind":"main","basis":"正本B-01（担当への引継ぎ）"},{"from":"CUST","to":"B-02","what":"要望・予算・時期","kind":"main","basis":"前作q2→s3精緻化"},{"from":"B-02","to":"B-03","what":"面談記録・案件情報","kind":"main","basis":"正本順接／前作s3→b2精緻化"},{"from":"B-02","to":"C-08","what":"要望の引き継ぎ","kind":"sub","basis":"面談→ヒアリング深掘りの実務推論"},{"from":"B-02","to":"B-06","what":"予算・時期の聴取内容","kind":"main","basis":"正本B-02聴取→資金計画の順接"},{"from":"N-02","to":"B-03","what":"受注可否の基準・上限","kind":"main","basis":"正本B-03・N-02の接続"},{"from":"B-03","to":"CUST","what":"進行可否・お断りの連絡","kind":"main","basis":"正本B-03／前作b2→s3精緻化"},{"from":"B-03","to":"X-01","what":"断り理由の記録","kind":"sub","basis":"正本X-01（失注理由も記録）"},{"from":"CUST","to":"B-04","what":"土地の希望条件","kind":"main","basis":"正本B-04（条件整理）"},{"from":"B-04","to":"EXT","what":"土地探索の依頼","kind":"main","basis":"正本B-04（不動産会社をEXT扱い）"},{"from":"EXT","to":"B-04","what":"土地候補の情報","kind":"main","basis":"正本B-04（候補収集）"},{"from":"B-04","to":"CUST","what":"候補地と見立て","kind":"main","basis":"前作s4→q2精緻化"},{"from":"B-04","to":"C-01","what":"候補地の調査依頼","kind":"main","basis":"正本B-04（可否の断定はC部）"},{"from":"B-04","to":"B-05","what":"買付候補の確定","kind":"main","basis":"正本順接"},{"from":"B-05","to":"EXT","what":"買付期限の交渉","kind":"main","basis":"正本B-05（待ってもらう交渉）"},{"from":"B-05","to":"C-09","what":"提出期限の共有","kind":"sub","basis":"正本B-05（プラン概算の提出日すり合わせ）"},{"from":"B-06","to":"CUST","what":"資金計画書の提示","kind":"main","basis":"重点指定／前作s3→q2精緻化"},{"from":"B-06","to":"B-07","what":"借入額・資金計画","kind":"main","basis":"資金計画→審査申込額の実務順接"},{"from":"B-07","to":"EXT","what":"事前審査の申込取次","kind":"main","basis":"重点指定（EXT＝銀行）"},{"from":"EXT","to":"B-07","what":"事前審査の結果","kind":"main","basis":"正本B-07（事前審査サポート）"},{"from":"B-07","to":"D-08","what":"事前審査結果の引継ぎ","kind":"main","basis":"正本D-08（本審査へ順接）"},{"from":"B-08","to":"CUST","what":"個別見学の案内","kind":"sub","basis":"正本B-08（個別営業）"},{"from":"B-09","to":"CUST","what":"便り・イベント案内","kind":"sub","basis":"正本B-09（ニュースレター・定期連絡）"},{"from":"B-09","to":"B-01","what":"動き出した客の面談化","kind":"loop","basis":"長期客の再始動→面談の実務推論"},{"from":"CUST","to":"B-10","what":"他社見積・比較の相談","kind":"main","basis":"正本B-10（他社比較への対応）"},{"from":"C-01","to":"C-02","what":"下調べの資料一式","kind":"main","basis":"正本C-01（現地に行く前の下調べ）"},{"from":"C-02","to":"C-03","what":"境界標の確認結果","kind":"main","basis":"正本C-03（現地でわかるのは境界標の有無まで）"},{"from":"C-03","to":"EXT","what":"確定測量の依頼","kind":"main","basis":"正本C-03（土地家屋調査士へ）"},{"from":"EXT","to":"C-03","what":"確定測量図","kind":"main","basis":"正本C-03の往復精緻化（測量成果の受領）"},{"from":"C-02","to":"C-06","what":"高低差・擁壁の実測","kind":"main","basis":"正本C-02高低差／C-06既存擁壁の判定材料"},{"from":"EXT","to":"C-05","what":"台帳・道路種別回答","kind":"main","basis":"正本C-05（役所照会の回答）"},{"from":"C-04","to":"C-09","what":"法規制約の整理","kind":"main","basis":"前作FLOW d1→d2精緻化（建ぺい容積・斜線がプラン前提）"},{"from":"C-02","to":"C-09","what":"敷地条件・現地写真","kind":"main","basis":"前作FLOW d1→d2「調査結果＝建てられる条件」精緻化"},{"from":"C-06","to":"C-12","what":"造成・擁壁の追加費用","kind":"main","basis":"正本C-06（追加費用と工期への影響を判定）"},{"from":"C-07","to":"C-12","what":"解体・仮住まい費前提","kind":"main","basis":"正本C-07（契約前に総予算へ反映）"},{"from":"CUST","to":"C-08","what":"要望・こだわり・予算枠","kind":"main","basis":"正本C-08＋前作FLOW q3→s5"},{"from":"C-08","to":"C-09","what":"整理済みの与条件","kind":"main","basis":"前作FLOW s5→d2「要望の整理」精緻化"},{"from":"C-09","to":"C-10","what":"ラフプラン・提案書","kind":"main","basis":"正本C-09→C-10＋前作FLOW d2→s5"},{"from":"C-10","to":"CUST","what":"プラン提案の説明","kind":"main","basis":"前作FLOW s5→q3「提案の説明」"},{"from":"CUST","to":"C-10","what":"反応・修正要望","kind":"main","basis":"正本C-10（提案→顧客反応→採否→宿題）"},{"from":"C-10","to":"C-09","what":"修正指示・宿題","kind":"loop","basis":"正本C-10（修正ループ）"},{"from":"C-10","to":"C-11","what":"申込意思の確認","kind":"main","basis":"前作FLOW q3→s6「設計申込み」精緻化"},{"from":"CUST","to":"C-11","what":"申込金・申込書","kind":"main","basis":"正本C-11（申込金5〜20万円）"},{"from":"C-11","to":"CUST","what":"重要事項説明書面","kind":"sub","basis":"正本C-11（建築士法の重説・書面交付）"},{"from":"C-09","to":"C-12","what":"プラン面積・仕様前提","kind":"main","basis":"正本C-12（坪単価ベース＝プランが前提）"},{"from":"C-12","to":"C-10","what":"概算見積書","kind":"main","basis":"前作FLOW d2→s5「プランと概算」精緻化"},{"from":"C-12","to":"D-01","what":"プラン・概算の前提","kind":"main","basis":"前作FLOW d2→d6「プラン・概算の前提」"},{"from":"D-01","to":"D-02","what":"決定済み仕様・見積条件","kind":"main","basis":"前作FLOW d6→t1「凍結した仕様・見積条件」"},{"from":"D-02","to":"SUB","what":"見積依頼図面・条件","kind":"main","basis":"前作FLOW t1→c1「見積依頼（図面・条件）」"},{"from":"SUB","to":"D-02","what":"見積回答・質疑","kind":"main","basis":"前作FLOW c1→t1「見積回答」＋正本D-02質疑回答"},{"from":"D-02","to":"D-03","what":"業者見積の比較表","kind":"main","basis":"前作FLOW t1→b3「原価のまとめ」精緻化"},{"from":"X-05","to":"D-03","what":"見積単価マスタ","kind":"sub","basis":"正本X-05（見積単価の正本を維持）"},{"from":"M-03","to":"D-03","what":"大工人工の実績","kind":"sub","basis":"正本D-03自社大工の労務算定＋M-03見積人工との差"},{"from":"N-02","to":"D-03","what":"値決め・粗利の方針","kind":"main","basis":"正本D-03（粗利設定は社長）"},{"from":"D-03","to":"D-04","what":"売価決定済み見積","kind":"main","basis":"前作FLOW b3→s7「売価・粗利の決定」"},{"from":"D-04","to":"CUST","what":"見積書・減額案","kind":"main","basis":"前作FLOW s7→q4「見積書・減額案」"},{"from":"CUST","to":"D-04","what":"予算の本音・増減希望","kind":"main","basis":"前作FLOW q4→s7「予算の本音・要望」"},{"from":"D-04","to":"D-05","what":"合意見積・契約条件","kind":"main","basis":"前作FLOW s7→a2「契約条件」精緻化"},{"from":"D-05","to":"D-06","what":"契約書一式","kind":"main","basis":"正本D-05（契約書・約款・工程表・見積書一式）"},{"from":"CUST","to":"D-06","what":"署名契約書・契約時金","kind":"main","basis":"前作FLOW q4→a2「署名した契約書・契約時金」精緻化"},{"from":"D-06","to":"D-07","what":"契約金額・支払時期","kind":"main","basis":"正本D-06（支払条件全体は別管理＝D-07）"},{"from":"D-07","to":"L-04","what":"工事別の請求予定","kind":"main","basis":"正本D-07＋L-04（全工事の請求予定管理）"},{"from":"D-07","to":"L-05","what":"工事別の入金予定","kind":"sub","basis":"正本D-07（資金繰りL-05と接続）＋前作a2→bc1"},{"from":"D-08","to":"EXT","what":"本審査書類一式","kind":"main","basis":"正本D-08（本審査書類・金消契約の段取り）"},{"from":"EXT","to":"D-08","what":"承認結果・実行日","kind":"main","basis":"正本D-08（入金時期に直結）"},{"from":"CUST","to":"D-08","what":"本審査の必要書類","kind":"sub","basis":"正本D-08＝書類は施主由来（実務上必須の推論）"},{"from":"D-08","to":"D-07","what":"融資実行時期","kind":"loop","basis":"正本D-08（入金時期に直結→請求予定へ反映）"},{"from":"D-06","to":"F-01","what":"契約条件・施主注意点","kind":"main","basis":"前作FLOW s7→t2＋正本F-01（営業→監督の正式引継ぎ）"},{"from":"D-06","to":"E-01","what":"契約済みプラン・仕様","kind":"main","basis":"実務上必須の推論（契約成立後に実施設計・申請ルート判定へ）"},{"from":"D-09","to":"X-01","what":"失注理由の記録","kind":"sub","basis":"正本D-09理由記録＋X-01（失注理由も記録）"},{"from":"D-09","to":"CUST","what":"預り金精算・資料返却","kind":"main","basis":"正本D-09（預り金/作成資料の精算）"},{"from":"D-09","to":"B-09","what":"再追客の引き継ぎ","kind":"loop","basis":"正本D-09（再追客判断→追客・長期客管理へ戻す）"},{"from":"EXT","to":"D-09","what":"融資否決の通知","kind":"sub","basis":"正本D-09（融資否決が失注トリガー）"},{"from":"E-01","to":"E-05","what":"必要図書リスト・日程","kind":"main","basis":"正本E-01「必要図書と日程をここで確定」"},{"from":"E-01","to":"E-06","what":"構造ルートの判定結果","kind":"main","basis":"正本E-01「構造は仕様規定か計算か」"},{"from":"E-01","to":"E-07","what":"省エネルート判定結果","kind":"main","basis":"正本E-01「省エネは仕様基準か計算か」"},{"from":"E-02","to":"SUB","what":"地盤調査の依頼","kind":"main","basis":"正本E-02「調査方法の選定→手配」"},{"from":"SUB","to":"E-03","what":"地盤判定書・補強提案","kind":"main","basis":"正本E-03「地盤会社/保証会社の提案を妥当性確認」"},{"from":"E-03","to":"E-05","what":"基礎形式・補強仕様","kind":"main","basis":"正本E-03「構造図・申請図書と整合」"},{"from":"E-04","to":"E-05","what":"決定した性能仕様","kind":"main","basis":"正本E-04「申請前に確定」・重点E-04→E-05"},{"from":"E-05","to":"E-06","what":"構造検討用の図面","kind":"main","basis":"重点E-05→E-06・正本E-06壁量計算の前提"},{"from":"E-05","to":"E-07","what":"省エネ計算用の図面","kind":"main","basis":"重点E-05→E-07・計算ルート時の入力"},{"from":"E-06","to":"E-09","what":"構造関係図書","kind":"main","basis":"正本E-06「新2号は構造関係図書が審査対象」"},{"from":"E-07","to":"E-09","what":"省エネ適合資料","kind":"main","basis":"重点E-07→E-09申請"},{"from":"E-05","to":"E-09","what":"申請図書一式","kind":"main","basis":"前作FLOW d3→d4「申請図書」精緻化"},{"from":"E-09","to":"EXT","what":"確認申請図書","kind":"main","basis":"正本E-09「検査機関への申請」"},{"from":"EXT","to":"E-09","what":"質疑・確認済証","kind":"main","basis":"正本E-09「質疑補正・確認済証受領」・重点⇄EXT"},{"from":"E-10","to":"EXT","what":"計画変更・軽微変更届","kind":"main","basis":"正本E-10「要否判定→再計算・届出」"},{"from":"X-02","to":"E-10","what":"承認済み変更内容","kind":"main","basis":"正本X-02「図面へ反映」・E-10「施主変更→判定」"},{"from":"E-10","to":"E-05","what":"図書修正の指示","kind":"loop","basis":"正本E-10 変更に伴う図書の再作成＝後工程から設計へ戻る"},{"from":"E-11","to":"EXT","what":"認定・評価の申請図書","kind":"main","basis":"正本E-11「申請先も図書も別物」（行政・評価機関）"},{"from":"E-12","to":"EXT","what":"交付申請・事業者登録","kind":"main","basis":"正本E-12・重点E-12⇄EXT"},{"from":"EXT","to":"E-12","what":"交付決定通知","kind":"main","basis":"正本E-12「予算予約」＝決定が着工時期を左右・重点⇄EXT"},{"from":"E-17","to":"E-12","what":"性能証明・根拠資料","kind":"main","basis":"正本E-17「補助金の図書間で一致確認」"},{"from":"E-13","to":"EXT","what":"瑕疵保険の申込書","kind":"main","basis":"正本E-13「保険申込」（保険法人）"},{"from":"E-13","to":"G-04","what":"配筋検査の受検日程","kind":"main","basis":"正本E-13「現場検査の受検手配」→G-04配筋検査"},{"from":"E-14","to":"G-23","what":"監理・検査項目一覧","kind":"main","basis":"正本E-14「検査項目を施工側へ渡す」"},{"from":"CUST","to":"E-15","what":"色柄・住設の希望","kind":"main","basis":"前作FLOW q5→d5「色柄の希望」精緻化"},{"from":"E-15","to":"CUST","what":"仕様提案・見本確認","kind":"main","basis":"前作FLOW d5→q5「提案・確認」精緻化・重点⇄CUST"},{"from":"E-15","to":"E-16","what":"打合せの決定事項","kind":"main","basis":"正本E-16「全打合せの決定事項の記録」"},{"from":"E-16","to":"X-02","what":"決定事項・変更履歴","kind":"main","basis":"正本E-16「→X-02変更管理へ接続」・重点"},{"from":"E-15","to":"F-06","what":"確定した住設品番","kind":"main","basis":"正本F-06「住設・玄関ドア」は色決め確定が発注条件"},{"from":"E-05","to":"F-05","what":"構造図・梁伏図","kind":"main","basis":"正本F-05「梁伏・金物の整合確認」の照合元"},{"from":"E-09","to":"F-01","what":"確認済証・申請条件","kind":"main","basis":"正本F-01「申請条件を正式に引き渡す」"},{"from":"E-12","to":"F-01","what":"補助金要件・着工条件","kind":"main","basis":"正本F-01「補助金要件」＝着工前条件の引継ぎ"},{"from":"F-01","to":"F-02","what":"原価内訳・契約金額","kind":"main","basis":"重点F-01→F-02・前作t2→t3・正本F-01「原価」"},{"from":"F-01","to":"F-03","what":"工期条件・未決事項","kind":"main","basis":"重点F-01→F-03・前作t2→t3精緻化"},{"from":"F-02","to":"F-04","what":"発注予算枠","kind":"main","basis":"前作FLOW t3→t4「発注枠・工程」精緻化"},{"from":"F-02","to":"G-25","what":"実行予算・粗利目標","kind":"main","basis":"正本F-02「→G-25で工事中も更新」"},{"from":"F-03","to":"G-20","what":"全体工程表","kind":"main","basis":"正本G-20 週間工程は全体工程表が土台＝実務上必須"},{"from":"F-04","to":"SUB","what":"発注書（金額・工期）","kind":"main","basis":"正本F-04「書面発注」・重点F-04⇄SUB"},{"from":"SUB","to":"F-04","what":"見積回答・請書","kind":"main","basis":"正本F-04「見積合わせ」・重点F-04⇄SUB"},{"from":"SUB","to":"F-05","what":"プレカット図の承認伺い","kind":"main","basis":"前作FLOW c2→t4「施工図の承認伺い」精緻化・重点⇄SUB"},{"from":"F-05","to":"SUB","what":"承認図・確定納期","kind":"main","basis":"正本F-05「プレカット図の承認・納期確定」・重点⇄SUB"},{"from":"F-06","to":"EXT","what":"長納期材の発注書","kind":"main","basis":"正本F-06 サッシ・住設はメーカー発注（EXTにメーカー含む）"},{"from":"SUB","to":"F-07","what":"業者施工図の承認伺い","kind":"main","basis":"正本F-07「業者施工図を設計図と照合」"},{"from":"C-07","to":"F-08","what":"解体範囲・石綿情報","kind":"main","basis":"正本C-07「解体範囲・石綿の可能性」→F-08実行の前提"},{"from":"F-08","to":"SUB","what":"解体工事の発注書","kind":"main","basis":"正本F-08 解体・石綿調査は専門業者へ＝実務上必須の推論"},{"from":"F-08","to":"EXT","what":"解体の事前届出","kind":"main","basis":"正本F-08「建設リサイクル法の事前届出（7日前）」"},{"from":"F-08","to":"F-10","what":"整地完了の連絡","kind":"main","basis":"正本F-10「建替えは解体・整地後」・重点F-08→F-10順序"},{"from":"CUST","to":"F-10","what":"地鎮祭の実施可否","kind":"main","basis":"正本F-10「やらない施主も増加」＝施主の意向が起点"},{"from":"F-11","to":"EXT","what":"仮設・本設の申請書類","kind":"main","basis":"正本F-11「電気/給水/下水/ガス申請・道路使用も期限付き」"},{"from":"E-13","to":"G-09","what":"躯体検査の受検日程","kind":"main","basis":"正本E-13中身の仮説"},{"from":"F-06","to":"G-22","what":"長納期材の納期情報","kind":"sub","basis":"正本F-06/G-22推論"},{"from":"K-09","to":"G-22","what":"納期・代替品情報","kind":"sub","basis":"正本G-22「納期追いかけ」への供給推論"},{"from":"M-01","to":"G-21","what":"大工の配置予定","kind":"sub","basis":"正本M-01実務推論"},{"from":"G-01","to":"G-03","what":"位置・高さの基準","kind":"main","basis":"正本G-01中身の仮説（BM設定）"},{"from":"G-02","to":"G-03","what":"改良完了の施工記録","kind":"main","basis":"正本G-02/G-03順接"},{"from":"G-03","to":"G-06","what":"基礎完了・出来形","kind":"main","basis":"工程順接の実務推論"},{"from":"G-06","to":"G-07","what":"上棟準備完了の連絡","kind":"main","basis":"正本G-06中身の仮説（段取り）"},{"from":"G-07","to":"G-08","what":"屋根下地の完成","kind":"main","basis":"正本G-07/G-08順接（雨仕舞い）"},{"from":"G-11","to":"G-15","what":"外部防水の完了確認","kind":"main","basis":"正本G-11/G-15順接"},{"from":"G-14","to":"G-16","what":"断熱完了の確認","kind":"main","basis":"工程順接の実務推論"},{"from":"G-16","to":"G-17","what":"造作完了の引き継ぎ","kind":"main","basis":"正本G-16/G-17順接"},{"from":"G-17","to":"H-01","what":"仕上げ完了の連絡","kind":"main","basis":"正本H-01への順接推論"},{"from":"G-20","to":"G-21","what":"週間工程・検査予定","kind":"main","basis":"正本G-20/G-21順接"},{"from":"G-21","to":"SUB","what":"翌日の段取り指示","kind":"main","basis":"前作FLOW t6→c3精緻化"},{"from":"SUB","to":"G-21","what":"現場の質問・進捗報告","kind":"main","basis":"前作FLOW c3→t6精緻化"},{"from":"G-21","to":"G-22","what":"追加材の手配依頼","kind":"sub","basis":"正本G-21/G-22推論"},{"from":"G-22","to":"SUB","what":"追加発注・納期指定","kind":"main","basis":"正本G-22中身の仮説"},{"from":"SUB","to":"G-22","what":"納品・納品書","kind":"main","basis":"正本G-22中身の仮説（受入検品）"},{"from":"G-23","to":"SUB","what":"不適合の是正指示","kind":"main","basis":"前作FLOW t7→c3精緻化"},{"from":"SUB","to":"G-23","what":"是正完了の報告","kind":"main","basis":"正本G-23中身の仮説（再確認）"},{"from":"G-23","to":"G-24","what":"検査・是正の証跡","kind":"sub","basis":"正本G-23明示（G-24と別業務）"},{"from":"G-24","to":"H-11","what":"隠蔽部写真一式","kind":"main","basis":"正本H-11明示（隠蔽写真）"},{"from":"G-24","to":"I-05","what":"照合用の施工写真","kind":"main","basis":"正本I-05明示（写真と照合）"},{"from":"G-24","to":"G-31","what":"報告用の現場写真","kind":"sub","basis":"正本G-31中身の仮説（写真付き）"},{"from":"G-25","to":"L-02","what":"出来高・追加原価","kind":"main","basis":"正本G-25明示（→L-02）"},{"from":"L-02","to":"G-25","what":"月次原価の実績","kind":"loop","basis":"正本L-02明示（G-25と接続）"},{"from":"G-25","to":"N-03","what":"原価着地・赤字兆候","kind":"main","basis":"前作FLOW t8→b5精緻化"},{"from":"CUST","to":"G-30","what":"変更要望・承認","kind":"main","basis":"前作FLOW q6→t9精緻化"},{"from":"G-30","to":"CUST","what":"変更金額・工期の提示","kind":"main","basis":"前作FLOW t9→q6精緻化"},{"from":"G-30","to":"X-02","what":"変更記録の登録","kind":"main","basis":"正本G-30明示（型はX-02）"},{"from":"G-30","to":"K-03","what":"変更発注の指示","kind":"main","basis":"正本G-30/K-03中身の仮説"},{"from":"G-30","to":"G-25","what":"追加原価の反映","kind":"sub","basis":"正本G-30中身の仮説（予算反映）"},{"from":"G-30","to":"E-10","what":"申請に係る変更内容","kind":"sub","basis":"正本E-10中身の仮説（施主変更）"},{"from":"G-31","to":"CUST","what":"写真付き進捗報告","kind":"main","basis":"正本G-31中身の仮説"},{"from":"SUB","to":"G-27","what":"グリーンファイル一式","kind":"main","basis":"正本G-27中身の仮説（徴収）"},{"from":"G-27","to":"K-06","what":"徴収済み安全書類","kind":"main","basis":"正本K-06明示（G-27と同基盤）"},{"from":"K-06","to":"G-27","what":"資格・保険の確認結果","kind":"main","basis":"正本K-06「→G-27と同基盤」明示"},{"from":"G-26","to":"SUB","what":"安全指導・是正指示","kind":"main","basis":"正本G-26中身の仮説（下請指導）"},{"from":"G-28","to":"N-06","what":"重大事故の一報","kind":"main","basis":"正本G-28/N-06推論（労災重大）"},{"from":"G-28","to":"SUB","what":"再発防止策の周知","kind":"sub","basis":"正本G-28中身の仮説（周知）"},{"from":"EXT","to":"G-04","what":"配筋検査の指摘・合否","kind":"main","basis":"正本G-04中身の仮説（瑕疵保険）"},{"from":"EXT","to":"G-09","what":"躯体検査の合否","kind":"main","basis":"正本G-09中身の仮説（中間検査）"},{"from":"CUST","to":"G-12","what":"コンセント位置の確定","kind":"sub","basis":"正本G-12中身の仮説（施主立会）"},{"from":"G-32","to":"SUB","what":"産廃引取・マニフェスト","kind":"sub","basis":"正本G-32中身の仮説"},{"from":"G-06","to":"M-07","what":"上棟応援の手配依頼","kind":"main","basis":"正本G-06中身の仮説（応援手配）"},{"from":"H-01","to":"H-02","what":"是正済みの現場","kind":"main","basis":"正本H-01→H-02順接"},{"from":"H-02","to":"EXT","what":"完了検査の受検申請","kind":"main","basis":"正本H-02「検査機関の完了検査受検」"},{"from":"EXT","to":"H-02","what":"検査済証の交付","kind":"main","basis":"正本H-02「検査済証受領」"},{"from":"H-02","to":"H-06","what":"検査済証の原本","kind":"main","basis":"正本H-06「検査済証の交付」"},{"from":"CUST","to":"H-03","what":"手直しリスト","kind":"main","basis":"正本H-03・前作FLOW q7→t10精緻化"},{"from":"H-03","to":"CUST","what":"手直し完了の報告","kind":"main","basis":"前作FLOW t10→q7精緻化"},{"from":"H-04","to":"SUB","what":"美装の発注・日程","kind":"main","basis":"正本H-04「ハウスクリーニング手配」"},{"from":"H-04","to":"H-06","what":"美装済みの建物","kind":"main","basis":"正本H順接（美装→引渡し）"},{"from":"H-05","to":"CUST","what":"設備の使い方説明","kind":"main","basis":"正本H-05"},{"from":"H-06","to":"CUST","what":"鍵・保証書・竣工図書","kind":"main","basis":"正本H-06「鍵引渡し・図書交付」"},{"from":"CUST","to":"H-07","what":"残金の振込","kind":"main","basis":"正本H-07・前作FLOW q7→a4精緻化"},{"from":"H-07","to":"L-04","what":"最終金の請求情報","kind":"main","basis":"正本L-04「請求予定管理・入金消込」"},{"from":"H-06","to":"L-03","what":"引渡日の確定連絡","kind":"main","basis":"正本L-03「引渡日判定」"},{"from":"H-08","to":"EXT","what":"登記日程・必要書類","kind":"main","basis":"正本H-08「士業・銀行との連携」"},{"from":"E-13","to":"H-09","what":"保険申込・検査記録","kind":"main","basis":"正本E-13「証券発行はH-09」"},{"from":"H-09","to":"EXT","what":"証券発行の申請","kind":"main","basis":"正本H-09"},{"from":"EXT","to":"H-09","what":"保険証券の発行","kind":"main","basis":"正本H-09"},{"from":"H-09","to":"CUST","what":"付保証明書の交付","kind":"main","basis":"正本H-09「施主交付」"},{"from":"E-12","to":"H-10","what":"交付申請の決定内容","kind":"main","basis":"正本E-12「完了報告はH-10」"},{"from":"G-24","to":"H-10","what":"完了写真・施工記録","kind":"main","basis":"正本H-10「完了写真を揃えて報告」"},{"from":"H-10","to":"EXT","what":"完了実績報告一式","kind":"main","basis":"正本H-10「実績報告」"},{"from":"EXT","to":"H-10","what":"交付額確定の通知","kind":"main","basis":"正本H-10「交付額確定→入金確認」"},{"from":"X-02","to":"H-11","what":"施工変更の確定内容","kind":"sub","basis":"正本H-11「施工変更反映の竣工図」"},{"from":"H-11","to":"H-06","what":"竣工図書一式","kind":"main","basis":"正本H-06「竣工図書の交付」"},{"from":"H-11","to":"I-01","what":"保証期限・点検起点日","kind":"main","basis":"重点・正本H-11「アフター担当へ渡す（X-03）」"},{"from":"H-11","to":"I-05","what":"竣工図書・施工写真","kind":"main","basis":"正本I-05「契約図書/施工写真と照合」"},{"from":"CUST","to":"H-12","what":"掲載承諾の回答","kind":"main","basis":"正本H-12「掲載承諾の取得」"},{"from":"I-01","to":"CUST","what":"定期点検の案内","kind":"main","basis":"正本I-01「案内→訪問→記録」"},{"from":"I-01","to":"I-02","what":"点検指摘リスト","kind":"main","basis":"正本I-02「点検で出た不具合の補修」"},{"from":"I-02","to":"I-03","what":"補修完了の報告","kind":"sub","basis":"正本I-03「完了確認を一件単位で管理」"},{"from":"CUST","to":"I-04","what":"不具合の連絡","kind":"main","basis":"前作FLOW q8→a5精緻化"},{"from":"I-04","to":"CUST","what":"応急措置の案内","kind":"main","basis":"正本I-04"},{"from":"I-04","to":"I-03","what":"受付内容・緊急度","kind":"main","basis":"正本I-03台帳ハブ「受付日時・症状・緊急度」"},{"from":"I-04","to":"I-05","what":"症状・現地調査依頼","kind":"main","basis":"正本I-04「現地調査」→I-05・重点"},{"from":"I-05","to":"I-03","what":"原因・無償有償の判定","kind":"sub","basis":"正本I-03「原因・無償有償を管理」"},{"from":"I-05","to":"I-06","what":"保険事故の疑い連絡","kind":"main","basis":"正本I-06「構造/雨水浸入の疑い→事故通知」"},{"from":"I-05","to":"CUST","what":"原因と対応方針の説明","kind":"main","basis":"正本I-05「対応方針を説明」"},{"from":"I-06","to":"EXT","what":"事故通知・補修見積","kind":"main","basis":"正本I-06「保険法人へ事故通知」"},{"from":"EXT","to":"I-06","what":"保険金の支払","kind":"main","basis":"正本I-06「保険金請求」"},{"from":"I-07","to":"EXT","what":"メーカー修理の手配","kind":"main","basis":"正本I-07「メーカーサービス手配」"},{"from":"CUST","to":"I-08","what":"被災状況の連絡","kind":"main","basis":"正本I-08「同時多発コール」"},{"from":"I-08","to":"CUST","what":"応急養生・復旧予定","kind":"main","basis":"正本I-08「応急養生→本復旧の二段構え」"},{"from":"I-09","to":"CUST","what":"有償メンテの提案書","kind":"main","basis":"正本I-09・重点"},{"from":"I-10","to":"CUST","what":"便り・イベント案内","kind":"main","basis":"正本I-10・前作FLOW s9→q8精緻化"},{"from":"I-11","to":"J-01","what":"リフォーム相談の送客","kind":"loop","basis":"正本I-11「→J線へ接続」・重点"},{"from":"CUST","to":"J-01","what":"リフォーム相談・修繕依頼","kind":"main","basis":"正本J-01（水まわり〜修繕の受付）"},{"from":"J-01","to":"X-01","what":"受付内容の台帳記録","kind":"main","basis":"正本J-01「共通台帳（X-01）で管理」"},{"from":"J-01","to":"J-02","what":"調査依頼・案件情報","kind":"main","basis":"正本J系順接（受付→現調）"},{"from":"J-02","to":"J-05","what":"現調結果・採寸写真","kind":"main","basis":"正本J-02「小工事は即答見積も」"},{"from":"J-02","to":"J-03","what":"現況図の元資料","kind":"main","basis":"正本J-03「現況図→改修図」の設計分岐"},{"from":"J-03","to":"J-05","what":"改修図・仕様書","kind":"main","basis":"正本J-05「中規模以上は詳細積算」"},{"from":"CUST","to":"J-03","what":"仕様の施主承認","kind":"main","basis":"正本J-03「施主承認」"},{"from":"J-04","to":"J-05","what":"石綿調査費の見積計上","kind":"sub","basis":"正本J-04「見積計上」"},{"from":"J-04","to":"EXT","what":"石綿調査の行政報告","kind":"main","basis":"正本J-04「一定規模以上は行政報告」"},{"from":"J-05","to":"CUST","what":"見積書の提示","kind":"main","basis":"正本J-05→J-06の順接"},{"from":"CUST","to":"J-06","what":"注文・契約意思","kind":"main","basis":"正本J-06（注文書方式・書面化）"},{"from":"J-06","to":"J-07","what":"契約内容・工期条件","kind":"main","basis":"正本J系順接（契約→実行予算）"},{"from":"J-07","to":"SUB","what":"商品発注・職人手配","kind":"main","basis":"正本J-07「商品発注→職人手配」"},{"from":"J-07","to":"J-09","what":"段取り・搬入計画","kind":"main","basis":"正本J-07「鍵/駐車/搬入計画」"},{"from":"J-08","to":"CUST","what":"仮設期間・生活動線の説明","kind":"main","basis":"正本J-08（住みながら工事の説明）"},{"from":"M-01","to":"J-09","what":"大工配置の割付","kind":"main","basis":"正本J-09「取り合い調整（→M-01）」"},{"from":"J-09","to":"J-10","what":"解体で判明した劣化","kind":"main","basis":"正本J-10「開けて判明する腐朽等」"},{"from":"J-10","to":"CUST","what":"追加見積・写真説明","kind":"main","basis":"正本J-10「写真と説明→追加見積」"},{"from":"CUST","to":"J-10","what":"追加工事の書面承認","kind":"main","basis":"正本J-10「書面承認」（承認まで工事停止＝往復とも重要）"},{"from":"J-10","to":"X-02","what":"変更記録・精算情報","kind":"sub","basis":"正本J-10「X-02の型」＝X-02の実装"},{"from":"J-09","to":"J-11","what":"完工の報告","kind":"main","basis":"正本J系順接（施工→完了検査）"},{"from":"J-11","to":"CUST","what":"保証書・完了書類","kind":"main","basis":"正本J-11「保証書/完了書類交付」"},{"from":"J-11","to":"J-12","what":"完工確認の連絡","kind":"main","basis":"正本J-12「完工確認→請求」"},{"from":"J-11","to":"X-01","what":"完工・保証情報の記録","kind":"sub","basis":"正本J-11「不具合受付先の案内（→I線へ接続）」"},{"from":"J-12","to":"CUST","what":"工事代金の請求書","kind":"main","basis":"正本J-12「請求→入金」"},{"from":"J-12","to":"L-04","what":"リフォーム請求データ","kind":"main","basis":"正本J-12・L-04の接続推論"},{"from":"CUST","to":"J-13","what":"被害連絡・修繕依頼","kind":"main","basis":"正本J-13（風災等の事故対応）"},{"from":"J-13","to":"CUST","what":"被害写真・復旧見積","kind":"main","basis":"正本J-13「事故申告は施主が行う」＝申告資料を施主へ渡す"},{"from":"J-14","to":"EXT","what":"補助金交付申請・証憑","kind":"main","basis":"正本J-14（制度ごとの申請・証憑）"},{"from":"EXT","to":"J-14","what":"交付決定・補助金入金","kind":"main","basis":"正本J-14「着工前条件・入金経路が制度ごと」（決定前着工不可＝往復とも重要）"},{"from":"J-15","to":"EXT","what":"確認申請の提出","kind":"sub","basis":"正本J-15「法適合/申請要否の判定」（該当時のみ）"},{"from":"CUST","to":"J-16","what":"緊急の駆けつけ依頼","kind":"main","basis":"正本J-16（雨漏り・水漏れ・台風後）"},{"from":"I-08","to":"J-16","what":"本復旧工事の手配","kind":"main","basis":"正本J-16「I-08と同基盤」＋I-08「応急養生→本復旧の二段構え」"},{"from":"I-03","to":"X-01","what":"不具合対応履歴の連携","kind":"sub","basis":"正本X-01「OB・緊急も1つの台帳」"},{"from":"X-03","to":"F-01","what":"引継ぎの型・確認項目","kind":"sub","basis":"正本F-01「→X-03」＝X-03の実装"},{"from":"X-03","to":"H-11","what":"引継ぎの型・確認項目","kind":"sub","basis":"正本H-11「→X-03」＝X-03の実装"},{"from":"L-02","to":"X-04","what":"工事別の実績原価","kind":"main","basis":"正本X-04「実績原価…を戻す循環」の入力"},{"from":"I-05","to":"X-04","what":"不具合原因の知見","kind":"sub","basis":"正本X-04「クレーム原因」の入力"},{"from":"X-04","to":"X-05","what":"単価・仕様の改定案","kind":"loop","basis":"正本X-04「次の見積単価・標準仕様へ戻す」"},{"from":"X-04","to":"K-05","what":"業者評価の反映","kind":"loop","basis":"正本X-04「業者評価へ戻す循環」"},{"from":"X-05","to":"J-05","what":"標準単価・定価表","kind":"main","basis":"正本J-05「定価ベース即出し」＝マスタ供給"},{"from":"X-05","to":"C-12","what":"概算用の標準単価","kind":"sub","basis":"正本X-05「見積単価」の供給先"},{"from":"X-06","to":"F-03","what":"季節要因・休暇日程","kind":"sub","basis":"正本X-06「工程へ反映」"},{"from":"X-06","to":"L-05","what":"季節要因の資金予定","kind":"sub","basis":"正本X-06「資金へ反映」"},{"from":"X-06","to":"E-12","what":"補助金公募の時期情報","kind":"sub","basis":"正本X-06「補助金公募時期」＋E-12「時期が命」"},{"from":"K-01","to":"K-03","what":"選定済み業者リスト","kind":"main","basis":"正本K-01選定→K-03依頼の順接"},{"from":"SUB","to":"K-01","what":"業者の紹介情報","kind":"sub","basis":"正本K-01「紹介ベースが主」"},{"from":"X-04","to":"K-01","what":"業者評価の見直し","kind":"loop","basis":"正本X-04「業者評価へ戻す循環」"},{"from":"SUB","to":"K-02","what":"値上げ要請","kind":"main","basis":"正本K-02「値上げ要請への対応が常態」"},{"from":"K-02","to":"X-05","what":"改定後の常用単価","kind":"main","basis":"正本X-05見積単価マスタへの反映推論"},{"from":"D-02","to":"K-03","what":"拾い数量・見積条件","kind":"main","basis":"正本D-02「専門業者へ見積依頼」"},{"from":"K-03","to":"SUB","what":"見積依頼・発注書","kind":"main","basis":"正本K-03・前作FLOW t1→c1精緻化"},{"from":"SUB","to":"K-03","what":"見積回答・請書","kind":"main","basis":"正本K-03・前作FLOW c1→t1精緻化"},{"from":"K-03","to":"K-04","what":"発注額・変更控え","kind":"main","basis":"請求照合は発注書と突合＝実務上必須"},{"from":"SUB","to":"K-04","what":"月末締めの請求書","kind":"main","basis":"正本K-04・前作FLOW c3→a3精緻化"},{"from":"K-04","to":"L-01","what":"照合済み支払データ","kind":"main","basis":"正本L-01「請求書受付・支払承認」"},{"from":"K-04","to":"L-02","what":"工事別の外注費実績","kind":"sub","basis":"正本L-02「外注費を工事別に配賦」"},{"from":"G-23","to":"K-05","what":"不適合・是正記録","kind":"main","basis":"正本G-23是正→K-05業者指導の接続"},{"from":"K-05","to":"SUB","what":"手直し・是正要請","kind":"main","basis":"正本K-05「手直し要請・是正記録」"},{"from":"SUB","to":"K-05","what":"是正完了の報告","kind":"sub","basis":"是正の完了確認＝実務上必須の推論"},{"from":"K-05","to":"X-04","what":"業者品質の実績","kind":"sub","basis":"正本X-04「クレーム原因→業者評価」"},{"from":"SUB","to":"K-06","what":"グリーンファイル一式","kind":"main","basis":"正本K-06「グリーンファイル・保険確認」"},{"from":"K-07","to":"G-20","what":"確保した職人の日程","kind":"main","basis":"正本G-20「職人の予定組み」への供給"},{"from":"G-20","to":"K-07","what":"繁忙期の人手要請","kind":"main","basis":"正本K-07「上棟ラッシュの取り合い」"},{"from":"K-08","to":"SUB","what":"業者会・安全大会案内","kind":"sub","basis":"正本K-08「業者会・安全大会」"},{"from":"EXT","to":"K-09","what":"価格改定・廃番通知","kind":"main","basis":"正本K-09「メーカーの価格改定・廃番」"},{"from":"SUB","to":"K-09","what":"納期・掛け条件回答","kind":"main","basis":"正本K-09「建材店の納期・掛け条件」"},{"from":"K-09","to":"SUB","what":"返品・代替品の依頼","kind":"sub","basis":"正本K-09「返品・廃番/代替品」"},{"from":"K-09","to":"F-06","what":"長納期材の納期情報","kind":"sub","basis":"正本F-06「納期遅延が工程を壊す」"},{"from":"J-09","to":"M-01","what":"大工取り合い調整依頼","kind":"main","basis":"正本J-09「取り合い調整（→M-01）」明示"},{"from":"M-01","to":"G-20","what":"大工配置・班編成表","kind":"main","basis":"正本M-01配置→G週間工程への供給"},{"from":"M-01","to":"F-03","what":"大工班の空き状況","kind":"sub","basis":"正本F-03「職人の空き状況とすり合わせ」"},{"from":"M-05","to":"M-01","what":"技能評価の結果","kind":"main","basis":"正本M-01「技量で班を組み職長を決める」"},{"from":"M-05","to":"N-07","what":"大工の技能評価結果","kind":"main","basis":"正本M-05「評価→賃金/役割へ」"},{"from":"M-07","to":"G-06","what":"応援大工の確保日程","kind":"main","basis":"正本G-06「応援大工手配」明示"},{"from":"M-07","to":"K-06","what":"応援大工の保険確認依頼","kind":"sub","basis":"正本M-07「保険確認は外注管理（K）」"},{"from":"M-07","to":"K-04","what":"応援日数の支払情報","kind":"sub","basis":"正本M-07「支払いは外注管理(K)」"},{"from":"M-08","to":"M-04","what":"空き日の作業割当","kind":"sub","basis":"正本M-08「加工場へ振り替え」"},{"from":"M-08","to":"M-09","what":"道具整備の割り振り","kind":"sub","basis":"正本M-08「道具整備へ振り替え」"},{"from":"M-08","to":"I-02","what":"アフター補修の振替人員","kind":"sub","basis":"正本M-08「アフター補修へ振り替え」"},{"from":"M-04","to":"G-16","what":"加工済みの造作材","kind":"main","basis":"正本M-04「造作材の刻み」→現場造作"},{"from":"M-10","to":"L-09","what":"勤怠締めデータ","kind":"main","basis":"正本L-09「勤怠締め→給与計算」"},{"from":"M-10","to":"M-03","what":"現場別の出退勤実績","kind":"main","basis":"人工集計の元データ＝実務上必須"},{"from":"M-03","to":"L-02","what":"工事別の投入人工実績","kind":"main","basis":"正本L-02「自社労務費を工事別に配賦」"},{"from":"M-03","to":"N-02","what":"大工の手空き・稼働","kind":"sub","basis":"正本N-02「大工の空き×受注上限判断」"},{"from":"M-02","to":"L-09","what":"給与と外注費の区分","kind":"main","basis":"正本L-09「社員大工の変動賃金も」"},{"from":"M-02","to":"K-04","what":"手間請け支払の区分","kind":"sub","basis":"正本M-02「手間請け=外注費は別管理」"},{"from":"M-09","to":"L-08","what":"工具・車両の購入除却情報","kind":"sub","basis":"正本L-08「工具の資産台帳」"},{"from":"M-11","to":"G-27","what":"社員大工の資格証","kind":"sub","basis":"正本G-27資格証確認＋M-11資格管理"},{"from":"CUST","to":"L-04","what":"工事代金の入金","kind":"main","basis":"前作FLOW q7→a4精緻化"},{"from":"L-04","to":"CUST","what":"未収金の督促連絡","kind":"sub","basis":"正本L-04中身の仮説（督促）"},{"from":"L-04","to":"L-05","what":"入金予定と滞留状況","kind":"main","basis":"正本L-04/L-05の接続"},{"from":"L-05","to":"L-06","what":"資金不足の予測","kind":"main","basis":"実務上必須の推論"},{"from":"L-06","to":"EXT","what":"決算書・資金計画の説明","kind":"main","basis":"正本L-06中身の仮説"},{"from":"EXT","to":"L-06","what":"融資実行・条件回答","kind":"main","basis":"正本L-06中身の仮説"},{"from":"L-05","to":"N-04","what":"資金繰りの現状","kind":"main","basis":"正本N-04中身の仮説"},{"from":"L-01","to":"SUB","what":"外注費・材料費の振込","kind":"main","basis":"正本L-01中身の仮説"},{"from":"L-01","to":"L-02","what":"仕訳済みの費用データ","kind":"main","basis":"実務上必須の推論"},{"from":"L-02","to":"L-03","what":"工事別原価の残高","kind":"main","basis":"正本L-03中身の仮説"},{"from":"L-03","to":"L-07","what":"完成工事高・原価","kind":"main","basis":"実務上必須の推論"},{"from":"L-07","to":"EXT","what":"決算資料・帳簿一式","kind":"main","basis":"正本L-07（税理士対応）"},{"from":"L-07","to":"L-14","what":"決算変更届用の決算書","kind":"main","basis":"正本L-14（決算変更届は毎年）"},{"from":"L-14","to":"EXT","what":"許可更新・決算変更届","kind":"main","basis":"正本L-14中身の仮説"},{"from":"L-07","to":"N-04","what":"月次試算表","kind":"main","basis":"正本N-04（月次試算表）"},{"from":"L-02","to":"N-04","what":"工事別粗利の実績","kind":"sub","basis":"正本N-04（粗利）の推論"},{"from":"L-11","to":"L-09","what":"入退社・雇用契約情報","kind":"main","basis":"実務上必須の推論"},{"from":"L-09","to":"EXT","what":"源泉・社保の届出納付","kind":"main","basis":"正本L-09中身の仮説"},{"from":"L-09","to":"L-10","what":"年間賃金総額データ","kind":"main","basis":"正本L-10（賃金総額申告）"},{"from":"L-10","to":"EXT","what":"年度更新・算定基礎届","kind":"main","basis":"正本L-10中身の仮説"},{"from":"L-15","to":"EXT","what":"任意保険の更新契約","kind":"sub","basis":"正本L-15中身の仮説"},{"from":"L-12","to":"L-11","what":"採用決定者の情報","kind":"main","basis":"実務上必須の推論"},{"from":"N-07","to":"L-09","what":"昇給・賞与の決定額","kind":"main","basis":"実務上必須の推論"},{"from":"N-01","to":"N-02","what":"受注目標と資金の枠","kind":"sub","basis":"正本N-02（資金余力）の推論"},{"from":"N-04","to":"N-01","what":"予実の差異","kind":"loop","basis":"正本N-01（月次で予実見直し）"},{"from":"G-30","to":"N-03","what":"値引き・無償対応の伺い","kind":"sub","basis":"正本N-03（値引き・無償手直し）"},{"from":"I-05","to":"N-05","what":"責任判定の報告","kind":"main","basis":"正本N-05・I-05の接続推論"},{"from":"G-29","to":"N-05","what":"近隣クレームの報告","kind":"sub","basis":"正本N-05中身の推論"},{"from":"N-05","to":"CUST","what":"落とし所・補償の提示","kind":"main","basis":"正本N-05（落とし所の決定）"},{"from":"N-06","to":"EXT","what":"保険会社への事故連絡","kind":"main","basis":"正本N-06（保険会社連絡）"},{"from":"H-10","to":"L-04","what":"補助金の入金予定","kind":"sub","basis":"正本H-10（入金確認）"},{"from":"D-06","to":"L-19","what":"契約書原本","kind":"sub","basis":"正本L-19（契約原本の保管）"},{"from":"G-20","to":"L-21","what":"各現場の工程状況","kind":"sub","basis":"正本L-21（工程会議週1）"},{"from":"A-03","to":"CUST","what":"現場進捗・完成写真の発信","kind":"sub","basis":"正本A-03（CEO穴埋め）"},{"from":"G-24","to":"A-03","what":"現場写真の素材","kind":"sub","basis":"実務推論=SNSの素材は現場写真（CEO穴埋め）"},{"from":"CUST","to":"A-04","what":"口コミの投稿","kind":"main","basis":"正本A-04（CEO穴埋め）"},{"from":"A-04","to":"CUST","what":"口コミへの返信","kind":"sub","basis":"正本A-04口コミ返信（CEO穴埋め）"},{"from":"E-04","to":"E-08","what":"決定した設備仕様","kind":"main","basis":"正本E-04換気・給湯（CEO穴埋め）"},{"from":"E-08","to":"E-05","what":"設備図・納まりの反映","kind":"main","basis":"正本E-05設備図（CEO穴埋め）"},{"from":"E-08","to":"G-05","what":"配管経路・スリーブ図","kind":"main","basis":"正本E-08基礎スリーブ（CEO穴埋め）"},{"from":"E-08","to":"G-13","what":"設備図・ダクト経路","kind":"main","basis":"正本E-08（CEO穴埋め）"},{"from":"F-03","to":"F-09","what":"着工日程の確定","kind":"main","basis":"正本F-09着工前に挨拶（CEO穴埋め）"},{"from":"F-09","to":"G-29","what":"近隣の反応・注意点","kind":"sub","basis":"実務推論=挨拶で得た情報が工事中対応の前提（CEO穴埋め）"},{"from":"E-09","to":"F-12","what":"確認済証（掲示用）","kind":"main","basis":"正本F-12確認済表示板（CEO穴埋め）"},{"from":"F-12","to":"G-26","what":"保険・体制の確認結果","kind":"sub","basis":"正本F-12労災適用確認（CEO穴埋め）"},{"from":"G-05","to":"G-03","what":"スリーブ位置の反映","kind":"sub","basis":"正本G-04スリーブ位置確認（CEO穴埋め）"},{"from":"F-06","to":"G-10","what":"サッシの納品","kind":"main","basis":"正本F-06長納期材=サッシ（CEO穴埋め）"},{"from":"G-10","to":"G-11","what":"開口部防水の完了","kind":"main","basis":"正本G-10防水テープ→G-11外部防水（CEO穴埋め）"},{"from":"F-06","to":"G-18","what":"住設機器の納品","kind":"main","basis":"正本F-06長納期材=住設（CEO穴埋め）"},{"from":"E-15","to":"G-18","what":"決定済み住設仕様","kind":"sub","basis":"正本E-15住設グレード決定（CEO穴埋め）"},{"from":"F-04","to":"G-19","what":"外構工事の発注内容","kind":"sub","basis":"正本F-04専門業者発注（CEO穴埋め）"},{"from":"SUB","to":"G-19","what":"外構施工・完了報告","kind":"main","basis":"実務=外構は専門業者施工（CEO穴埋め）"},{"from":"G-13","to":"G-23","what":"配管・風量試験の結果","kind":"sub","basis":"正本G-13試験→隠蔽前確認（CEO穴埋め）"},{"from":"M-05","to":"M-06","what":"教育計画","kind":"main","basis":"正本M-05明示=評価→教育計画（CEO穴埋め）"},{"from":"M-06","to":"M-05","what":"技能習得の進み具合","kind":"loop","basis":"実務推論=育成の結果が次の評価へ（CEO穴埋め）"},{"from":"L-13","to":"EXT","what":"講習・資格の申込","kind":"main","basis":"正本L-13技能講習=外部機関（CEO穴埋め）"},{"from":"L-13","to":"M-11","what":"資格・講習の受講記録","kind":"sub","basis":"正本M-11資格管理（CEO穴埋め）"},{"from":"L-16","to":"EXT","what":"車検・点検の依頼","kind":"main","basis":"正本L-16車検/点検（CEO穴埋め）"},{"from":"G-32","to":"L-17","what":"残材・仮設材の戻し","kind":"sub","basis":"正本L-17残材・仮設材（CEO穴埋め）"},{"from":"L-11","to":"L-18","what":"入退社の連絡","kind":"main","basis":"正本L-18退職者のアクセス停止（CEO穴埋め）"},{"from":"EXT","to":"L-20","what":"新制度・改正の情報","kind":"main","basis":"正本L-20新制度への追随（CEO穴埋め）"},{"from":"L-22","to":"A-09","what":"地域の人脈・案件話","kind":"sub","basis":"正本A-09地域事業者の紹介ルート（CEO穴埋め）"},{"from":"N-08","to":"A-09","what":"紹介ルート開拓の方針","kind":"sub","basis":"正本N-08対外関係の構築（CEO穴埋め）"},{"from":"H-01","to":"H-03","what":"是正済みの検査結果","kind":"main","basis":"正本H-01自主検査→是正・前作t10内順接（CEO穴埋め2）"},{"from":"H-03","to":"H-06","what":"残手直し・未完事項","kind":"main","basis":"正本H-06未完事項と期限の合意（CEO穴埋め2）"},{"from":"X-01","to":"B-01","what":"過去の対応履歴","kind":"sub","basis":"正本X-01過去履歴・対応状況の参照（CEO穴埋め2）"},{"from":"X-01","to":"I-04","what":"顧客・物件履歴の参照","kind":"main","basis":"正本X-01=OB・緊急も1台帳（CEO穴埋め2）"},{"from":"H-06","to":"H-07","what":"引き渡し完了の連絡","kind":"main","basis":"正本H-07=最終金請求はローン実行・引渡しと連動（CEO穴埋め3）"},{"from":"H-07","to":"CUST","what":"最終金の請求書","kind":"main","basis":"正本H-07最終金請求＋前作FLOW a4→q7（CEO穴埋め3）"}];
+
+const SEC_LABEL = {A:"集客・マーケ",B:"初回接客〜受注判断",C:"調査・プラン",D:"見積・契約",E:"設計・申請",F:"着工準備",G:"施工管理（新築）",H:"検査・引渡し",I:"アフター・OB",J:"リフォーム",X:"横断業務",K:"協力業者・資材",M:"自社大工",L:"経理・労務・総務",N:"社長業務"};
+const PHASES = ["集客","接客・追客","調査・プラン","見積・契約","設計・申請","着工準備","施工","検査・引渡し","アフター","常時（横断・間接）"];
+const J_PHASE = {"J-01":1,"J-02":3,"J-03":5,"J-04":6,"J-05":4,"J-06":4,"J-07":6,"J-08":7,"J-09":7,"J-10":7,"J-11":8,"J-12":8,"J-13":9,"J-14":5,"J-15":5,"J-16":9};
+const SEC_PHASE = {A:1,B:2,C:3,D:4,E:5,F:6,G:7,H:8,I:9};
+function phaseOf(t){ if(t.sec==="J") return J_PHASE[t.id]||7; if(SEC_PHASE[t.sec]) return SEC_PHASE[t.sec]; return 10; }
+
+const ROLES = ["社長","営業","設計","監督","大工","事務","アフター"];
+const ROLE_COLOR = {"社長":"#c2455a","営業":"#2a78d6","設計":"#7c5cd6","監督":"#eb6834","大工":"#1baf7a","事務":"#2496a8","アフター":"#b7791f"};
+const SPARE_COLORS = ["#8a6ed0","#d0742a","#2a9d8f","#b5495b","#5c7cfa","#74722a"];
+const EXT = {CUST:{name:"施主・OB客",color:"#b7791f"},SUB:{name:"協力業者・外注",color:"#1baf7a"},EXTORG:{name:"役所・銀行・保険等",color:"#8b93a1"}};
+function extKey(k){ return k==="EXT" ? "EXTORG" : k; }
+/* 外部当事者の「行動」の箱＝工程ごとに何をすると情報が渡るのか（線はここから出す） */
+const PARTY_MOMENTS = {
+ CUST:{1:"知る・問い合わせる",2:"要望・予算・時期を伝える",3:"こだわりを伝え提案に反応",4:"予算の本音→契約を結ぶ",5:"色柄・仕様を決める",6:"地鎮祭など節目に立ち会う",7:"現場を見る・変更を頼む",8:"施主検査→引渡しを受ける",9:"不具合連絡・相談・紹介",10:"やりとり全般"},
+ SUB:{4:"見積を返す",6:"施工図を出し発注を受ける",7:"施工し報告・請求する",8:"手直し・美装に入る",9:"補修に入る",10:"単価・請求・安全書類"},
+ EXTORG:{1:"紹介・反響をつなぐ",2:"事前審査を返す（銀行）",3:"調査に回答（役所・士業）",4:"本審査・融資（銀行）",5:"審査・認定・補助金",6:"届出を受ける",7:"検査に来る",8:"完了検査・登記・証券",9:"保険・メーカー対応",10:"許認可・制度・税務"}
+};
+
+const PRESETS = [
+ {name:"標準型", depts:[["社長",["社長"]],["営業",["営業"]],["設計",["設計"]],["監督",["監督","アフター"]],["大工",["大工"]],["事務",["事務"]]]},
+ {name:"営業設計一体型", depts:[["社長",["社長"]],["営業設計",["営業","設計"]],["監督",["監督","アフター"]],["大工",["大工"]],["事務",["事務"]]]},
+ {name:"設計は外注寄り（監督が窓口）", depts:[["社長",["社長"]],["営業",["営業"]],["監督",["監督","設計","アフター"]],["大工",["大工"]],["事務",["事務"]]]},
+ {name:"アフター専任あり", depts:[["社長",["社長"]],["営業",["営業"]],["設計",["設計"]],["監督",["監督"]],["アフター",["アフター"]],["大工",["大工"]],["事務",["事務"]]]},
+ {name:"少人数型（〜5人）", depts:[["社長（営業・設計も）",["社長","営業","設計"]],["現場",["監督","大工","アフター"]],["事務",["事務"]]]},
+];
+
+/* ============ state ============ */
+const LS_KEY = "kmtn_map_v2";
+let org = null;           // {name, depts:[{id,name,roles[]}], override:{taskId:deptId}, off:{taskId:"skip"|"out"}}
+let selected = null;      // task id
+let selCell = null;       // matrix cell {a,b}
+let view = "shelf";
+let filters = {};
+let query = "";
+let guideStep = 0;
+
+function defaultOrg(){ return presetToOrg(PRESETS[0]); }
+function presetToOrg(p){
+  return { name:p.name,
+    depts:p.depts.map((d,i)=>({id:"d"+i, name:d[0], roles:d[1].slice()})),
+    override:{}, off:{} };
+}
+function loadState(){
+  try{
+    const s = JSON.parse(localStorage.getItem(LS_KEY));
+    if(s && s.org && Array.isArray(s.org.depts) && s.org.depts.length
+       && s.org.depts.every(d=>d && typeof d.id==="string" && typeof d.name==="string" && Array.isArray(d.roles))){
+      org = s.org;
+      org.name = typeof org.name==="string" ? org.name : "カスタム";
+      org.override = (org.override && typeof org.override==="object" && !Array.isArray(org.override)) ? org.override : {};
+      org.off = (org.off && typeof org.off==="object" && !Array.isArray(org.off)) ? org.off : {};
+      ROLES.forEach(r=>{ if(!org.depts.some(d=>d.roles.includes(r))) org.depts[0].roles.push(r); });
+      for(const k in org.override){ if(!org.depts.some(d=>d.id===org.override[k])) delete org.override[k]; }
+      return;
+    }
+  }catch(e){}
+  org = defaultOrg();
+}
+function saveState(){ try{ localStorage.setItem(LS_KEY, JSON.stringify({org})); }catch(e){} }
+
+const taskById = {}; TASKS.forEach(t=>taskById[t.id]=t);
+function deptColor(d){ const r = d.roles && d.roles[0]; return (r && ROLE_COLOR[r]) || SPARE_COLORS[(parseInt((d.id||"d0").slice(1),10)||0)%SPARE_COLORS.length]; }
+function roleDept(role){ return org.depts.find(d=>d.roles.includes(role)) || null; }
+function deptOfTask(t){
+  if(org.off[t.id]==="out") return null; // externalized
+  const ov = org.override[t.id]; if(ov){ const d=org.depts.find(x=>x.id===ov); if(d) return d; }
+  for(const r of t.roles){ const d=roleDept(r); if(d) return d; }
+  return org.depts[0];
+}
+function taskActive(t){ return org.off[t.id]!=="skip"; }
+function involvedDepts(t){ // unique depts of the 正本roles only（所属上書きでは共同担当を作らない）
+  const set=[], ids={};
+  t.roles.forEach(r=>{ const d=roleDept(r); if(d && !ids[d.id]){ ids[d.id]=1; set.push(d); } });
+  return set;
+}
+/* endpoint resolution for edges: returns {kind:"dept",dept} | {kind:"ext",key} | null(excluded) */
+function resolveEnd(idOrExt){
+  if(idOrExt==="CUST"||idOrExt==="SUB"||idOrExt==="EXT") return {kind:"ext", key:extKey(idOrExt)};
+  const t=taskById[idOrExt]; if(!t) return null;
+  if(!taskActive(t)) return null;
+  if(org.off[t.id]==="out") return {kind:"ext", key:"SUB"};
+  return {kind:"dept", dept:deptOfTask(t), task:t};
+}
+function edgeType(e){
+  if(e.kind==="loop") return "戻り";
+  const w=e.what||"";
+  if(/承認|決裁|GO|可否|判断|決定/.test(w)) return "承認";
+  if(/報告|共有|説明|案内|周知/.test(w)) return "報告";
+  if(/記録|台帳|議事録|登録|写真/.test(w)) return "記録";
+  return "受渡";
+}
+function hoursOf(t){ return t.hours||0; }
+function fmtH(t){ return t.hours==null ? (t.sec==="X"?"—":"?") : t.hours+"h"; }
+
+/* ============ filters/search ============ */
+function toggleF(btn){ const k=btn.dataset.f; const on=btn.getAttribute("aria-pressed")==="true"; btn.setAttribute("aria-pressed", on?"false":"true"); filters[k]=!on; renderAll(); updateFilterInfo(); }
+function onSearch(){ query = document.getElementById("q").value.trim().toLowerCase(); renderAll(); updateFilterInfo(); }
+function anyFilterOn(){ return Object.values(filters).some(v=>v); }
+function updateFilterInfo(){
+  const hits=TASKS.filter(taskActive).filter(passFilter);
+  const n=hits.length, total=TASKS.filter(taskActive).length;
+  const qi=document.getElementById("qinfo");
+  if(query) qi.textContent = n===0 ? "0件＝見つかりません" : `${total}件中 ${n}件ヒット↓`;
+  else if(anyFilterOn()) qi.textContent = `絞り込み中：${total}→${n}件`;
+  else qi.textContent = "";
+  document.getElementById("resetChip").style.display = (query||anyFilterOn()) ? "" : "none";
+  const mn=document.getElementById("mxFilterNote"); if(mn) mn.style.display=(query||anyFilterOn())?"":"none";
+  const hl=document.getElementById("hitlist");
+  if(query && n>0){
+    hl.style.display="";
+    hl.innerHTML = hits.slice(0,10).map(t=>`<div onclick="pickHit('${t.id}')"><b>${t.id}</b>${esc(t.name)}<span style="color:var(--muted)">（${esc((deptOfTask(t)||{name:"外注"}).name)}・${fmtH(t)}）</span></div>`).join("")
+      + (n>10?`<div class="more">…他${n-10}件（棚に残っています）</div>`:"");
+  } else { hl.style.display="none"; hl.innerHTML=""; }
+}
+function pickHit(id){
+  if(selected!==id) selectTask(id);
+  document.getElementById("hitlist").style.display="none";
+  if(view!=="shelf") setView("shelf");
+  const el=document.querySelector('#view-shelf .tile.sel');
+  if(el) el.scrollIntoView({block:"center",behavior:"smooth"});
+}
+document.addEventListener("click",ev=>{
+  const hl=document.getElementById("hitlist");
+  if(hl && hl.style.display!=="none" && !ev.target.closest("#hitlist") && !ev.target.closest("#q")) hl.style.display="none";
+});
+function resetFilters(){
+  filters={}; query="";
+  document.getElementById("q").value="";
+  document.querySelectorAll(".fchip[data-f]").forEach(b=>b.setAttribute("aria-pressed","false"));
+  renderAll(); updateFilterInfo();
+}
+function searchJump(){
+  const hit=TASKS.filter(taskActive).filter(passFilter)[0];
+  if(!hit) return;
+  if(selected!==hit.id) selectTask(hit.id);
+  const el=document.querySelector('#view-shelf .tile.sel');
+  if(el) el.scrollIntoView({block:"center",behavior:"smooth"});
+}
+function clearSelection(){ selected=null; renderShelf(); renderPanel(); if(view==="flow") drawSelEdges(); }
+function passFilter(t){
+  const lineF = filters["line-new"]||filters["line-ref"]||filters["line-com"];
+  if(lineF){
+    const isNew="ABCDEFGHI".includes(t.sec), isRef=t.sec==="J", isCom="XKMLN".includes(t.sec);
+    if(!((filters["line-new"]&&isNew)||(filters["line-ref"]&&isRef)||(filters["line-com"]&&isCom))) return false;
+  }
+  if(filters["ai3"] && !(t.sc&&t.sc.a===3)) return false;
+  if(filters["pain3"] && !(t.sc&&t.sc.p===3)) return false;
+  if(filters["h100"] && !(t.hours>=100)) return false;
+  if(query && !(t.id.toLowerCase().includes(query)||t.name.toLowerCase().includes(query))) return false;
+  return true;
+}
+
+/* ============ stats ============ */
+function computeStats(){
+  const act = TASKS.filter(taskActive);
+  let cross=0, inner=0, cust=0, ext=0;
+  EDGES.forEach(e=>{
+    const a=resolveEnd(e.from), b=resolveEnd(e.to);
+    if(!a||!b) return;
+    if(a.kind==="dept"&&b.kind==="dept"){ if(a.dept.id===b.dept.id) inner++; else cross++; }
+    else if((a.kind==="ext"&&a.key==="CUST")||(b.kind==="ext"&&b.key==="CUST")) cust++;
+    else ext++;
+  });
+  const th = act.reduce((s,t)=>s+hoursOf(t),0);
+  return {n:act.length, th, cross, inner, cust, ext};
+}
+function renderStats(){
+  const s=computeStats();
+  document.getElementById("statchips").innerHTML =
+    `<span>業務 <b>${s.n}</b>件</span>`+
+    `<span>年間 約<b>${s.th.toLocaleString()}</b>h（AI推定）</span>`+
+    `<span>部門をまたぐ受け渡し <b>${s.cross}</b>種</span>`+
+    `<span>部門の中 <b>${s.inner}</b>種</span>`+
+    `<span>施主とのやりとり <b>${s.cust}</b>種</span>`+
+    `<span>業者・役所など外部 <b>${s.ext}</b>種</span>`;
+  document.getElementById("hEdgeN").textContent = EDGES.length;
+  const activeDepts = org.depts.filter(d=>d.roles.length>0).length;
+  document.getElementById("orgName").textContent = org.name + "（実働"+activeDepts+"部門）";
+}
+
+/* ============ shelf view ============ */
+function sizeClass(t){ const h=hoursOf(t); if(h>=100)return"szxl"; if(h>=40)return"szl"; if(h>=15)return"szm"; return"szs"; }
+function renderShelf(){
+  const root=document.getElementById("view-shelf");
+  let html="";
+  const groups = org.depts.map(d=>({d, tasks:[]}));
+  const outTasks=[], offTasks=[];
+  TASKS.forEach(t=>{
+    if(org.off[t.id]==="skip"){ offTasks.push(t); return; }
+    if(org.off[t.id]==="out"){ outTasks.push(t); return; }
+    const d=deptOfTask(t); const g=groups.find(g=>g.d.id===d.id); if(g) g.tasks.push(t);
+  });
+  for(const g of groups){
+    if(!g.tasks.length) continue; // 役割も業務も無い空の棚は出さない（ペルソナB指摘）
+    const col=deptColor(g.d);
+    const th=g.tasks.reduce((s,t)=>s+hoursOf(t),0);
+    html+=`<section class="deptsec"><div class="depthead"><span class="dbar" style="background:${col}"></span><span class="dname">${esc(g.d.name)}</span>`+
+      `<span class="dstat">業務 <b>${g.tasks.length}</b>件・年間 約<b>${th.toLocaleString()}</b>h</span>`+
+      `<span class="dstat" style="margin-left:auto">${g.d.roles.map(r=>`<span class="rolechip" style="background:${ROLE_COLOR[r]}">${r}</span>`).join("")}</span></div>`;
+    for(let p=1;p<=10;p++){
+      const ts=g.tasks.filter(t=>phaseOf(t)===p);
+      if(!ts.length) continue;
+      ts.sort((a,b)=>hoursOf(b)-hoursOf(a));
+      html+=`<div class="phasegrp"><h4>${PHASES[p-1]}</h4><div class="tiles">`;
+      for(const t of ts){
+        const pass=passFilter(t);
+        const others=involvedDepts(t).filter(d=>d.id!==g.d.id);
+        html+=`<div class="tile ${sizeClass(t)} ${pass?"":"dim"} ${selected===t.id?"sel":""}" style="border-color:${col}" onclick="selectTask('${t.id}')" title="${esc(t.name)}｜${esc(t.tanto)}">`+
+          `<div class="tid">${t.id}</div><div class="tnm">${esc(t.name)}</div><div class="th">${fmtH(t)}${t.hKasetsu?"〔仮説〕":""}</div>`+
+          (others.length?`<div class="dots">${others.slice(0,3).map(d=>`<i style="background:${deptColor(d)}" title="${esc(d.name)}も関与"></i>`).join("")}</div>`:"")+
+          `</div>`;
+      }
+      html+=`</div></div>`;
+    }
+    html+=`</section>`;
+  }
+  if(outTasks.length){
+    html+=`<section class="deptsec"><div class="depthead"><span class="dbar" style="background:${EXT.SUB.color}"></span><span class="dname">外注に出した業務</span><span class="dstat"><b>${outTasks.length}</b>件</span></div><div class="phasegrp"><div class="tiles">`+
+      outTasks.map(t=>`<div class="tile szs offd" style="border-color:${EXT.SUB.color}" onclick="selectTask('${t.id}')"><div class="tid">${t.id}</div><div class="tnm">${esc(t.name)}</div><div class="offmark">外注</div></div>`).join("")+`</div></div></section>`;
+  }
+  if(offTasks.length){
+    html+=`<section class="deptsec"><div class="depthead"><span class="dbar" style="background:var(--muted)"></span><span class="dname">やらないことにした業務</span><span class="dstat"><b>${offTasks.length}</b>件</span></div><div class="phasegrp"><div class="tiles">`+
+      offTasks.map(t=>`<div class="tile szs offd" onclick="selectTask('${t.id}')"><div class="tid">${t.id}</div><div class="tnm">${esc(t.name)}</div><div class="offmark">停止中</div></div>`).join("")+`</div></div></section>`;
+  }
+  root.innerHTML=html;
+}
+
+/* ============ flow view ============ */
+let flowGeom=null; // {nodePos:{id:{x,y,w,h}}, laneY:{}, W,H}
+function buildFlowGeom(){
+  const NW=74, NH=24, NGX=6, NGY=5, PW=170, X0=138, CELLPADX=10;
+  const lanes=[{key:"CUST",name:EXT.CUST.name,ext:true,color:EXT.CUST.color}]
+    .concat(org.depts.map(d=>({key:d.id,name:d.name,dept:d,color:deptColor(d)})))
+    .concat([{key:"SUB",name:EXT.SUB.name,ext:true,color:EXT.SUB.color},{key:"EXTORG",name:EXT.EXTORG.name,ext:true,color:EXT.EXTORG.color}]);
+  // assign tasks to lanes/cells
+  const cell={}; // laneKey|phase -> tasks
+  TASKS.forEach(t=>{
+    if(!taskActive(t)) return;
+    let laneKey;
+    if(org.off[t.id]==="out") laneKey="SUB";
+    else { const d=deptOfTask(t); laneKey=d.id; }
+    const p=phaseOf(t);
+    const k=laneKey+"|"+p; (cell[k]=cell[k]||[]).push(t);
+  });
+  Object.values(cell).forEach(list=>list.sort((a,b)=> (a.id<b.id?-1:1)));
+  // lane heights
+  const laneY={}, laneH={};
+  let y=64;
+  const HEAD=40;
+  for(const ln of lanes){
+    let maxRows=1;
+    if(!ln.ext){
+      for(let p=1;p<=10;p++){ const list=cell[ln.key+"|"+p]||[]; maxRows=Math.max(maxRows, Math.ceil(list.length/2)); }
+    }
+    const h = ln.ext ? 46 : Math.max(52, maxRows*(NH+NGY)+18);
+    laneY[ln.key]=y; laneH[ln.key]=h; y+=h+8;
+  }
+  const H=y+30, W=X0+10*PW+40;
+  // node positions
+  const nodePos={};
+  for(const k in cell){
+    const [laneKey,pStr]=k.split("|"); const p=+pStr;
+    const list=cell[k];
+    const bx=X0+(p-1)*PW+CELLPADX, by=laneY[laneKey]+10;
+    list.forEach((t,i)=>{
+      const cx=i%2, cy=Math.floor(i/2);
+      nodePos[t.id]={x:bx+cx*(NW+NGX), y:by+cy*(NH+NGY), w:NW, h:NH};
+    });
+  }
+  // 外部当事者の「行動」ノード（エッジがある工程だけ置く）＝線はここから出す
+  const extNodes={};
+  EDGES.forEach(e=>{
+    const a=resolveEnd(e.from), b=resolveEnd(e.to);
+    if(!a||!b) return;
+    let ext=null, task=null;
+    if(a.kind==="ext"&&b.kind==="dept"){ ext=a.key; task=b.task; }
+    else if(b.kind==="ext"&&a.kind==="dept"){ ext=b.key; task=a.task; }
+    else return;
+    const p=phaseOf(task);
+    const k=ext+"|"+p;
+    if(!extNodes[k]) extNodes[k]={key:ext,p,label:(PARTY_MOMENTS[ext]&&PARTY_MOMENTS[ext][p])||"やりとり",n:0};
+    extNodes[k].n++;
+  });
+  for(const k in extNodes){
+    const en=extNodes[k];
+    en.x=X0+(en.p-1)*PW+8; en.y=laneY[en.key]+8; en.w=PW-24; en.h=30;
+  }
+  flowGeom={lanes,cell,laneY,laneH,nodePos,extNodes,W,H,X0,PW,NW,NH};
+}
+function anchor(idOrExt, side){ // side "out"=right, "in"=left ; returns {x,y}
+  const g=flowGeom;
+  if(idOrExt==="CUST"||idOrExt==="SUB"||idOrExt==="EXTORG"){
+    return null; // handled by caller with partner x
+  }
+  const p=g.nodePos[idOrExt]; if(!p) return null;
+  return side==="out" ? {x:p.x+p.w, y:p.y+p.h/2} : {x:p.x, y:p.y+p.h/2};
+}
+function edgePath(a,b){
+  const dx=Math.max(30,Math.abs(b.x-a.x)*0.45);
+  return `M${a.x},${a.y} C${a.x+dx},${a.y} ${b.x-dx},${b.y} ${b.x},${b.y}`;
+}
+function edgePathV(a,b){ const my=(a.y+b.y)/2; return `M${a.x},${a.y} C${a.x},${my} ${b.x},${my} ${b.x},${b.y}`; }
+function extNodeAnchor(key,p){
+  const en=flowGeom.extNodes[key+"|"+p]; if(!en) return null;
+  return {x:en.x+en.w/2, y: key==="CUST" ? en.y+en.h : en.y};
+}
+function cellAnchorV(cellKey, extPartner){
+  const g=flowGeom;
+  const [dId,pStr]=cellKey.split("|"); const p=+pStr;
+  const yy=g.laneY[dId]; if(yy==null) return null;
+  return {x:g.X0+(p-1)*g.PW+g.PW/2-7, y: extPartner==="CUST" ? yy : yy+g.laneH[dId]};
+}
+function renderFlow(){
+  buildFlowGeom();
+  const g=flowGeom;
+  const svg=document.getElementById("flowsvg");
+  let out="", laneLabSvg="", phaseSvg="";
+  // lane bands + labels (labels go to a scroll-pinned layer)
+  for(const ln of g.lanes){
+    const y=g.laneY[ln.key], h=g.laneH[ln.key];
+    out+=`<rect class="${ln.ext?"extband":"laneband"}" x="0" y="${y}" width="${g.W}" height="${h}" fill="${ln.color}"></rect>`;
+    laneLabSvg+=`<g><rect x="4" y="${y+4}" width="122" height="${ln.ext?24:34}" rx="6" fill="var(--chrome)" stroke="var(--line-soft)"></rect>`+
+      `<text class="lanelab" x="12" y="${y+21}" fill="${ln.color}">${esc(ln.name)}</text>`+
+      ((!ln.ext && ln.dept)?`<text class="lanelab2" x="12" y="${y+34}">${ln.dept.roles.join("・")}</text>`:"")+`</g>`;
+  }
+  // phase headers (pinned vertically)
+  for(let p=1;p<=10;p++){
+    phaseSvg+=`<g><rect x="${g.X0+(p-1)*g.PW+2}" y="24" width="${g.PW-14}" height="22" rx="5" fill="var(--chrome)"></rect>`+
+      `<text class="phaselab" x="${g.X0+(p-1)*g.PW+8}" y="40">${p<10?p+". ":""}${esc(PHASES[p-1])}</text></g>`;
+    out+=`<line x1="${g.X0+(p-1)*g.PW}" y1="50" x2="${g.X0+(p-1)*g.PW}" y2="${g.H-16}" stroke="var(--line-soft)" stroke-width="1"></line>`;
+  }
+  // group edges (texture)
+  const groupsMap={};
+  EDGES.forEach((e,i)=>{
+    const a=resolveEnd(e.from), b=resolveEnd(e.to);
+    if(!a||!b) return;
+    const ak = a.kind==="ext" ? a.key : (()=>{const t=a.task; return deptOfTask(t).id+"|"+phaseOf(t);})();
+    const bk = b.kind==="ext" ? b.key : (()=>{const t=b.task; return deptOfTask(t).id+"|"+phaseOf(t);})();
+    if(ak===bk) return;
+    const k=ak+">"+bk;
+    (groupsMap[k]=groupsMap[k]||[]).push(i);
+  });
+  let gEdgeSvg="";
+  const isExtKey=key=>key==="CUST"||key==="SUB"||key==="EXTORG";
+  for(const k in groupsMap){
+    const idxs=groupsMap[k];
+    const [ak,bk]=k.split(">");
+    if(isExtKey(ak)&&isExtKey(bk)) continue;
+    let pa,pb,d;
+    if(isExtKey(ak)){ // 外部の「行動」ノードから相手セルへ（縦の短い線）
+      pa=extNodeAnchor(ak, +bk.split("|")[1]); pb=cellAnchorV(bk, ak);
+      if(!pa||!pb) continue;
+      d=edgePathV(pa,pb);
+    } else if(isExtKey(bk)){
+      pb=extNodeAnchor(bk, +ak.split("|")[1]); pa=cellAnchorV(ak, bk);
+      if(!pa||!pb) continue;
+      d=edgePathV(pa,pb);
+    } else {
+      pa=groupAnchor(ak,"out"); pb=groupAnchor(bk,"in");
+      if(!pa||!pb) continue;
+      d=edgePath(pa,pb);
+    }
+    const wdt=Math.min(6,0.8+idxs.length*0.55);
+    gEdgeSvg+=`<path class="gedge" data-g="${k}" d="${d}" stroke-width="${wdt}" onclick="clickGroup('${k}')"><title>${idxs.length}種の受け渡し（クリックで一覧）</title></path>`;
+  }
+  out+=`<g id="gedges">${gEdgeSvg}</g><g id="sedges"></g>`;
+  // nodes
+  let nodeSvg="";
+  for(const k in g.cell){
+    const [laneKey]=k.split("|");
+    const ln=g.lanes.find(l=>l.key===laneKey);
+    for(const t of g.cell[k]){
+      const p=g.nodePos[t.id];
+      const pass=passFilter(t);
+      nodeSvg+=`<g class="node ${pass?"":"dim"} ${selected===t.id?"sel":""}" data-id="${t.id}" transform="translate(${p.x},${p.y})" onclick="selectTask('${t.id}')">`+
+        `<rect width="${p.w}" height="${p.h}" stroke="${ln?ln.color:"#888"}"></rect>`+
+        `<text class="nid" x="4" y="9">${t.id}</text>`+
+        `<text class="nnm" x="4" y="20">${esc(shortName(t.name))}</text>`+
+        `<title>${t.id} ${esc(t.name)}｜${fmtH(t)}｜${esc(t.tanto)}</title></g>`;
+    }
+  }
+  out+=`<g id="nodes">${nodeSvg}</g>`;
+  // 外部当事者の行動ノード
+  let extSvg="";
+  for(const k in g.extNodes){
+    const en=g.extNodes[k];
+    const col=EXT[en.key]?EXT[en.key].color:"#8b93a1";
+    extSvg+=`<g class="extnode" transform="translate(${en.x},${en.y})" onclick="clickExtMoment('${en.key}',${en.p})">`+
+      `<rect width="${en.w}" height="${en.h}" rx="7" stroke="${col}"></rect>`+
+      `<text x="8" y="19" fill="${col}">${esc(en.label)}</text>`+
+      `<title>${esc(partyExtName(en.key))}：${esc(en.label)}（受け渡し${en.n}種・クリックで一覧）</title></g>`;
+  }
+  out+=`<g id="extnodes">${extSvg}</g>`;
+  out+=`<g id="phaseLabelsG">${phaseSvg}</g><g id="laneLabelsG">${laneLabSvg}</g>`;
+  svg.setAttribute("viewBox",`0 0 ${g.W} ${g.H}`);
+  svg.setAttribute("width",g.W); svg.setAttribute("height",g.H);
+  svg.innerHTML=out;
+  applyZoom();
+  syncLabels();
+  if(selected) drawSelEdges();
+}
+function syncLabels(){
+  const ma=document.getElementById("maparea");
+  const z=document.getElementById("zoom").value/100;
+  const ll=document.getElementById("laneLabelsG"), pl=document.getElementById("phaseLabelsG");
+  if(ll) ll.setAttribute("transform",`translate(${ma.scrollLeft/z},0)`);
+  if(pl) pl.setAttribute("transform",`translate(0,${ma.scrollTop/z})`);
+}
+function groupAnchor(key, side){
+  const g=flowGeom;
+  if(key==="CUST"||key==="SUB"||key==="EXTORG"){ return {x:g.X0+5*g.PW, y:g.laneY[key]+17}; }
+  const [dId,pStr]=key.split("|"); const p=+pStr;
+  const y=g.laneY[dId]; if(y==null) return null;
+  const h=g.laneH[dId];
+  const x = side==="out" ? g.X0+(p-1)*g.PW+g.PW-14 : g.X0+(p-1)*g.PW+6;
+  return {x, y:y+h/2};
+}
+function shortName(n){ return n.length>6 ? n.slice(0,5)+"…" : n; }
+function applyZoom(){
+  const z=document.getElementById("zoom").value/100;
+  const inner=document.getElementById("mapinner");
+  inner.style.transform=`scale(${z})`; inner.style.transformOrigin="0 0";
+  if(flowGeom){ inner.style.width=(flowGeom.W*z)+"px"; inner.style.height=(flowGeom.H*z)+"px"; }
+  syncLabels();
+}
+function drawSelEdges(){
+  const layer=document.getElementById("sedges"); if(!layer||!flowGeom) return;
+  let html="";
+  const gv=document.getElementById("gedges");
+  if(!selected){ if(gv)gv.querySelectorAll(".gedge").forEach(x=>x.classList.remove("dim")); layer.innerHTML=""; markRelated(new Set()); return; }
+  if(gv)gv.querySelectorAll(".gedge").forEach(x=>x.classList.add("dim"));
+  const rel=new Set();
+  let li=0;
+  EDGES.forEach(e=>{
+    if(e.from!==selected&&e.to!==selected) return;
+    const a=resolveEnd(e.from), b=resolveEnd(e.to);
+    if(!a||!b) return;
+    let pa,pb,vert=false;
+    if(a.kind==="ext"){
+      const t2=taskById[e.to]; const np=flowGeom.nodePos[e.to]; if(!t2||!np)return;
+      pa=extNodeAnchor(a.key,phaseOf(t2)); if(!pa)return;
+      pb={x:np.x+np.w/2, y:a.key==="CUST"?np.y:np.y+np.h}; vert=true;
+    }
+    else if(b.kind==="ext"){
+      const t1=taskById[e.from]; const np=flowGeom.nodePos[e.from]; if(!t1||!np)return;
+      pb=extNodeAnchor(b.key,phaseOf(t1)); if(!pb)return;
+      pa={x:np.x+np.w/2, y:b.key==="CUST"?np.y:np.y+np.h}; vert=true;
+    }
+    else { pa=anchor(e.from,"out"); pb=anchor(e.to,"in"); }
+    if(!pa||!pb) return;
+    const dir = e.from===selected?"out":"in";
+    if(e.from!==selected&&taskById[e.from]) rel.add(e.from);
+    if(e.to!==selected&&taskById[e.to]) rel.add(e.to);
+    const mx=(pa.x+pb.x)/2, my=(pa.y+pb.y)/2-5+((li%3)-1)*13;
+    li++;
+    html+=`<path class="sedge ${dir} ${e.kind==="loop"?"loopk":""}" d="${vert?edgePathV(pa,pb):edgePath(pa,pb)}"></path>`+
+      `<text class="elabel" x="${mx}" y="${my}" text-anchor="middle">${esc(e.what)}</text>`;
+  });
+  layer.innerHTML=html;
+  markRelated(rel);
+}
+function markRelated(rel){
+  document.querySelectorAll("#nodes .node").forEach(n=>{
+    const id=n.dataset.id;
+    n.classList.toggle("rel", rel.has(id));
+    if(selected){ n.classList.toggle("dim", id!==selected && !rel.has(id) ); }
+    else n.classList.toggle("dim", !passFilter(taskById[id]));
+  });
+}
+function clickExtMoment(key,p){
+  selCell=null;
+  const idxs=[];
+  EDGES.forEach((e,i)=>{
+    const a=resolveEnd(e.from), b=resolveEnd(e.to);
+    if(!a||!b) return;
+    let ext=null, task=null;
+    if(a.kind==="ext"&&b.kind==="dept"){ ext=a.key; task=b.task; }
+    else if(b.kind==="ext"&&a.kind==="dept"){ ext=b.key; task=a.task; }
+    else return;
+    if(ext===key && phaseOf(task)===p) idxs.push(i);
+  });
+  const label=(PARTY_MOMENTS[key]&&PARTY_MOMENTS[key][p])||"やりとり";
+  renderPanelEdgeList(partyExtName(key)+"「"+label+"」", idxs);
+}
+function clickGroup(k){
+  selCell=null;
+  const idxs=(function(){ const m={}; EDGES.forEach((e,i)=>{ const a=resolveEnd(e.from),b=resolveEnd(e.to); if(!a||!b)return; const ak=a.kind==="ext"?a.key:deptOfTask(a.task).id+"|"+phaseOf(a.task); const bk=b.kind==="ext"?b.key:deptOfTask(b.task).id+"|"+phaseOf(b.task); if(ak+">"+bk===k)(m[k]=m[k]||[]).push(i);}); return m[k]||[]; })();
+  renderPanelEdgeList("この幹線の中身", idxs);
+}
+
+/* ============ matrix view ============ */
+function renderMatrix(){
+  const parties = org.depts.map(d=>({key:d.id,name:d.name,color:deptColor(d),dept:d}))
+    .concat([{key:"CUST",name:EXT.CUST.name,color:EXT.CUST.color},{key:"SUB",name:EXT.SUB.name,color:EXT.SUB.color},{key:"EXTORG",name:EXT.EXTORG.name,color:EXT.EXTORG.color}]);
+  const idx={}; parties.forEach((p,i)=>idx[p.key]=i);
+  const n=parties.length;
+  const cnt=Array.from({length:n},()=>Array(n).fill(0));
+  EDGES.forEach(e=>{
+    const a=resolveEnd(e.from), b=resolveEnd(e.to);
+    if(!a||!b) return;
+    const ak=a.kind==="ext"?a.key:a.dept.id, bk=b.kind==="ext"?b.key:b.dept.id;
+    if(idx[ak]==null||idx[bk]==null) return;
+    cnt[idx[ak]][idx[bk]]++;
+  });
+  // co-ownership counts (dept x dept, symmetric)
+  const co=Array.from({length:n},()=>Array(n).fill(0));
+  TASKS.forEach(t=>{
+    if(!taskActive(t)||org.off[t.id]==="out") return;
+    const ds=involvedDepts(t);
+    for(let i=0;i<ds.length;i++)for(let j=i+1;j<ds.length;j++){
+      const a=idx[ds[i].id], b=idx[ds[j].id]; if(a==null||b==null)continue;
+      co[a][b]++; co[b][a]++;
+    }
+  });
+  let max=1; for(let i=0;i<n;i++)for(let j=0;j<n;j++) if(cnt[i][j]>max)max=cnt[i][j];
+  let html=`<table class="mx"><thead><tr><th style="text-align:left">渡す側 ↓ ＼ 受け取る側 →</th>`;
+  parties.forEach(p=>html+=`<th><span style="color:${p.color}">■</span> ${esc(p.name)}</th>`);
+  html+=`</tr></thead><tbody>`;
+  parties.forEach((pr,i)=>{
+    html+=`<tr><th><span style="color:${pr.color}">■</span> ${esc(pr.name)}</th>`;
+    parties.forEach((pc,j)=>{
+      const v=cnt[i][j], c=co[i][j];
+      const alpha=v?0.08+0.5*(v/max):0;
+      const selc = selCell&&selCell.a===pr.key&&selCell.b===pc.key;
+      html+=`<td class="${i===j?"dg":""} ${v||c?"":"zero"} ${selc?"selc":""}" style="background:${v?`color-mix(in srgb,var(--accent) ${Math.round(alpha*100)}%,transparent)`:""}" onclick="clickCell('${pr.key}','${pc.key}')">`+
+        `<div class="n1">${v||"·"}</div>${(i!==j&&c)?`<div class="n2">共同${c}</div>`:""}</td>`;
+    });
+    html+=`</tr>`;
+  });
+  html+=`</tbody></table>`;
+  document.getElementById("mxwrap").innerHTML=html;
+}
+function clickCell(a,b){
+  selCell={a,b}; selected=null;
+  const idxs=[];
+  EDGES.forEach((e,i)=>{
+    const ra=resolveEnd(e.from), rb=resolveEnd(e.to);
+    if(!ra||!rb) return;
+    const ak=ra.kind==="ext"?ra.key:ra.dept.id, bk=rb.kind==="ext"?rb.key:rb.dept.id;
+    if(ak===a&&bk===b) idxs.push(i);
+  });
+  renderMatrix();
+  const pa=partyName(a), pb=partyName(b);
+  // also co-owned tasks
+  let coTasks=[];
+  if(!["CUST","SUB","EXTORG"].includes(a)&&!["CUST","SUB","EXTORG"].includes(b)&&a!==b){
+    coTasks=TASKS.filter(t=>{
+      if(!taskActive(t)||org.off[t.id]==="out")return false;
+      const ids=involvedDepts(t).map(d=>d.id);
+      return ids.includes(a)&&ids.includes(b);
+    });
+  }
+  renderPanelEdgeList(`${pa} → ${pb}`, idxs, coTasks);
+}
+function partyName(k){
+  if(k==="CUST")return EXT.CUST.name; if(k==="SUB")return EXT.SUB.name; if(k==="EXTORG")return EXT.EXTORG.name;
+  const d=org.depts.find(d=>d.id===k); return d?d.name:k;
+}
+
+/* ============ panel ============ */
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function renderPanel(){
+  const el=document.getElementById("panel");
+  if(selCell){ return; } // panel already set by clickCell
+  if(!selected){
+    const s=computeStats();
+    const top=TASKS.filter(taskActive).slice().sort((a,b)=>hoursOf(b)-hoursOf(a)).slice(0,10);
+    el.innerHTML=`<p class="pintro"><b>業務をクリック</b>すると、その仕事の中身と「何を受けて・何を渡すか」がここに出ます。</p>
+      <h3>いまの組織のすがた</h3>
+      <p class="pintro">部門をまたぐ受け渡し <b>${s.cross}種</b>／部門の中 <b>${s.inner}種</b><br>施主とのやりとり <b>${s.cust}種</b>・外部 <b>${s.ext}種</b></p>
+      <h3>年間時間の大きい業務 TOP10（AI推定）</h3>
+      <ul class="toplist">${top.map(t=>`<li onclick="selectTask('${t.id}')"><span>${t.id} ${esc(t.name)}</span><span class="hh">${fmtH(t)}</span></li>`).join("")}</ul>
+      <h3>使い方</h3>
+      <p class="pintro">① 棚＝業務の量と持ち場<br>② 流れ＝クリックした業務のつながり<br>③ 部門連携＝またぎの太さ。<b>「組織を変える」</b>で自社の分け方に描き直せます。</p>`;
+    return;
+  }
+  const t=taskById[selected];
+  const d=deptOfTask(t);
+  const inn=[], out=[];
+  EDGES.forEach((e,i)=>{
+    if(e.to===t.id && resolveEnd(e.from)) inn.push(i);
+    if(e.from===t.id && resolveEnd(e.to)) out.push(i);
+  });
+  const innM=inn.filter(i=>EDGES[i].kind==="main"), innS=inn.filter(i=>EDGES[i].kind!=="main");
+  const outM=out.filter(i=>EDGES[i].kind==="main"), outS=out.filter(i=>EDGES[i].kind!=="main");
+  // 本線が無い側は補助を昇格表示（「出口が無い？」の迷いを防ぐ）
+  const innShow=innM.length?innM:innS, innIsSub=!innM.length&&innS.length>0;
+  const outShow=outM.length?outM:outS, outIsSub=!outM.length&&outS.length>0;
+  const foldIdx=(innM.length?innS:[]).concat(outM.length?outS:[]);
+  const stopNames=[...new Set(outM.map(i=>EDGES[i].to).filter(id=>taskById[id]).map(id=>taskById[id].name))].slice(0,4);
+  const sc=t.sc;
+  el.innerHTML=`<div class="pid">${t.id}｜${esc(SEC_LABEL[t.sec]||t.sec)}<button class="mini" style="float:right" onclick="clearSelection()">✕ 閉じる</button></div><h2>${esc(t.name)}</h2>
+    <div class="pchips">${d?`<span class="pchip dept" style="background:${deptColor(d)}">${esc(d.name)}</span>`:`<span class="pchip">外注化</span>`}
+      <span class="pchip">主担当：${esc(t.tanto)}</span>
+      <span class="pchip">${PHASES[phaseOf(t)-1]}</span>
+      <span class="pchip">年間 ${fmtH(t)}${t.hKasetsu?"〔仮説〕":""}</span></div>
+    <p class="pnote">${esc(t.gist)}</p>
+    <h3>この仕事のまわりの流れ</h3>
+    ${innShow.length?`<div class="flowcap">きっかけ＝これが来ると動く${innIsSub?"（補助的なやりとり）":""}</div>`+innShow.map(i=>edgeItem(i,"in")).join(""):`<p class="pintro">（きっかけになる受け取りは未登録＝自分から始める仕事）</p>`}
+    ${outShow.length?`<div class="flowcap">出口＝終わるとこれを渡す${outIsSub?"（補助的なやりとり）":""}</div>`+outShow.map(i=>edgeItem(i,"out")).join(""):`<p class="pintro">（渡し先は未登録）</p>`}
+    ${stopNames.length?`<p class="stopline">この仕事が止まると：<b>${stopNames.map(esc).join("・")}</b> が進まなくなります</p>`:""}
+    <div class="pbtns"><button class="btn" onclick="jumpToFlow('${t.id}')">🔗 流れの図でこの業務を見る</button></div>
+    ${foldIdx.length?`<details class="subfold"><summary>補助的なやりとり（${foldIdx.length}件）を見る</summary>${foldIdx.map(i=>edgeItem(i, EDGES[i].to===t.id?"in":"out")).join("")}</details>`:""}
+    ${sc&&sc.total!=null?`<h3>スコア（時・痛・AI・導入）</h3><div class="scgrid">
+      <div><div class="v">${sc.t}</div><div class="k">時間</div></div>
+      <div><div class="v">${sc.p}</div><div class="k">痛み</div></div>
+      <div><div class="v">${sc.a}</div><div class="k">AI適性</div></div>
+      <div><div class="v">${sc.d}</div><div class="k">導入</div></div>
+      <div><div class="v">${sc.total}</div><div class="k">合計/12</div></div></div>`:""}
+    <h3>この業務の設定</h3>
+    <div class="pbtns">
+      <select id="ovSel" class="btn">${[`<option value="">所属＝自動（${d?esc(d.name):"外注"}）</option>`].concat(org.depts.map(x=>`<option value="${x.id}" ${org.override[t.id]===x.id?"selected":""}>${esc(x.name)}へ移す</option>`)).join("")}</select>
+      <button class="btn" onclick="applyOverride('${t.id}')">所属を変更</button>
+      <button class="btn" onclick="toggleOff('${t.id}','out')">${org.off[t.id]==="out"?"外注をやめる":"外注に出す"}</button>
+      <button class="btn" onclick="toggleOff('${t.id}','skip')">${org.off[t.id]==="skip"?"復活させる":"やらない"}</button>
+    </div>`;
+}
+function basisLabel(b){
+  if(!b) return "根拠：未記録";
+  if(b.includes("正本")) return "根拠：業務マップ正本の記述から";
+  if(b.includes("前作")) return "根拠：前作・流れ図のつながりを細かくしたもの";
+  return "根拠：実務からの推論（AIの仮説）";
+}
+function edgeItem(i,dir){
+  const e=EDGES[i];
+  const pid=dir==="in"?e.from:e.to;
+  const pt=taskById[pid];
+  let pname;
+  if(pt){
+    if(org.off[pid]==="out") pname=`${pt.name}（外注化）`;
+    else { const d=deptOfTask(pt); pname=`${pt.name}${d?`（${d.name}）`:""}`; }
+  } else pname=partyExtName(pid);
+  const open = pt ? `<button class="mini" onclick="selectTask('${pid}')">開く</button>` : "";
+  const body = dir==="in"
+    ? `<span class="ew">「${esc(e.what)}」</span><span class="ep">が ${esc(pname)} から来ると動く</span>`
+    : `<span class="ew">「${esc(e.what)}」</span><span class="ep">を ${esc(pname)} へ渡す</span>`;
+  return `<div class="eitem" title="${esc(basisLabel(e.basis))}">
+    <span class="dir ${dir}">${dir==="in"?"←":"→"}</span>
+    <span>${body}</span>${open}</div>`;
+}
+function jumpToFlow(id){
+  selected=id;
+  setView("flow");
+  const p=flowGeom&&flowGeom.nodePos[id];
+  if(p){
+    const ma=document.getElementById("maparea");
+    const z=document.getElementById("zoom").value/100;
+    ma.scrollLeft=Math.max(0,p.x*z-ma.clientWidth/2);
+    ma.scrollTop=Math.max(0,p.y*z-ma.clientHeight/2);
+    syncLabels();
+  }
+  renderShelf(); renderPanel(); drawSelEdges();
+}
+function renderPanelEdgeList(title, idxs, coTasks){
+  const el=document.getElementById("panel");
+  let html=`<h2 style="font-size:14px">${esc(title)}</h2><p class="pintro">受け渡し <b>${idxs.length}</b>種${coTasks&&coTasks.length?`・共同担当 <b>${coTasks.length}</b>件`:""}</p>`;
+  html+=idxs.map(i=>{
+    const e=EDGES[i]; const ft=taskById[e.from], tt=taskById[e.to];
+    const fn=ft?`${e.from} ${ft.name}`:partyExtName(e.from), tn=tt?`${e.to} ${tt.name}`:partyExtName(e.to);
+    return `<div class="eitem" title="${esc(basisLabel(e.basis))}"><span class="ek">${edgeType(e)}</span><span><span class="ew">${esc(e.what)}</span><br><span class="ep">${esc(fn)} → ${esc(tn)}</span></span></div>`;
+  }).join("");
+  if(coTasks&&coTasks.length){
+    html+=`<h3>共同で担当している業務</h3>`+coTasks.map(t=>`<div class="eitem" onclick="selectTask('${t.id}')"><span class="ek">${t.id}</span><span>${esc(t.name)} <span class="ep">（${esc(t.tanto)}）</span></span></div>`).join("");
+  }
+  el.innerHTML=html;
+}
+function partyExtName(k){ return k==="CUST"?EXT.CUST.name:k==="SUB"?EXT.SUB.name:EXT.EXTORG.name; }
+
+/* ============ interactions ============ */
+function selectTask(id){
+  selected = (selected===id? null : id);
+  selCell=null;
+  renderShelf(); renderPanel();
+  if(view==="flow"){ drawSelEdges(); }
+  else if(selected && view==="matrix"){ /* keep matrix */ }
+}
+function applyOverride(id){
+  const v=document.getElementById("ovSel").value;
+  if(v) org.override[id]=v; else delete org.override[id];
+  saveState(); renderAll();
+}
+function toggleOff(id,mode){
+  if(org.off[id]===mode) delete org.off[id]; else org.off[id]=mode;
+  saveState(); renderAll();
+}
+function setView(v){
+  view=v;
+  ["shelf","flow","matrix"].forEach(k=>{
+    document.getElementById("view-"+k).classList.toggle("on",k===v);
+    document.getElementById("tab-"+k).setAttribute("aria-pressed",k===v?"true":"false");
+  });
+  if(v==="flow") renderFlow();
+  if(v==="matrix") renderMatrix();
+}
+function renderAll(){
+  renderStats(); renderShelf();
+  if(view==="flow") renderFlow();
+  if(view==="matrix") renderMatrix();
+  renderPanel();
+}
+
+/* ============ org modal ============ */
+let orgDraft=null;
+function openOrg(){
+  orgDraft=JSON.parse(JSON.stringify(org));
+  renderOrgModal();
+  document.getElementById("orgModal").classList.add("on");
+  document.querySelector("#orgModal .modal").scrollTop=0;
+}
+function renderOrgModal(){
+  document.getElementById("presetrow").innerHTML =
+    PRESETS.map((p,i)=>`<button class="btn" onclick="applyPreset(${i})">${esc(p.name)}</button>`).join("");
+  const dl=document.getElementById("dlist");
+  dl.innerHTML = orgDraft.depts.map((d,i)=>`<div class="drow">
+      <span class="dbar" style="width:12px;height:12px;border-radius:3px;background:${deptColor(d)};display:inline-block"></span>
+      <input type="text" value="${esc(d.name)}" onchange="orgDraft.depts[${i}].name=this.value">
+      <span style="font-size:11px;color:var(--muted)">${d.roles.length?d.roles.join("・"):"（役割なし）"}</span>
+      ${orgDraft.depts.length>1?`<button class="btn" onclick="removeDept(${i})">削除</button>`:""}
+    </div>`).join("");
+  const rt=document.getElementById("roletable");
+  rt.innerHTML = `<tr><th>役割（正本の主担当）</th><th>どの部門に入れるか</th></tr>`+
+    ROLES.map(r=>{
+      const cur=orgDraft.depts.find(d=>d.roles.includes(r));
+      return `<tr><td><span class="rolechip" style="background:${ROLE_COLOR[r]}">${r}</span></td>
+        <td><select onchange="assignRole('${r}',this.value)">${orgDraft.depts.map(d=>`<option value="${d.id}" ${cur&&cur.id===d.id?"selected":""}>${esc(d.name)}</option>`).join("")}</select></td></tr>`;
+    }).join("");
+  const offN=Object.keys(orgDraft.off).length, ovN=Object.keys(orgDraft.override).length;
+  document.getElementById("offinfo").innerHTML =
+    (offN||ovN)?`個別設定：所属の上書き ${ovN}件・やらない/外注 ${offN}件（各業務の詳細パネルから変更）　<button class="btn" onclick="clearIndividual()">個別設定を全部リセット</button>`:"";
+}
+function applyPreset(i){
+  const keepOff=orgDraft.off;
+  orgDraft=presetToOrg(PRESETS[i]);
+  orgDraft.off=keepOff; orgDraft.override={}; // 部門構成が変わるため所属上書きはリセット（やらない/外注は維持）
+  renderOrgModal();
+}
+function assignRole(role,deptId){
+  orgDraft.depts.forEach(d=>{ d.roles=d.roles.filter(r=>r!==role); });
+  const d=orgDraft.depts.find(d=>d.id===deptId); if(d)d.roles.push(role);
+  orgDraft.name="カスタム";
+  renderOrgModal();
+}
+function addDept(){
+  orgDraft.depts.push({id:"d"+Math.floor(performance.now()%100000), name:"新しい部門", roles:[]});
+  orgDraft.name="カスタム";
+  renderOrgModal();
+}
+function removeDept(i){
+  const d=orgDraft.depts[i];
+  orgDraft.depts.splice(i,1);
+  // orphan roles go to first dept
+  d.roles.forEach(r=>{ if(!orgDraft.depts.some(x=>x.roles.includes(r))) orgDraft.depts[0].roles.push(r); });
+  for(const k in orgDraft.override) if(orgDraft.override[k]===d.id) delete orgDraft.override[k];
+  orgDraft.name="カスタム";
+  renderOrgModal();
+}
+function clearIndividual(){ orgDraft.override={}; orgDraft.off={}; renderOrgModal(); }
+function closeOrg(apply){
+  document.getElementById("orgModal").classList.remove("on");
+  if(apply){
+    // safety: every role must be somewhere / 上書き先が存在しない部門なら破棄
+    ROLES.forEach(r=>{ if(!orgDraft.depts.some(d=>d.roles.includes(r))) orgDraft.depts[0].roles.push(r); });
+    for(const k in orgDraft.override){ if(!orgDraft.depts.some(d=>d.id===orgDraft.override[k])) delete orgDraft.override[k]; }
+    org=orgDraft; selCell=null; saveState(); renderAll();
+  }
+}
+
+/* ============ guide ============ */
+const GUIDE=[
+ {view:"shelf", t:"① まず「量」を見てください", p:"工務店の仕事は、AIが数えたら<b>201業務・年間約15,000時間</b>ありました。棚のカード1枚＝1つの業務。<b>大きいカード＝時間を食う仕事</b>です。色のついた点は「他部門も関与」の印。"},
+ {view:"flow", t:"② 線が「情報の受け渡し」です", p:"仕事は1人で完結しません。<b>カードをクリック</b>すると、その仕事が<b>何を受けて・何を渡すか</b>が線とラベルで出ます。<span class='hl'>← 紫＝受け取る／→ 橙＝渡す</span>。薄い線は会社全体の幹線です。"},
+ {view:"matrix", t:"③ 部門の「またぎ」が見えます", p:"表の数字＝部門から部門へ渡る<b>情報の種類の数</b>。ここが多い組み合わせほど、引き継ぎと連携の仕組みが要ります。<b>「組織を変える」</b>ボタンで、御社の分け方（営業設計一体など）に描き直せます。"},
+];
+function startGuide(){ guideStep=0; showGuide(); }
+function showGuide(){
+  const g=GUIDE[guideStep];
+  setView(g.view);
+  document.getElementById("guide").classList.add("on");
+  document.getElementById("gcard").innerHTML=`<div class="gstep">${guideStep+1} / ${GUIDE.length}</div><h2>${g.t}</h2><p>${g.p}</p>
+    <div class="gbtns"><button class="btn" onclick="endGuide()">閉じる</button>
+    <button class="btn primary" onclick="nextGuide()">${guideStep<GUIDE.length-1?"次へ":"はじめる"}</button></div>`;
+}
+function nextGuide(){ guideStep++; if(guideStep>=GUIDE.length){ endGuide(); setView("shelf"); } else showGuide(); }
+function endGuide(){ document.getElementById("guide").classList.remove("on"); try{localStorage.setItem(LS_KEY+"_guided","1");}catch(e){} }
+
+/* ============ init ============ */
+loadState();
+document.getElementById("maparea").addEventListener("scroll", syncLabels);
+renderAll();
+setView("shelf");
+try{ if(!localStorage.getItem(LS_KEY+"_guided")) startGuide(); }catch(e){}
+</script>
+
+</body>
+</html>
