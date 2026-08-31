@@ -63,6 +63,9 @@
     function (event) {
       var t = event.target;
       if (t && t !== window && (t.tagName === "SCRIPT" || t.tagName === "LINK" || t.tagName === "IMG")) {
+        // data-ha-optional 付きの任意部品（共有ボタン等の装飾）は、広告ブロッカー・通信断で
+        // 読めなくてもページ本体は無事＝自動エラー報告しない（F004 2026-08-18の誤報対策）
+        if (t.hasAttribute && t.hasAttribute("data-ha-optional")) return;
         var url = t.src || t.href || "";
         if (url) reportError("リソース読み込み失敗: " + url, "tag=" + t.tagName);
         return;

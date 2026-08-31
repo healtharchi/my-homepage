@@ -231,7 +231,7 @@ document.addEventListener('click', function(e){
   if(a && typeof gtag === 'function'){ gtag('event','line_click'); }
 }, true);
 </script>
-<script src="https://healtharchi.com/share.js" defer></script>
+<script src="https://healtharchi.com/share.js" defer data-ha-optional onerror="for(var b=document.querySelectorAll('[data-ha-share]'),i=0;i<b.length;i++)b[i].style.display='none'"></script>
 <script src="https://healtharchi.com/feedback.js" data-tool="mondai-map"></script>
 </body>
 </html>
