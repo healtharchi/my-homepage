@@ -1318,6 +1318,14 @@ document.addEventListener('click', function(e){
   var a = e.target.closest && e.target.closest('a[href*="line.me"]');
   if(a && typeof gtag === 'function'){ gtag('event','line_click'); }
 }, true);
+/* HEALTH ARCHI: 実験室からツールを開いたクリックを計測（tool_click・tool_name＝リポ名・link_type＝app/guide） */
+document.addEventListener('click', function(e){
+  var a = e.target.closest && e.target.closest('a[href*="healtharchi.github.io/"]');
+  if(!a || typeof gtag !== 'function') return;
+  var p = a.pathname.split('/');
+  if(!p[1]) return;
+  gtag('event','tool_click',{tool_name:p[1], link_type:(p[2]?'guide':'app')});
+}, true);
 </script>
 </body>
 </html>
