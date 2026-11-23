@@ -61,52 +61,52 @@
       "desc": "写真整理が「夜の仕事」になる構造と対策"
     },
     "tpl-mitsumori": {
-      "name": "見積書テンプレート（Excel・8月以降公開予定）",
+      "name": "見積書テンプレート（Excel・公開時期は未定）",
       "url": "/template-estimate",
       "desc": "木造在来の12工種49項目・仕様例入り。小計・消費税は自動計算、法定福利費の行つき"
     },
     "tpl-koutei": {
-      "name": "工程表テンプレート（Excel・8月以降公開予定）",
+      "name": "工程表テンプレート（Excel・公開時期は未定）",
       "url": "/template-schedule",
       "desc": "月間16週の線表＋週間の職人手配表。着工日を入れると日付が自動で変わる"
     },
     "tpl-shashin": {
-      "name": "工事写真台帳テンプレート（Excel・8月以降公開予定）",
+      "name": "工事写真台帳テンプレート（Excel・公開時期は未定）",
       "url": "/template-photo-ledger",
       "desc": "A4・写真3枚/ページの標準形式＋撮り忘れ防止チェックリスト14項目"
     },
     "tpl-gijiroku": {
-      "name": "打ち合わせ議事録テンプレート（Excel・8月以降公開予定）",
+      "name": "打ち合わせ議事録テンプレート（Excel・公開時期は未定）",
       "url": "/template-minutes",
       "desc": "決定・保留・宿題を区分し、期限と双方の確認欄で残す。記入例つき。読み合わせて控えを渡すまでが議事録"
     },
     "tpl-goui": {
-      "name": "追加工事・変更合意書テンプレート（Excel・8月以降公開予定）",
+      "name": "追加工事・変更合意書テンプレート（Excel・公開時期は未定）",
       "url": "/template-change-order",
       "desc": "変更内容と増減金額から変更後の請負金額を自動計算。着工前の1枚で請求トラブルを防ぐ"
     },
     "tpl-anzen": {
-      "name": "新規入場者教育テンプレート（Excel・8月以降公開予定）",
+      "name": "新規入場者教育テンプレート（Excel・公開時期は未定）",
       "url": "/template-safety-entry",
       "desc": "実施報告書＋調査票のセット。様式指定のない現場・自社元請の現場用の標準形"
     },
     "tpl-hikiwatashi": {
-      "name": "引き渡しチェックリスト（Excel・8月以降公開予定）",
+      "name": "引き渡しチェックリスト（Excel・公開時期は未定）",
       "url": "/template-handover-checklist",
       "desc": "社内検査22項目＋当日の説明・書類・鍵リスト。引き渡し直前の「やっていない」を防ぐ"
     },
     "tpl-after": {
-      "name": "アフター点検スケジュール表（Excel・8月以降公開予定）",
+      "name": "アフター点検スケジュール表（Excel・公開時期は未定）",
       "url": "/template-after-inspection",
       "desc": "引き渡し日を入れると6ヶ月〜10年の点検予定月を自動計算。点検漏れを記憶に頼らない管理表"
     },
     "tpl-hacchu": {
-      "name": "発注書テンプレート（Excel・8月以降公開予定）",
+      "name": "発注書テンプレート（Excel・公開時期は未定）",
       "url": "/template-purchase-order",
       "desc": "職人さんへの注文書＋請書のセット。金額は自動計算。印紙や書面ルールの注意つき"
     },
     "tpl-shikin": {
-      "name": "資金計画・支払いスケジュール表（Excel・8月以降公開予定）",
+      "name": "資金計画・支払いスケジュール表（Excel・公開時期は未定）",
       "url": "/template-payment-plan",
       "desc": "総費用17項目の集計と4回払いの自動計算。総額と支払時期を最初に見せて揉めごとを防ぐ"
     },
