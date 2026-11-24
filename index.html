@@ -51,7 +51,7 @@
        Reset & Base
     ============================================================ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
     body {
       font-family: 'Noto Sans JP', sans-serif;
       font-weight: 400;
@@ -735,22 +735,23 @@
     <div class="nav-inner">
       <a href="/" class="nav-logo">HEALTH <span>ARCHI</span></a>
       <div class="nav-links">
-        <a href="#videos" style="color:var(--copper-lt);font-weight:700;">動画</a>
-        <a href="https://healtharchi.com/tools" style="color:var(--copper-lt);font-weight:700;">実験室</a>
-        <a href="https://healtharchi.com/mondai-map">困りごとマップ</a>
-        <a href="#about">代表について</a>
-        <a href="#contact" class="nav-btn">相談する</a>
+        <a href="#videos">動画 ↓</a>
+        <a href="#about">代表について ↓</a>
+        <span aria-hidden="true" style="width:1px;height:14px;background:rgba(255,255,255,0.22);"></span>
+        <a href="https://healtharchi.com/tools">実験室 →</a>
+        <a href="https://healtharchi.com/mondai-map">困りごとマップ →</a>
+        <a href="#contact" class="nav-btn" style="color:#fff;">相談する ↓</a>
       </div>
       <div class="nav-hamburger" id="hamburger" role="button" aria-label="メニューを開く">
         <span></span><span></span><span></span>
       </div>
     </div>
     <div class="nav-mobile" id="navMobile">
-      <a href="#videos" onclick="closeNav()" style="color:var(--copper-lt);font-weight:700;">動画</a>
-      <a href="https://healtharchi.com/tools" onclick="closeNav()" style="color:var(--copper-lt);font-weight:700;">実験室（無料ツール）</a>
-      <a href="https://healtharchi.com/mondai-map" onclick="closeNav()">困りごとマップ</a>
-      <a href="#about" onclick="closeNav()">代表について</a>
-      <a href="#contact" onclick="closeNav()">相談する</a>
+      <a href="#videos" onclick="closeNav()">動画 ↓</a>
+      <a href="#about" onclick="closeNav()">代表について ↓</a>
+      <a href="#contact" onclick="closeNav()">相談する ↓</a>
+      <a href="https://healtharchi.com/tools" onclick="closeNav()">実験室（無料ツール） →</a>
+      <a href="https://healtharchi.com/mondai-map" onclick="closeNav()">困りごとマップ →</a>
     </div>
   </nav>
 
@@ -771,8 +772,7 @@
         </p>
         <div class="hero-ctas">
           <a href="#videos" class="btn-hero">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 4 20 12 6 20 6 4"/></svg>
-            動画を見る
+            動画を見る ↓
           </a>
           <a href="https://healtharchi.com/tools" class="btn-hero" style="background:transparent;border:1px solid rgba(255,255,255,0.28);">無料ツールを使う →</a>
           <span class="hero-note">登録不要・すぐ使えます</span>
@@ -798,7 +798,7 @@
           <div style="padding:22px 24px;">
             <div style="font-weight:700;color:var(--navy);font-size:1.05rem;margin-bottom:8px;line-height:1.6;">家の図面一式を、AIが描く</div>
             <div style="font-size:0.9rem;color:var(--stone);line-height:1.85;">AIにCADを操作させて、木造2階建ての図面一式を描かせました。</div>
-            <div style="margin-top:12px;font-size:0.8rem;font-weight:700;color:var(--copper);">YouTubeで見る（約80秒） →</div>
+            <div style="margin-top:12px;font-size:0.8rem;font-weight:700;color:var(--copper);">YouTubeで見る（約80秒） ↗</div>
           </div>
         </a>
         <a href="https://youtu.be/OjYzSGJI64E" target="_blank" rel="noopener" style="display:block;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--white);transition:border-color .2s,transform .2s;" onmouseover="this.style.borderColor='var(--copper)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
@@ -806,12 +806,12 @@
           <div style="padding:22px 24px;">
             <div style="font-weight:700;color:var(--navy);font-size:1.05rem;margin-bottom:8px;line-height:1.6;">木造住宅を3Dで見る教材</div>
             <div style="font-size:0.9rem;color:var(--stone);line-height:1.85;">木造住宅のつくりを、3Dで順に見ていく教材です。声もAIです。</div>
-            <div style="margin-top:12px;font-size:0.8rem;font-weight:700;color:var(--copper);">YouTubeで見る（2分25秒） →</div>
+            <div style="margin-top:12px;font-size:0.8rem;font-weight:700;color:var(--copper);">YouTubeで見る（2分25秒） ↗</div>
           </div>
         </a>
       </div>
       <div style="text-align:center;margin-top:36px;">
-        <a href="https://www.youtube.com/@HEALTH_ARCHI" target="_blank" rel="noopener" class="btn-book">YouTubeチャンネルを見る →</a>
+        <a href="https://www.youtube.com/@HEALTH_ARCHI" target="_blank" rel="noopener" class="btn-book">YouTubeチャンネルを見る ↗</a>
       </div>
     </div>
   </section>
@@ -885,7 +885,7 @@
         <h2 class="line-title">ご質問は、<em>LINEでも</em>受け付けています。</h2>
         <p class="line-sub">ツールの使い方、動画の内容、仕組みのご相談。<br>ひと言から、お送りください。</p>
         <div class="line-card">
-          <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" class="btn-line">LINEで相談する（無料）</a>
+          <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" class="btn-line">LINEで相談する（無料） ↗</a>
           <p class="line-note-sm">登録無料 · いつでも解除できます</p>
         </div>
       </div>
@@ -957,7 +957,7 @@
             AIで解決できることと、人にしかできないことを整理した、建設業社長のためのロードマップ。
           </p>
           <a href="https://amzn.asia/d/0h63GxjS" target="_blank" rel="noopener" class="btn-book">
-            Amazon で見る →
+            Amazon で見る ↗
           </a>
         </div>
       </div>
@@ -1017,15 +1017,15 @@
         <div class="footer-logo">HEALTH <span>ARCHI</span></div>
         <div class="footer-tagline">AIは効率を、人は感動を。</div>
         <div class="footer-links">
-          <a href="#diagnosis-hub">立場別診断</a>
-          <a href="#tools-hub">ツール</a>
-          <a href="#videos">動画</a>
-          <a href="#about">代表について</a>
-          <a href="https://healtharchi.com/tools">実験室</a>
-          <a href="https://healtharchi.com/mondai-map">困りごとマップ</a>
-          <a href="https://healtharchi.com/shacho">社長の方へ</a>
-          <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener">LINE登録</a>
-          <a href="#contact">お問い合わせ</a>
+          <a href="#diagnosis-hub">立場別診断 ↓</a>
+          <a href="#tools-hub">ツール ↓</a>
+          <a href="#videos">動画 ↓</a>
+          <a href="#about">代表について ↓</a>
+          <a href="https://healtharchi.com/tools">実験室 →</a>
+          <a href="https://healtharchi.com/mondai-map">困りごとマップ →</a>
+          <a href="https://healtharchi.com/shacho">社長の方へ →</a>
+          <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener">LINE登録 ↗</a>
+          <a href="#contact">お問い合わせ ↓</a>
         </div>
         <div class="footer-copy">© 2026 HEALTH ARCHI. All rights reserved.</div>
       </div>
