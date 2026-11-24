@@ -731,83 +731,123 @@
 </head>
 <body>
 
-  <!-- ============================================================
-       NAVIGATION
-  ============================================================ -->
-  <nav class="nav">
+    <nav class="nav">
     <div class="nav-inner">
       <a href="/" class="nav-logo">HEALTH <span>ARCHI</span></a>
       <div class="nav-links">
-        <a href="#diagnosis-hub">立場別診断</a>
+        <a href="#videos" style="color:var(--copper-lt);font-weight:700;">動画</a>
         <a href="https://healtharchi.com/tools" style="color:var(--copper-lt);font-weight:700;">実験室</a>
         <a href="https://healtharchi.com/mondai-map">困りごとマップ</a>
-        <a href="#concept">コンセプト</a>
         <a href="#about">代表について</a>
-        <a href="https://healtharchi.com/shacho" style="color:var(--copper-lt);font-weight:700;">社長の方へ</a>
-        <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" class="nav-btn">LINE無料登録</a>
+        <a href="#contact" class="nav-btn">相談する</a>
       </div>
       <div class="nav-hamburger" id="hamburger" role="button" aria-label="メニューを開く">
         <span></span><span></span><span></span>
       </div>
     </div>
     <div class="nav-mobile" id="navMobile">
-      <a href="#diagnosis-hub" onclick="closeNav()">立場別診断</a>
+      <a href="#videos" onclick="closeNav()" style="color:var(--copper-lt);font-weight:700;">動画</a>
       <a href="https://healtharchi.com/tools" onclick="closeNav()" style="color:var(--copper-lt);font-weight:700;">実験室（無料ツール）</a>
       <a href="https://healtharchi.com/mondai-map" onclick="closeNav()">困りごとマップ</a>
-      <a href="#concept" onclick="closeNav()">コンセプト</a>
       <a href="#about" onclick="closeNav()">代表について</a>
-      <a href="https://healtharchi.com/shacho" onclick="closeNav()" style="color:var(--copper-lt);font-weight:700;">社長の方へ</a>
-      <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" onclick="closeNav()">LINE無料登録（無料特典あり）</a>
-      <a href="#contact" onclick="closeNav()">お問い合わせ</a>
+      <a href="#contact" onclick="closeNav()">相談する</a>
     </div>
   </nav>
 
-  <!-- ============================================================
-       HERO ← ★ここだけv1.2-miniに差し替え
-  ============================================================ -->
   <section class="hero">
     <div class="container">
       <div class="hero-inner">
         <div class="hero-eyebrow">
           <span class="hero-badge">建設業特化</span>
-          <span class="hero-eyebrow-text">AIで本来の仕事に戻る</span>
+          <span class="hero-eyebrow-text">AIを、建築の仕事で試す</span>
         </div>
         <h1 class="hero-h1">
-          AIに任せて、<br>
-          <span class="accent">本来の仕事へ。</span>
+          <span style="display:inline-block">建築の仕事で、</span><span style="display:inline-block">AIは</span><br>
+          <span class="accent"><span style="display:inline-block">どこまで</span><span style="display:inline-block">使えるか。</span></span>
         </h1>
         <p class="hero-sub">
-          AIにできることは、AIに任せる。<br>
-          社長は経営に、職人は現場に、事務員は本来の事務に集中する。<br><br>
-          一級建築士・設計現場監督歴17年が、<br>
-          その仕組みを設計します。
+          設計と現場監督を17年やってきた代表が、自分の手で試しています。<br>
+          試した結果は、動画と無料ツールでお見せします。
         </p>
         <div class="hero-ctas">
-          <a href="https://healtharchi.com/diagnosis" class="btn-hero">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            まず無料診断<span class="nb">（3分・登録不要）</span>
+          <a href="#videos" class="btn-hero">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+            動画を見る
           </a>
-          <a href="https://healtharchi.com/tools" class="btn-hero" style="background:transparent;border:1px solid rgba(255,255,255,0.28);">無料ツールを見る →</a>
+          <a href="https://healtharchi.com/tools" class="btn-hero" style="background:transparent;border:1px solid rgba(255,255,255,0.28);">無料ツールを使う →</a>
           <span class="hero-note">登録不要・すぐ使えます</span>
         </div>
         <div class="hero-stats">
-          <div>
-            <span class="stat-num">17年</span>
-            <span class="stat-label">設計・現場監督歴</span>
-          </div>
-          <div>
-            <span class="stat-num">1級</span>
-            <span class="stat-label">建築士資格</span>
-          </div>
-          <div>
-            <span class="stat-num">書籍</span>
-            <span class="stat-label">「社長が現場を降りる日」著者</span>
-          </div>
-          <div>
-            <span class="stat-num">全国</span>
-            <span class="stat-label">オンライン対応（Zoom/Meet）</span>
-          </div>
+          <div><span class="stat-num">17年</span><span class="stat-label">設計・現場監督歴</span></div>
+          <div><span class="stat-num">1級</span><span class="stat-label">建築士資格</span></div>
+          <div><span class="stat-num">書籍</span><span class="stat-label">「社長が現場を降りる日」著者</span></div>
+          <div><span class="stat-num">全国</span><span class="stat-label">オンライン対応（Zoom/Meet）</span></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="concept" id="videos">
+    <div class="container">
+      <div class="sec-label">Videos ／ 試した結果</div>
+      <h2 class="sec-title">建築の仕事を、AIにやらせてみる。</h2>
+      <p class="sec-body" style="max-width:640px;">図面を描く、数量を拾う、教材を作る。建築の実務でAIがどこまでできるかを、実際にやって動画にしています。</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:36px;">
+        <a href="https://youtu.be/gYKcSMaYd2Q" target="_blank" rel="noopener" style="display:block;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--white);transition:border-color .2s,transform .2s;" onmouseover="this.style.borderColor='var(--copper)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+          <img src="https://i.ytimg.com/vi/gYKcSMaYd2Q/hqdefault.jpg" alt="家の図面一式を、AIが描く" loading="lazy" style="display:block;width:100%;aspect-ratio:16/9;object-fit:cover;">
+          <div style="padding:22px 24px;">
+            <div style="font-weight:700;color:var(--navy);font-size:1.05rem;margin-bottom:8px;line-height:1.6;">家の図面一式を、AIが描く</div>
+            <div style="font-size:0.9rem;color:var(--stone);line-height:1.85;">AIにCADを操作させて、木造2階建ての図面一式を描かせました。</div>
+            <div style="margin-top:12px;font-size:0.8rem;font-weight:700;color:var(--copper);">YouTubeで見る（約80秒） →</div>
+          </div>
+        </a>
+        <a href="https://youtu.be/OjYzSGJI64E" target="_blank" rel="noopener" style="display:block;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:var(--white);transition:border-color .2s,transform .2s;" onmouseover="this.style.borderColor='var(--copper)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+          <img src="https://i.ytimg.com/vi/OjYzSGJI64E/hqdefault.jpg" alt="木造住宅を3Dで見る教材" loading="lazy" style="display:block;width:100%;aspect-ratio:16/9;object-fit:cover;">
+          <div style="padding:22px 24px;">
+            <div style="font-weight:700;color:var(--navy);font-size:1.05rem;margin-bottom:8px;line-height:1.6;">木造住宅を3Dで見る教材</div>
+            <div style="font-size:0.9rem;color:var(--stone);line-height:1.85;">木造住宅のつくりを、3Dで順に見ていく教材です。声もAIです。</div>
+            <div style="margin-top:12px;font-size:0.8rem;font-weight:700;color:var(--copper);">YouTubeで見る（2分25秒） →</div>
+          </div>
+        </a>
+      </div>
+      <div style="text-align:center;margin-top:36px;">
+        <a href="https://www.youtube.com/@HEALTH_ARCHI" target="_blank" rel="noopener" class="btn-book">YouTubeチャンネルを見る →</a>
+      </div>
+    </div>
+  </section>
+
+<!-- ============================================================
+       JOURNEY（5-step roadmap）
+  ============================================================ -->
+  <section class="journey" id="tools-hub">
+    <div class="container">
+      <div class="sec-label">Tools ／ 実験室</div>
+      <h2 class="sec-title">現場の手間を、AIに預ける。</h2>
+      <p class="sec-body" style="max-width:640px;">登録不要・無料で今すぐ使える、現場から生まれたツール。見積・工程表・現場写真・CADなど、7つを公開しています。</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-top:40px;">
+        <a href="https://healtharchi.com/tools" style="display:block;border:1px solid var(--border);border-radius:8px;padding:24px;background:var(--silk);transition:border-color .2s,transform .2s;" onmouseover="this.style.borderColor='var(--copper)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+          <div style="font-weight:700;color:var(--navy);font-size:1rem;margin-bottom:6px;">HEALTH ARCHI CAD</div>
+          <div style="font-size:0.84rem;color:var(--stone);line-height:1.85;">ブラウザで動く軽量CAD。図面の確認・簡単な作図に。</div>
+          <div style="margin-top:10px;font-size:0.72rem;font-weight:700;color:var(--copper);">公開中（β）</div>
+        </a>
+        <a href="https://healtharchi.com/tools" style="display:block;border:1px solid var(--border);border-radius:8px;padding:24px;background:var(--silk);transition:border-color .2s,transform .2s;" onmouseover="this.style.borderColor='var(--copper)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+          <div style="font-weight:700;color:var(--navy);font-size:1rem;margin-bottom:6px;">スマート見積</div>
+          <div style="font-size:0.84rem;color:var(--stone);line-height:1.85;">3分で概算見積もり。見積の組み立て方も学べます。</div>
+          <div style="margin-top:10px;font-size:0.72rem;font-weight:700;color:var(--copper);">公開中（NEW）</div>
+        </a>
+        <a href="https://healtharchi.com/tools" style="display:block;border:1px solid var(--border);border-radius:8px;padding:24px;background:var(--silk);transition:border-color .2s,transform .2s;" onmouseover="this.style.borderColor='var(--copper)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+          <div style="font-weight:700;color:var(--navy);font-size:1rem;margin-bottom:6px;">スマート現場カメラ</div>
+          <div style="font-size:0.84rem;color:var(--stone);line-height:1.85;">選んで撮るだけで写真に自動で名前。パソコンで工事の順に並ぶ（スマホ用）。</div>
+          <div style="margin-top:10px;font-size:0.72rem;font-weight:700;color:var(--copper);">公開中（NEW）</div>
+        </a>
+        <a href="https://healtharchi.com/tools" style="display:block;border:1px solid var(--border);border-radius:8px;padding:24px;background:var(--silk);transition:border-color .2s,transform .2s;" onmouseover="this.style.borderColor='var(--copper)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
+          <div style="font-weight:700;color:var(--navy);font-size:1rem;margin-bottom:6px;">ガント工程表</div>
+          <div style="font-size:0.84rem;color:var(--stone);line-height:1.85;">段取りを見える化する工程表。登録不要ですぐ使えます。</div>
+          <div style="margin-top:10px;font-size:0.72rem;font-weight:700;color:var(--copper);">公開中</div>
+        </a>
+      </div>
+      <div style="text-align:center;margin-top:36px;">
+        <a href="https://healtharchi.com/tools" class="btn-book">実験室を見る →</a>
       </div>
     </div>
   </section>
@@ -838,126 +878,20 @@
     </div>
   </section>
 
-  <!-- ============================================================
-       CONCEPT
-  ============================================================ -->
-  <section class="concept" id="concept">
-    <div class="container">
-      <div class="sec-label">Concept</div>
-      <h2 class="sec-title">AIは効率を、人は感動を。</h2>
-      <div class="concept-layout">
-        <div>
-          <div class="concept-quote">
-            AIにできることは、<br>AIに預ける。
-          </div>
-          <p class="concept-text">
-            現場の物づくり、お客様との対話、創造的な意思決定——それが、社長・職人・事務員それぞれの「本来の仕事」です。
-          </p>
-          <p class="concept-text">
-            それ以外の事務・報告・情報整理はAIに担ってもらう。AIが効率の担い手になった分だけ、人間は感動の創り手に集中できる。
-          </p>
-          <p class="concept-text">
-            HEALTH ARCHIはその仕組みを、17年の現場経験を持つ一級建築士が設計から実装まで伴走します。
-          </p>
-        </div>
-        <div class="concept-card">
-          <div class="card-label">3つの変化</div>
-          <div class="pillars">
-            <div class="pillar">
-              <div class="pillar-badge">全</div>
-              <div>
-                <div class="pillar-head">現場・設計・事務、それぞれが本来の仕事に集中できる</div>
-                <div class="pillar-sub">職人は現場に、社長は経営に、事務員は本来の事務に。AIに任せられる仕事を分けるだけで、誰の時間も増える</div>
-              </div>
-            </div>
-            <div class="pillar">
-              <div class="pillar-badge">組</div>
-              <div>
-                <div class="pillar-head">組織が自律して動く</div>
-                <div class="pillar-sub">判断軸が組織に浸透し、社長不在でも現場が回るようになる</div>
-              </div>
-            </div>
-            <div class="pillar">
-              <div class="pillar-badge">時</div>
-              <div>
-                <div class="pillar-head">社長の時間が、経営に返る</div>
-                <div class="pillar-sub">夜の事務作業がなくなり、本来の経営判断に集中できる時間が生まれる</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       JOURNEY（5-step roadmap）
-  ============================================================ -->
-  <section class="journey" id="tools-hub">
-    <div class="container">
-      <div class="sec-label">Tools ／ 実験室</div>
-      <h2 class="sec-title">現場の手間を、AIに預ける。</h2>
-      <p class="sec-body" style="max-width:640px;">登録不要・無料で今すぐ使える、現場から生まれたツール。診断で「自分に合う道具」が分かったら、ここから試せます。</p>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-top:40px;">
-        <a href="https://healtharchi.com/tools" style="display:block;border:1px solid var(--border);border-radius:8px;padding:24px;background:var(--silk);transition:border-color .2s,transform .2s;" onmouseover="this.style.borderColor='var(--copper)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
-          <div style="font-weight:700;color:var(--navy);font-size:1rem;margin-bottom:6px;">HEALTH ARCHI CAD</div>
-          <div style="font-size:0.84rem;color:var(--stone);line-height:1.85;">ブラウザで動く軽量CAD。図面の確認・簡単な作図に。</div>
-          <div style="margin-top:10px;font-size:0.72rem;font-weight:700;color:var(--copper);">公開中（β）</div>
-        </a>
-        <a href="https://healtharchi.com/tools" style="display:block;border:1px solid var(--border);border-radius:8px;padding:24px;background:var(--silk);transition:border-color .2s,transform .2s;" onmouseover="this.style.borderColor='var(--copper)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
-          <div style="font-weight:700;color:var(--navy);font-size:1rem;margin-bottom:6px;">スマート見積</div>
-          <div style="font-size:0.84rem;color:var(--stone);line-height:1.85;">3分で概算見積もり。見積の組み立て方も学べます。</div>
-          <div style="margin-top:10px;font-size:0.72rem;font-weight:700;color:var(--copper);">公開中（NEW）</div>
-        </a>
-        <a href="https://healtharchi.com/tools" style="display:block;border:1px solid var(--border);border-radius:8px;padding:24px;background:var(--silk);transition:border-color .2s,transform .2s;" onmouseover="this.style.borderColor='var(--copper)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
-          <div style="font-weight:700;color:var(--navy);font-size:1rem;margin-bottom:6px;">スマート現場カメラ</div>
-          <div style="font-size:0.84rem;color:var(--stone);line-height:1.85;">選んで撮るだけで写真に自動で名前。パソコンで工事の順に並ぶ（スマホ用）。</div>
-          <div style="margin-top:10px;font-size:0.72rem;font-weight:700;color:var(--copper);">公開中（NEW）</div>
-        </a>
-        <a href="https://healtharchi.com/tools" style="display:block;border:1px solid var(--border);border-radius:8px;padding:24px;background:var(--silk);transition:border-color .2s,transform .2s;" onmouseover="this.style.borderColor='var(--copper)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='var(--border)';this.style.transform='none'">
-          <div style="font-weight:700;color:var(--navy);font-size:1rem;margin-bottom:6px;">ガント工程表</div>
-          <div style="font-size:0.84rem;color:var(--stone);line-height:1.85;">段取りを見える化する工程表。登録不要ですぐ使えます。</div>
-          <div style="margin-top:10px;font-size:0.72rem;font-weight:700;color:var(--copper);">公開中</div>
-        </a>
-      </div>
-      <div style="text-align:center;margin-top:36px;">
-        <a href="https://healtharchi.com/tools" class="btn-book">実験室を見る →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       LINE CTA（メインコンバージョン）
-  ============================================================ -->
-  <section class="line-cta" id="line-cta">
+    <section class="line-cta" id="line-cta">
     <div class="container">
       <div class="line-inner">
         <div class="sec-label" style="justify-content:center">LINE</div>
-        <h2 class="line-title">
-          新しい無料ツールと、<em>立場別のヒント</em>を。
-        </h2>
-        <p class="line-sub">
-          LINE登録で、あなたの立場に合った効率化のヒントと<br>
-          新しい無料ツールの公開のお知らせをお届けします（不定期）。
-        </p>
+        <h2 class="line-title">ご質問は、<em>LINEでも</em>受け付けています。</h2>
+        <p class="line-sub">ツールの使い方、動画の内容、仕組みのご相談。<br>ひと言から、お送りください。</p>
         <div class="line-card">
-          <ul class="checklist">
-            <li><span class="chk"></span>新しい無料ツールの公開を、いちばん先に受け取れる</li>
-            <li><span class="chk"></span>立場別（社長・職人・現場・事務）の効率化ヒント</li>
-          </ul>
-          <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" class="btn-line">
-            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-            友だち追加する（無料）
-          </a>
+          <a href="https://line.me/R/ti/p/@045hrvke" target="_blank" rel="noopener" class="btn-line">LINEで相談する（無料）</a>
           <p class="line-note-sm">登録無料 · いつでも解除できます</p>
         </div>
-        <p class="line-alt">
-          まず立場別 無料診断から
-          <a href="https://healtharchi.com/diagnosis">こちら（登録不要・約3分）</a>
-        </p>
       </div>
     </div>
   </section>
+
 
   <!-- ============================================================
        ABOUT
@@ -1085,7 +1019,7 @@
         <div class="footer-links">
           <a href="#diagnosis-hub">立場別診断</a>
           <a href="#tools-hub">ツール</a>
-          <a href="#concept">コンセプト</a>
+          <a href="#videos">動画</a>
           <a href="#about">代表について</a>
           <a href="https://healtharchi.com/tools">実験室</a>
           <a href="https://healtharchi.com/mondai-map">困りごとマップ</a>
